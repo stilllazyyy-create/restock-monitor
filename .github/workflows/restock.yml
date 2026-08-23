@@ -15,7 +15,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Check Stussy stock
+      - name: Check Stussy stock and new arrivals
         env:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
         run: |
@@ -25,6 +25,8 @@ jobs:
           import urllib.request
 
           STATE_FILE = ".restock_state.json"
+          NEW_ARRIVALS_URL = "https://ca.stussy.com/collections/new-arrivals"
+          NEW_ARRIVALS_JSON = NEW_ARRIVALS_URL + "/products.json?limit=250"
 
           TARGETS = [
               {
@@ -68,6 +70,25 @@ jobs:
               state = {}
 
           webhook = os.environ["DISCORD_WEBHOOK_URL"]
+
+          def send_discord(text):
+              data = json.dumps({"content": text}).encode()
+
+              request = urllib.request.Request(
+                  webhook,
+                  data=data,
+                  headers={
+                      "Content-Type": "application/json",
+                      "User-Agent": "Mozilla/5.0"
+                  },
+                  method="POST"
+              )
+
+              urllib.request.urlopen(request, timeout=20)
+
+          # ------------------------
+          # RESTOCK MONITOR
+          # ------------------------
 
           for product_info in TARGETS:
               product_url = product_info["url"]
@@ -113,34 +134,73 @@ jobs:
                   )
 
                   if available and not previous:
-                      message = {
-                          "content":
+                      send_discord(
                           "🚨 **STUSSY RESTOCK**\n"
                           f"**{product_info['name']}**\n"
                           f"**{variant['title']}**\n"
                           "✅ **IN STOCK**\n"
                           f"{product_url}?variant={variant_id}"
-                      }
-
-                      data = json.dumps(message).encode()
-
-                      request = urllib.request.Request(
-                          webhook,
-                          data=data,
-                          headers={
-                              "Content-Type": "application/json",
-                              "User-Agent": "Mozilla/5.0"
-                          },
-                          method="POST"
                       )
 
-                      urllib.request.urlopen(request, timeout=20)
                       print(
                           f"Discord notification sent: "
                           f"{product_info['name']} {variant['title']}"
                       )
 
                   state[key] = available
+
+          # ------------------------
+          # NEW ARRIVALS MONITOR
+          # ------------------------
+
+          try:
+              req = urllib.request.Request(
+                  NEW_ARRIVALS_JSON,
+                  headers={"User-Agent": "Mozilla/5.0"}
+              )
+
+              with urllib.request.urlopen(req, timeout=20) as r:
+                  arrivals_data = json.load(r)
+
+              current_ids = sorted(
+                  str(product["id"])
+                  for product in arrivals_data.get("products", [])
+              )
+
+              previous_ids = state.get("new_arrivals_products")
+
+              if previous_ids is None:
+                  # First run: establish baseline only
+                  state["new_arrivals_products"] = current_ids
+                  print(
+                      f"New Arrivals baseline created: "
+                      f"{len(current_ids)} products"
+                  )
+
+              else:
+                  previous_set = set(previous_ids)
+                  current_set = set(current_ids)
+
+                  added = current_set - previous_set
+
+                  if added:
+                      send_discord(
+                          "🚨 **STUSSY NEW ARRIVALS**\n"
+                          "官网有新品上新了！\n"
+                          f"{NEW_ARRIVALS_URL}"
+                      )
+
+                      print(
+                          f"New Arrivals detected: "
+                          f"{len(added)} new product(s)"
+                      )
+                  else:
+                      print("No new arrivals detected")
+
+                  state["new_arrivals_products"] = current_ids
+
+          except Exception as e:
+              print(f"ERROR checking New Arrivals: {e}")
 
           with open(STATE_FILE, "w") as f:
               json.dump(state, f, indent=2)
