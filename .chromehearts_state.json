@@ -1,0 +1,84 @@
+{
+  "known_categories": [
+    "/baccarat",
+    "/boxers-leggings",
+    "/cart",
+    "/intimates",
+    "/scarf",
+    "/scents",
+    "/socks"
+  ],
+  "online_categories": [
+    "/baccarat",
+    "/boxers-leggings",
+    "/cart",
+    "/intimates",
+    "/scarf",
+    "/scents",
+    "/socks"
+  ],
+  "products_by_category": {
+    "/baccarat": [
+      "/baccarat/ashtray/177730CRYXXX013.html",
+      "/baccarat/champagne-flute/177731CRYXXX042.html",
+      "/baccarat/decanter/174131CRYXXX013.html",
+      "/baccarat/martini/177734CRYXXX042.html",
+      "/baccarat/shot-glass/207467CRYXXX054.html",
+      "/baccarat/triple-old-fashion/207468CRYXXX055.html",
+      "/baccarat/tumbler/174132CRYXXX015.html",
+      "/baccarat/water/177732CRYXXX042.html",
+      "/baccarat/wine/177733CRYXXX042.html"
+    ],
+    "/boxers-leggings": [
+      "/boxers-leggings/boxer-brief---classic-rib/209670XXXXXXXXX.html",
+      "/boxers-leggings/boxer-brief---long/158553XXXXXXXXX.html",
+      "/boxers-leggings/boxer-brief---shorts/158552BLKXXXXXX.html",
+      "/boxers-leggings/foti-boxer-brief---long/208280XXXXXXXXX.html",
+      "/boxers-leggings/leggings/165064XXXXXX140.html",
+      "/boxers-leggings/long-johns/164943XXXXXX140.html"
+    ],
+    "/cart": [],
+    "/intimates": [
+      "/intimates/ch-plus-tights/092826AI6XXXXXX.html",
+      "/intimates/lace-g-string/201584AFWXXX030.html",
+      "/intimates/lace-high-waisted-brief/201583AFWXXX033.html",
+      "/intimates/lace-teddy/201585AFWXXX030.html",
+      "/intimates/lace-thong/201635AFWXXX033.html",
+      "/intimates/lace-underwire-bra/202334AFWXXX030.html"
+    ],
+    "/scarf": [
+      "/scarf/double-peony-scarf/218126MABXXX00D.html"
+    ],
+    "/scents": [
+      "/scents/22-eau-de-parfum/162006CRYXXX271.html",
+      "/scents/22-incense-refill/151407XXXXXX00S.html",
+      "/scents/22-incense-set-with-holder/146053XXXXXX00R.html",
+      "/scents/22-perfumed-hand-spray/208531PNKXXX751.html",
+      "/scents/22-roll-on-perfume/162008CRYXXX271.html",
+      "/scents/22-scented-candle-100g/172571CRYXXX273.html",
+      "/scents/22-scented-candle-220g/162045CRYXXX273.html",
+      "/scents/22-scented-candle-refill-200g/175740XXXXXX273.html",
+      "/scents/22-scented-candle-set-35g/214141D7BXXX01S.html",
+      "/scents/22-soap-on-a-rope/179527XXXXXX273.html",
+      "/scents/33-eau-de-parfum/162006CRYXXX272.html",
+      "/scents/33-incense-refill/151407XXXXXX169.html",
+      "/scents/33-incense-set-with-holder/146053XXXXXX142.html",
+      "/scents/33-perfumed-hand-spray/208531BLUXXX752.html",
+      "/scents/33-roll-on-perfume/162008CRYXXX272.html",
+      "/scents/33-scented-candle-100g/172571CRYXXX274.html",
+      "/scents/33-scented-candle-220g/162045CRYXXX274.html",
+      "/scents/33-scented-candle-refill-200g/175740XXXXXX274.html",
+      "/scents/33-scented-candle-set-35g/214141D7BXXX01T.html",
+      "/scents/33-soap-on-a-rope/179527XXXXXX274.html",
+      "/scents/matchstick-holder/148310SLVXXX186.html"
+    ],
+    "/socks": [
+      "/socks/ch-logo-socks/176354XXXXXX349.html",
+      "/socks/executive-socks/191716ADLXXX406.html",
+      "/socks/foti-socks/180459XXXXXX389.html",
+      "/socks/sport/176354XXXXXXXXX.html",
+      "/socks/stencil-socks/176354MB3XXX465.html",
+      "/socks/womens-sport/191715D5DXXX408.html"
+    ]
+  }
+}
