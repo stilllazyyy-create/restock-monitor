@@ -16,7 +16,7 @@ jobs:
           import json
           import urllib.request
 
-          PRODUCT_URL = "https://ca.stussy.com/products/3904050-stussy-always-world-tour-tee-white"
+          PRODUCT_URL = "https://ca.stussy.com/products/1140356-basic-stussy-thermal-washed-black"
           JSON_URL = PRODUCT_URL + ".js"
 
           req = urllib.request.Request(
