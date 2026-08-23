@@ -1,0 +1,100 @@
+name: Stussy Restock Monitor
+
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  check-stock:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check Stussy stock
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+        run: |
+          python3 <<'PY'
+          import json
+          import os
+          import urllib.request
+
+          PRODUCT_URL = "https://ca.stussy.com/products/1905177-skulls-tee-faded-black"
+          JSON_URL = PRODUCT_URL + ".js"
+          VARIANT_ID = 52765121773936
+          STATE_FILE = ".restock_state.json"
+
+          req = urllib.request.Request(
+              JSON_URL,
+              headers={"User-Agent": "Mozilla/5.0"}
+          )
+
+          with urllib.request.urlopen(req, timeout=20) as r:
+              product = json.load(r)
+
+          variant = next(
+              (v for v in product["variants"] if v["id"] == VARIANT_ID),
+              None
+          )
+
+          if not variant:
+              raise Exception("Target variant not found")
+
+          available = variant["available"] is True
+          print(
+              f"Variant: {variant['title']} | "
+              f"ID: {variant['id']} | "
+              f"available: {available}"
+          )
+
+          try:
+              with open(STATE_FILE, "r") as f:
+                  previous = json.load(f).get("available", False)
+          except FileNotFoundError:
+              previous = False
+
+          if available and not previous:
+              webhook = os.environ["DISCORD_WEBHOOK_URL"]
+
+              message = {
+                  "content":
+                  "🚨 **STUSSY RESTOCK**\n"
+                  f"**Skulls Tee — {variant['title']}**\n"
+                  "✅ IN STOCK\n"
+                  f"{PRODUCT_URL}"
+              }
+
+              data = json.dumps(message).encode()
+
+              request = urllib.request.Request(
+                  webhook,
+                  data=data,
+                  headers={
+                      "Content-Type": "application/json",
+                      "User-Agent": "Mozilla/5.0"
+                  },
+                  method="POST"
+              )
+
+              urllib.request.urlopen(request, timeout=20)
+              print("Discord notification sent")
+
+          with open(STATE_FILE, "w") as f:
+              json.dump({"available": available}, f)
+
+          PY
+
+      - name: Save stock state
+        run: |
+          git config user.name "Restock Monitor"
+          git config user.email "actions@github.com"
+          git add .restock_state.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Update restock state"
+            git push
+          fi
