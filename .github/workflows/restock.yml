@@ -1,7 +1,12 @@
-name: Stussy Variant Finder
+name: Stussy Restock Monitor
 
 on:
+  schedule:
+    - cron: "*/5 * * * *"
   workflow_dispatch:
+
+permissions:
+  contents: write
 
 jobs:
   check-stock:
@@ -10,30 +15,144 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Check Stussy variants
+      - name: Check Stussy stock
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
         run: |
           python3 <<'PY'
           import json
+          import os
           import urllib.request
 
-          PRODUCT_URL = "https://ca.stussy.com/products/1140356-basic-stussy-thermal-washed-black"
-          JSON_URL = PRODUCT_URL + ".js"
+          STATE_FILE = ".restock_state.json"
 
-          req = urllib.request.Request(
-              JSON_URL,
-              headers={"User-Agent": "Mozilla/5.0"}
-          )
+          TARGETS = [
+              {
+                  "name": "Skulls Tee",
+                  "url": "https://ca.stussy.com/products/1905177-skulls-tee-faded-black",
+                  "variants": {
+                      52765121773936: "Faded Black / S",
+                  },
+              },
+              {
+                  "name": "Always World Tour Tee Black",
+                  "url": "https://ca.stussy.com/products/3904050-stussy-always-world-tour-tee-black",
+                  "variants": {
+                      54012844278128: "Black / S",
+                      54012844310896: "Black / M",
+                  },
+              },
+              {
+                  "name": "Always World Tour Tee White",
+                  "url": "https://ca.stussy.com/products/3904050-stussy-always-world-tour-tee-white",
+                  "variants": {
+                      54012851552624: "White / S",
+                      54012851585392: "White / M",
+                  },
+              },
+              {
+                  "name": "Basic Stussy Thermal",
+                  "url": "https://ca.stussy.com/products/1140356-basic-stussy-thermal-washed-black",
+                  "variants": {
+                      52349784162672: "Washed Black / S",
+                      52349784195440: "Washed Black / M",
+                      52349784228208: "Washed Black / L",
+                  },
+              },
+          ]
 
-          with urllib.request.urlopen(req, timeout=20) as r:
-              product = json.load(r)
+          try:
+              with open(STATE_FILE, "r") as f:
+                  state = json.load(f)
+          except (FileNotFoundError, json.JSONDecodeError):
+              state = {}
 
-          print("=== ALL VARIANTS ===")
+          webhook = os.environ["DISCORD_WEBHOOK_URL"]
 
-          for v in product["variants"]:
-              print(
-                  f"title: {v['title']} | "
-                  f"id: {v['id']} | "
-                  f"available: {v['available']}"
-              )
+          for product_info in TARGETS:
+              product_url = product_info["url"]
+              json_url = product_url + ".js"
+
+              try:
+                  req = urllib.request.Request(
+                      json_url,
+                      headers={"User-Agent": "Mozilla/5.0"}
+                  )
+
+                  with urllib.request.urlopen(req, timeout=20) as r:
+                      product = json.load(r)
+
+              except Exception as e:
+                  print(f"ERROR fetching {product_info['name']}: {e}")
+                  continue
+
+              variant_lookup = {
+                  int(v["id"]): v
+                  for v in product["variants"]
+              }
+
+              for variant_id, expected_title in product_info["variants"].items():
+                  variant = variant_lookup.get(variant_id)
+
+                  if not variant:
+                      print(
+                          f"ERROR: {product_info['name']} "
+                          f"{expected_title} variant not found"
+                      )
+                      continue
+
+                  available = variant["available"] is True
+                  key = str(variant_id)
+                  previous = state.get(key, False)
+
+                  print(
+                      f"{product_info['name']} | "
+                      f"{variant['title']} | "
+                      f"ID: {variant_id} | "
+                      f"available: {available}"
+                  )
+
+                  if available and not previous:
+                      message = {
+                          "content":
+                          "🚨 **STUSSY RESTOCK**\n"
+                          f"**{product_info['name']}**\n"
+                          f"**{variant['title']}**\n"
+                          "✅ **IN STOCK**\n"
+                          f"{product_url}?variant={variant_id}"
+                      }
+
+                      data = json.dumps(message).encode()
+
+                      request = urllib.request.Request(
+                          webhook,
+                          data=data,
+                          headers={
+                              "Content-Type": "application/json",
+                              "User-Agent": "Mozilla/5.0"
+                          },
+                          method="POST"
+                      )
+
+                      urllib.request.urlopen(request, timeout=20)
+                      print(
+                          f"Discord notification sent: "
+                          f"{product_info['name']} {variant['title']}"
+                      )
+
+                  state[key] = available
+
+          with open(STATE_FILE, "w") as f:
+              json.dump(state, f, indent=2)
 
           PY
+
+      - name: Save stock state
+        run: |
+          git config user.name "Restock Monitor"
+          git config user.email "actions@github.com"
+          git add .restock_state.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Update restock state"
+            git push
+          fi
