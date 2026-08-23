@@ -1,4 +1,4 @@
-name: Stussy Restock Monitor
+name: Stussy Restock Monitor 2
 
 on:
   schedule:
