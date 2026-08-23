@@ -31,6 +31,10 @@ jobs:
 
           webhook = os.environ["CHROME_HEARTS_WEBHOOK_URL"]
 
+          # ------------------------
+          # BASIC FUNCTIONS
+          # ------------------------
+
           def fetch(url):
               req = urllib.request.Request(
                   url,
@@ -39,11 +43,18 @@ jobs:
                       "Accept-Language": "en-US,en;q=0.9"
                   }
               )
+
               with urllib.request.urlopen(req, timeout=25) as r:
-                  return r.read().decode("utf-8", errors="ignore")
+                  return r.read().decode(
+                      "utf-8",
+                      errors="ignore"
+                  )
+
 
           def send_discord(text):
-              data = json.dumps({"content": text}).encode()
+              data = json.dumps({
+                  "content": text
+              }).encode()
 
               req = urllib.request.Request(
                   webhook,
@@ -55,26 +66,73 @@ jobs:
                   method="POST"
               )
 
-              urllib.request.urlopen(req, timeout=20)
+              urllib.request.urlopen(
+                  req,
+                  timeout=20
+              )
+
 
           def normalize_path(url):
               parsed = urlparse(url)
               path = parsed.path.rstrip("/")
               return path or "/"
 
+
+          # ------------------------
+          # LOAD OLD STATE
+          # ------------------------
+
           try:
               with open(STATE_FILE, "r") as f:
                   state = json.load(f)
-          except (FileNotFoundError, json.JSONDecodeError):
-              state = {
-                  "known_categories": [],
-                  "online_categories": [],
-                  "products_by_category": {}
-              }
+          except (
+              FileNotFoundError,
+              json.JSONDecodeError
+          ):
+              state = {}
+
+          known_categories = set(
+              state.get(
+                  "known_categories",
+                  []
+              )
+          )
+
+          previous_online = set(
+              state.get(
+                  "online_categories",
+                  []
+              )
+          )
+
+          # Compatibility with old version
+          previous_products = state.get(
+              "current_products_by_category",
+              state.get(
+                  "products_by_category",
+                  {}
+              )
+          )
+
+          ever_seen_products = state.get(
+              "ever_seen_products_by_category",
+              state.get(
+                  "products_by_category",
+                  {}
+              )
+          )
+
+          initialized = state.get(
+              "initialized",
+              bool(known_categories)
+          )
+
+          # ------------------------
+          # FIND CURRENT CATEGORIES
+          # ------------------------
 
           homepage = fetch(BASE_URL)
 
-          # Find category links shown in the Shop navigation.
           links = re.findall(
               r'href=["\']([^"\']+)["\']',
               homepage,
@@ -83,170 +141,351 @@ jobs:
 
           ignore_paths = {
               "/",
-              "/locations.html",
-              "/magazine",
-              "/login",
+              "/cart",
               "/bag",
+              "/login",
+              "/account",
+              "/search",
+              "/checkout",
               "/contact",
+              "/locations.html",
               "/privacy.html",
-              "/retailers.html"
+              "/retailers.html",
+              "/terms.html",
+              "/magazine"
           }
 
           current_categories = set()
 
           for href in links:
-              absolute = urljoin(BASE_URL, href)
+              absolute = urljoin(
+                  BASE_URL,
+                  href
+              )
 
               if "chromehearts.com" not in absolute:
                   continue
 
-              path = normalize_path(absolute)
+              path = normalize_path(
+                  absolute
+              )
 
               if path in ignore_paths:
                   continue
 
-              # Product pages normally end in .html.
+              # Products normally end in .html
               if path.endswith(".html"):
                   continue
 
-              # Skip obvious account/support/static routes.
+              lower_path = path.lower()
+
               if any(
-                  part in path.lower()
-                  for part in [
-                      "search",
+                  bad in lower_path
+                  for bad in [
                       "wishlist",
-                      "account",
-                      "checkout",
                       "customer-service",
-                      "terms"
+                      "checkout",
+                      "search",
+                      "account",
+                      "cart",
+                      "login"
                   ]
               ):
                   continue
 
+              # Only root shop categories
               if path.count("/") == 1:
-                  current_categories.add(path)
+                  current_categories.add(
+                      path
+                  )
 
-          known_categories = set(state.get("known_categories", []))
-          previous_online = set(state.get("online_categories", []))
+          print(
+              "Current categories:",
+              sorted(current_categories)
+          )
 
-          # First run = baseline only.
-          first_run = not known_categories
+          # ------------------------
+          # CATEGORY ALERTS
+          # ------------------------
 
-          if first_run:
+          brand_new_categories = (
+              current_categories
+              - known_categories
+          )
+
+          back_online_categories = (
+              current_categories
+              & known_categories
+              - previous_online
+          )
+
+          if not initialized:
               print(
                   f"Chrome Hearts category baseline: "
                   f"{len(current_categories)} categories"
               )
+
           else:
-              brand_new_categories = current_categories - known_categories
-              back_online = (
-                  current_categories
-                  & known_categories
-                  - previous_online
+              for category in sorted(
+                  brand_new_categories
+              ):
+                  name = category.lstrip("/")
+
+                  send_discord(
+                      "🔥 **CHROME HEARTS 新分类上线**\n"
+                      f"分类：**{name}**\n"
+                      f"{urljoin(BASE_URL, category)}"
+                  )
+
+                  print(
+                      f"NEW CATEGORY: {name}"
+                  )
+
+              for category in sorted(
+                  back_online_categories
+              ):
+                  name = category.lstrip("/")
+
+                  send_discord(
+                      "🔄 **CHROME HEARTS 分类重新上线**\n"
+                      f"分类：**{name}**\n"
+                      f"{urljoin(BASE_URL, category)}"
+                  )
+
+                  print(
+                      f"CATEGORY BACK ONLINE: {name}"
+                  )
+
+          # ------------------------
+          # CHECK PRODUCTS
+          # ------------------------
+
+          current_products_state = {}
+
+          # Keep history for categories that may disappear
+          new_ever_seen_state = {
+              key: list(value)
+              for key, value
+              in ever_seen_products.items()
+          }
+
+          for category in sorted(
+              current_categories
+          ):
+              category_name = (
+                  category.lstrip("/")
               )
 
-              for category in sorted(brand_new_categories):
-                  send_discord(
-                      "🔥 **CHROME HEARTS NEW CATEGORY**\n"
-                      f"发现新分类：**{category.lstrip('/')}**\n"
-                      f"{urljoin(BASE_URL, category)}"
-                  )
-                  print(f"NEW CATEGORY: {category}")
-
-              for category in sorted(back_online):
-                  send_discord(
-                      "🔄 **CHROME HEARTS CATEGORY BACK ONLINE**\n"
-                      f"分类重新上线：**{category.lstrip('/')}**\n"
-                      f"{urljoin(BASE_URL, category)}"
-                  )
-                  print(f"CATEGORY BACK ONLINE: {category}")
-
-          products_by_category = state.get(
-              "products_by_category",
-              {}
-          )
-
-          new_products_state = {}
-
-          # Check every category currently online.
-          for category in sorted(current_categories):
-              category_url = urljoin(BASE_URL, category)
-              category_name = category.lstrip("/")
+              category_url = urljoin(
+                  BASE_URL,
+                  category
+              )
 
               try:
-                  html = fetch(category_url)
+                  html = fetch(
+                      category_url
+                  )
+
               except Exception as e:
                   print(
-                      f"ERROR fetching category "
+                      f"ERROR fetching "
                       f"{category_name}: {e}"
                   )
                   continue
 
-              product_links = set()
-
               hrefs = re.findall(
-                  r'href=["\']([^"\']+\.html(?:\?[^"\']*)?)["\']',
+                  r'href=["\']'
+                  r'([^"\']+\.html'
+                  r'(?:\?[^"\']*)?)'
+                  r'["\']',
                   html,
                   flags=re.I
               )
 
+              current_products = set()
+
               for href in hrefs:
-                  absolute = urljoin(category_url, href)
+                  absolute = urljoin(
+                      category_url,
+                      href
+                  )
 
-                  if "chromehearts.com" not in absolute:
+                  if (
+                      "chromehearts.com"
+                      not in absolute
+                  ):
                       continue
 
-                  path = normalize_path(absolute)
+                  product_path = (
+                      normalize_path(
+                          absolute
+                      )
+                  )
 
-                  # Product must live underneath this category.
-                  if not path.startswith(category + "/"):
+                  # Product must belong
+                  # to this category
+                  if not product_path.startswith(
+                      category + "/"
+                  ):
                       continue
 
-                  product_links.add(path)
+                  current_products.add(
+                      product_path
+                  )
 
-              previous_products = set(
-                  products_by_category.get(category, [])
+              old_current = set(
+                  previous_products.get(
+                      category,
+                      []
+                  )
               )
 
-              if first_run or category not in products_by_category:
-                  print(
-                      f"Baseline {category_name}: "
-                      f"{len(product_links)} products"
+              ever_seen = set(
+                  ever_seen_products.get(
+                      category,
+                      []
                   )
-              else:
-                  added_products = (
-                      product_links - previous_products
+              )
+
+              # Truly new products
+              brand_new_products = (
+                  current_products
+                  - ever_seen
+              )
+
+              # Old products that disappeared
+              # and have now returned
+              returned_products = (
+                  current_products
+                  - old_current
+              ) & ever_seen
+
+              if not initialized:
+                  print(
+                      f"Baseline "
+                      f"{category_name}: "
+                      f"{len(current_products)} "
+                      f"products"
                   )
 
-                  if added_products:
+              elif (
+                  category
+                  in brand_new_categories
+              ):
+                  # New category already generated
+                  # its own alert.
+                  # Don't spam another alert
+                  # for every initial product.
+                  print(
+                      f"New category "
+                      f"{category_name}: "
+                      f"{len(current_products)} "
+                      f"products recorded"
+                  )
+
+              else:
+                  if brand_new_products:
                       send_discord(
                           "🆕 **CHROME HEARTS 上新了**\n"
                           f"分类：**{category_name}**\n"
-                          f"新增：**{len(added_products)} 件**\n"
+                          f"新增商品："
+                          f"**{len(brand_new_products)} 个**\n"
                           f"{category_url}"
                       )
 
                       print(
-                          f"NEW PRODUCTS: {category_name} "
-                          f"+{len(added_products)}"
+                          f"NEW PRODUCTS: "
+                          f"{category_name} "
+                          f"+{len(brand_new_products)}"
                       )
 
-              new_products_state[category] = sorted(
-                  product_links
+                  if returned_products:
+                      send_discord(
+                          "🔄 **CHROME HEARTS 商品重新上线**\n"
+                          f"分类：**{category_name}**\n"
+                          f"重新出现："
+                          f"**{len(returned_products)} 个**\n"
+                          f"{category_url}"
+                      )
+
+                      print(
+                          f"PRODUCTS RETURNED: "
+                          f"{category_name} "
+                          f"+{len(returned_products)}"
+                      )
+
+              current_products_state[
+                  category
+              ] = sorted(
+                  current_products
               )
 
-          state["known_categories"] = sorted(
-              known_categories | current_categories
-          )
-          state["online_categories"] = sorted(
-              current_categories
-          )
-          state["products_by_category"] = (
-              new_products_state
+              new_ever_seen_state[
+                  category
+              ] = sorted(
+                  ever_seen
+                  | current_products
+              )
+
+          # Categories that are currently offline
+          # are explicitly stored as having zero
+          # currently visible products.
+          for category in known_categories:
+              if (
+                  category
+                  not in current_categories
+              ):
+                  current_products_state[
+                      category
+                  ] = []
+
+          # ------------------------
+          # SAVE STATE
+          # ------------------------
+
+          cleaned_categories = (
+              known_categories
+              | current_categories
           )
 
-          with open(STATE_FILE, "w") as f:
-              json.dump(state, f, indent=2)
+          # Remove accidental old "cart" state
+          cleaned_categories.discard(
+              "/cart"
+          )
+
+          current_products_state.pop(
+              "/cart",
+              None
+          )
+
+          new_ever_seen_state.pop(
+              "/cart",
+              None
+          )
+
+          state = {
+              "initialized": True,
+              "known_categories": sorted(
+                  cleaned_categories
+              ),
+              "online_categories": sorted(
+                  current_categories
+              ),
+              "current_products_by_category":
+                  current_products_state,
+              "ever_seen_products_by_category":
+                  new_ever_seen_state
+          }
+
+          with open(
+              STATE_FILE,
+              "w"
+          ) as f:
+              json.dump(
+                  state,
+                  f,
+                  indent=2
+              )
 
           PY
 
