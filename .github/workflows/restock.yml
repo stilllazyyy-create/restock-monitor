@@ -24,7 +24,7 @@ jobs:
           import os
           import urllib.request
 
-          PRODUCT_URL = "https://ca.stussy.com/products/1905177-skulls-tee-faded-black"
+          PRODUCT_URL = "https://ca.stussy.com/products/3904050-stussy-always-world-tour-tee-black"
           JSON_URL = PRODUCT_URL + ".js"
           VARIANT_ID = 52765121773936
           STATE_FILE = ".restock_state.json"
@@ -36,6 +36,8 @@ jobs:
 
           with urllib.request.urlopen(req, timeout=20) as r:
               product = json.load(r)
+                  for v in product["variants"]:
+            print(v["title"], v["id"], v["available"])
 
           variant = next(
               (v for v in product["variants"] if v["id"] == VARIANT_ID),
