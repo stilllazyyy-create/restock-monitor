@@ -1,0 +1,261 @@
+name: Chrome Hearts Monitor
+
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check Chrome Hearts
+        env:
+          CHROME_HEARTS_WEBHOOK_URL: ${{ secrets.CHROME_HEARTS_WEBHOOK_URL }}
+        run: |
+          python3 <<'PY'
+          import json
+          import os
+          import re
+          import urllib.request
+          from urllib.parse import urljoin, urlparse
+
+          BASE_URL = "https://www.chromehearts.com/"
+          STATE_FILE = ".chromehearts_state.json"
+
+          webhook = os.environ["CHROME_HEARTS_WEBHOOK_URL"]
+
+          def fetch(url):
+              req = urllib.request.Request(
+                  url,
+                  headers={
+                      "User-Agent": "Mozilla/5.0",
+                      "Accept-Language": "en-US,en;q=0.9"
+                  }
+              )
+              with urllib.request.urlopen(req, timeout=25) as r:
+                  return r.read().decode("utf-8", errors="ignore")
+
+          def send_discord(text):
+              data = json.dumps({"content": text}).encode()
+
+              req = urllib.request.Request(
+                  webhook,
+                  data=data,
+                  headers={
+                      "Content-Type": "application/json",
+                      "User-Agent": "Mozilla/5.0"
+                  },
+                  method="POST"
+              )
+
+              urllib.request.urlopen(req, timeout=20)
+
+          def normalize_path(url):
+              parsed = urlparse(url)
+              path = parsed.path.rstrip("/")
+              return path or "/"
+
+          try:
+              with open(STATE_FILE, "r") as f:
+                  state = json.load(f)
+          except (FileNotFoundError, json.JSONDecodeError):
+              state = {
+                  "known_categories": [],
+                  "online_categories": [],
+                  "products_by_category": {}
+              }
+
+          homepage = fetch(BASE_URL)
+
+          # Find category links shown in the Shop navigation.
+          links = re.findall(
+              r'href=["\']([^"\']+)["\']',
+              homepage,
+              flags=re.I
+          )
+
+          ignore_paths = {
+              "/",
+              "/locations.html",
+              "/magazine",
+              "/login",
+              "/bag",
+              "/contact",
+              "/privacy.html",
+              "/retailers.html"
+          }
+
+          current_categories = set()
+
+          for href in links:
+              absolute = urljoin(BASE_URL, href)
+
+              if "chromehearts.com" not in absolute:
+                  continue
+
+              path = normalize_path(absolute)
+
+              if path in ignore_paths:
+                  continue
+
+              # Product pages normally end in .html.
+              if path.endswith(".html"):
+                  continue
+
+              # Skip obvious account/support/static routes.
+              if any(
+                  part in path.lower()
+                  for part in [
+                      "search",
+                      "wishlist",
+                      "account",
+                      "checkout",
+                      "customer-service",
+                      "terms"
+                  ]
+              ):
+                  continue
+
+              if path.count("/") == 1:
+                  current_categories.add(path)
+
+          known_categories = set(state.get("known_categories", []))
+          previous_online = set(state.get("online_categories", []))
+
+          # First run = baseline only.
+          first_run = not known_categories
+
+          if first_run:
+              print(
+                  f"Chrome Hearts category baseline: "
+                  f"{len(current_categories)} categories"
+              )
+          else:
+              brand_new_categories = current_categories - known_categories
+              back_online = (
+                  current_categories
+                  & known_categories
+                  - previous_online
+              )
+
+              for category in sorted(brand_new_categories):
+                  send_discord(
+                      "🔥 **CHROME HEARTS NEW CATEGORY**\n"
+                      f"发现新分类：**{category.lstrip('/')}**\n"
+                      f"{urljoin(BASE_URL, category)}"
+                  )
+                  print(f"NEW CATEGORY: {category}")
+
+              for category in sorted(back_online):
+                  send_discord(
+                      "🔄 **CHROME HEARTS CATEGORY BACK ONLINE**\n"
+                      f"分类重新上线：**{category.lstrip('/')}**\n"
+                      f"{urljoin(BASE_URL, category)}"
+                  )
+                  print(f"CATEGORY BACK ONLINE: {category}")
+
+          products_by_category = state.get(
+              "products_by_category",
+              {}
+          )
+
+          new_products_state = {}
+
+          # Check every category currently online.
+          for category in sorted(current_categories):
+              category_url = urljoin(BASE_URL, category)
+              category_name = category.lstrip("/")
+
+              try:
+                  html = fetch(category_url)
+              except Exception as e:
+                  print(
+                      f"ERROR fetching category "
+                      f"{category_name}: {e}"
+                  )
+                  continue
+
+              product_links = set()
+
+              hrefs = re.findall(
+                  r'href=["\']([^"\']+\.html(?:\?[^"\']*)?)["\']',
+                  html,
+                  flags=re.I
+              )
+
+              for href in hrefs:
+                  absolute = urljoin(category_url, href)
+
+                  if "chromehearts.com" not in absolute:
+                      continue
+
+                  path = normalize_path(absolute)
+
+                  # Product must live underneath this category.
+                  if not path.startswith(category + "/"):
+                      continue
+
+                  product_links.add(path)
+
+              previous_products = set(
+                  products_by_category.get(category, [])
+              )
+
+              if first_run or category not in products_by_category:
+                  print(
+                      f"Baseline {category_name}: "
+                      f"{len(product_links)} products"
+                  )
+              else:
+                  added_products = (
+                      product_links - previous_products
+                  )
+
+                  if added_products:
+                      send_discord(
+                          "🆕 **CHROME HEARTS 上新了**\n"
+                          f"分类：**{category_name}**\n"
+                          f"新增：**{len(added_products)} 件**\n"
+                          f"{category_url}"
+                      )
+
+                      print(
+                          f"NEW PRODUCTS: {category_name} "
+                          f"+{len(added_products)}"
+                      )
+
+              new_products_state[category] = sorted(
+                  product_links
+              )
+
+          state["known_categories"] = sorted(
+              known_categories | current_categories
+          )
+          state["online_categories"] = sorted(
+              current_categories
+          )
+          state["products_by_category"] = (
+              new_products_state
+          )
+
+          with open(STATE_FILE, "w") as f:
+              json.dump(state, f, indent=2)
+
+          PY
+
+      - name: Save Chrome Hearts state
+        run: |
+          git config user.name "Chrome Hearts Monitor"
+          git config user.email "actions@github.com"
+          git add .chromehearts_state.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Update Chrome Hearts state"
+            git push
+          fi
