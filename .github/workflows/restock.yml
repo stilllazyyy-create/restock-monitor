@@ -2,217 +2,1113 @@ name: Stussy Restock Monitor
 
 on:
   schedule:
-    - cron: "*/5 * * * *"
+    # Every 5 minutes, offset by 2 minutes:
+    # :02, :07, :12, :17, ...
+    - cron: "2-59/5 * * * *"
+
+  # Allows you to manually test it from GitHub Actions
   workflow_dispatch:
 
 permissions:
   contents: write
 
+# Prevent two monitor runs from editing the state file at the same time
+concurrency:
+  group: stussy-restock-monitor
+  cancel-in-progress: false
+
 jobs:
   check-stock:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
       - name: Check Stussy stock and new arrivals
         env:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+
         run: |
           python3 <<'PY'
+
           import json
           import os
+          import time
           import urllib.request
+          import urllib.error
+
+
+          # ============================================================
+          # SETTINGS
+          # ============================================================
 
           STATE_FILE = ".restock_state.json"
-          NEW_ARRIVALS_URL = "https://ca.stussy.com/collections/new-arrivals"
-          NEW_ARRIVALS_JSON = NEW_ARRIVALS_URL + "/products.json?limit=250"
+
+          STORE_URL = "https://ca.stussy.com"
+
+          NEW_ARRIVALS_URL = (
+              "https://ca.stussy.com/collections/new-arrivals"
+          )
+
+
+          # ============================================================
+          # PRODUCTS / SIZES TO MONITOR FOR RESTOCK
+          # ============================================================
 
           TARGETS = [
+
               {
                   "name": "Skulls Tee",
-                  "url": "https://ca.stussy.com/products/1905177-skulls-tee-faded-black",
+                  "url": (
+                      "https://ca.stussy.com/products/"
+                      "1905177-skulls-tee-faded-black"
+                  ),
                   "variants": {
                       52765121773936: "Faded Black / S",
                   },
               },
+
               {
                   "name": "Always World Tour Tee Black",
-                  "url": "https://ca.stussy.com/products/3904050-stussy-always-world-tour-tee-black",
+                  "url": (
+                      "https://ca.stussy.com/products/"
+                      "3904050-stussy-always-world-tour-tee-black"
+                  ),
                   "variants": {
                       54012844278128: "Black / S",
                       54012844310896: "Black / M",
                   },
               },
+
               {
                   "name": "Always World Tour Tee White",
-                  "url": "https://ca.stussy.com/products/3904050-stussy-always-world-tour-tee-white",
+                  "url": (
+                      "https://ca.stussy.com/products/"
+                      "3904050-stussy-always-world-tour-tee-white"
+                  ),
                   "variants": {
                       54012851552624: "White / S",
                       54012851585392: "White / M",
                   },
               },
+
               {
                   "name": "Basic Stussy Thermal",
-                  "url": "https://ca.stussy.com/products/1140356-basic-stussy-thermal-washed-black",
+                  "url": (
+                      "https://ca.stussy.com/products/"
+                      "1140356-basic-stussy-thermal-washed-black"
+                  ),
                   "variants": {
                       52349784162672: "Washed Black / S",
                       52349784195440: "Washed Black / M",
                       52349784228208: "Washed Black / L",
                   },
               },
+
           ]
 
+
+          # ============================================================
+          # LOAD SAVED STATE
+          # ============================================================
+
           try:
-              with open(STATE_FILE, "r") as f:
+
+              with open(STATE_FILE, "r", encoding="utf-8") as f:
                   state = json.load(f)
+
           except (FileNotFoundError, json.JSONDecodeError):
+
               state = {}
 
-          webhook = os.environ["DISCORD_WEBHOOK_URL"]
 
-          def send_discord(text):
-              data = json.dumps({"content": text}).encode()
+          webhook = os.environ.get("DISCORD_WEBHOOK_URL")
 
-              request = urllib.request.Request(
-                  webhook,
-                  data=data,
-                  headers={
-                      "Content-Type": "application/json",
-                      "User-Agent": "Mozilla/5.0"
-                  },
-                  method="POST"
+          if not webhook:
+              raise RuntimeError(
+                  "DISCORD_WEBHOOK_URL secret is missing"
               )
 
-              urllib.request.urlopen(request, timeout=20)
 
-          # ------------------------
-          # RESTOCK MONITOR
-          # ------------------------
+          # ============================================================
+          # FETCH JSON
+          # ============================================================
 
-          for product_info in TARGETS:
-              product_url = product_info["url"]
-              json_url = product_url + ".js"
+          def fetch_json(url):
 
-              try:
-                  req = urllib.request.Request(
-                      json_url,
-                      headers={"User-Agent": "Mozilla/5.0"}
+              req = urllib.request.Request(
+                  url,
+                  headers={
+                      "User-Agent": (
+                          "Mozilla/5.0 "
+                          "(iPhone; CPU iPhone OS 18_0 like Mac OS X) "
+                          "AppleWebKit/605.1.15 "
+                          "(KHTML, like Gecko) "
+                          "Version/18.0 Mobile/15E148 Safari/604.1"
+                      ),
+
+                      "Accept": (
+                          "application/json,text/plain,*/*"
+                      ),
+
+                      "Cache-Control": "no-cache",
+                      "Pragma": "no-cache",
+                  },
+              )
+
+              with urllib.request.urlopen(
+                  req,
+                  timeout=25
+              ) as response:
+
+                  return json.load(response)
+
+
+          # ============================================================
+          # DISCORD
+          # ============================================================
+
+          def send_discord_payload(
+              payload,
+              max_retries=5
+          ):
+
+              data = json.dumps(
+                  payload,
+                  ensure_ascii=False
+              ).encode("utf-8")
+
+
+              for attempt in range(max_retries):
+
+                  request = urllib.request.Request(
+                      webhook,
+                      data=data,
+                      headers={
+                          "Content-Type": "application/json",
+                          "User-Agent": (
+                              "Stussy-Restock-Monitor/3.0"
+                          ),
+                      },
+                      method="POST",
                   )
 
-                  with urllib.request.urlopen(req, timeout=20) as r:
-                      product = json.load(r)
+
+                  try:
+
+                      with urllib.request.urlopen(
+                          request,
+                          timeout=25
+                      ) as response:
+
+                          response.read()
+
+                      return True
+
+
+                  except urllib.error.HTTPError as e:
+
+                      # Discord rate limit
+                      if e.code == 429:
+
+                          try:
+
+                              body = (
+                                  e.read()
+                                  .decode("utf-8")
+                              )
+
+                              info = json.loads(body)
+
+                              retry_after = float(
+                                  info.get(
+                                      "retry_after",
+                                      2
+                                  )
+                              )
+
+                          except Exception:
+
+                              retry_after = 2
+
+
+                          print(
+                              "Discord rate limit. "
+                              f"Waiting {retry_after}s..."
+                          )
+
+                          time.sleep(
+                              retry_after + 0.5
+                          )
+
+                          continue
+
+
+                      print(
+                          "Discord HTTP error: "
+                          f"{e.code} {e.reason}"
+                      )
+
+
+                  except Exception as e:
+
+                      print(
+                          f"Discord error: {e}"
+                      )
+
+
+                  time.sleep(2)
+
+
+              return False
+
+
+          def send_text(text):
+
+              return send_discord_payload(
+                  {
+                      "content": text
+                  }
+              )
+
+
+          # ============================================================
+          # RESTOCK MONITOR
+          # ============================================================
+
+          print("")
+          print(
+              "=========================================="
+          )
+          print(
+              "RESTOCK MONITOR"
+          )
+          print(
+              "=========================================="
+          )
+
+
+          for product_info in TARGETS:
+
+              product_url = product_info["url"]
+
+              # Unique query parameter helps reduce stale CDN responses
+              json_url = (
+                  product_url
+                  + ".js?v="
+                  + str(int(time.time()))
+              )
+
+
+              try:
+
+                  product = fetch_json(
+                      json_url
+                  )
+
 
               except Exception as e:
-                  print(f"ERROR fetching {product_info['name']}: {e}")
+
+                  print(
+                      "ERROR fetching "
+                      f"{product_info['name']}: {e}"
+                  )
+
                   continue
 
+
               variant_lookup = {
+
                   int(v["id"]): v
-                  for v in product["variants"]
+
+                  for v in product.get(
+                      "variants",
+                      []
+                  )
+
               }
 
-              for variant_id, expected_title in product_info["variants"].items():
-                  variant = variant_lookup.get(variant_id)
+
+              for (
+                  variant_id,
+                  expected_title
+              ) in product_info[
+                  "variants"
+              ].items():
+
+
+                  variant = (
+                      variant_lookup.get(
+                          variant_id
+                      )
+                  )
+
 
                   if not variant:
+
                       print(
-                          f"ERROR: {product_info['name']} "
-                          f"{expected_title} variant not found"
+                          "ERROR: "
+                          f"{product_info['name']} | "
+                          f"{expected_title} | "
+                          "variant not found"
                       )
+
                       continue
 
-                  available = variant["available"] is True
-                  key = str(variant_id)
-                  previous = state.get(key, False)
+
+                  available = bool(
+                      variant.get(
+                          "available",
+                          False
+                      )
+                  )
+
+
+                  key = (
+                      "variant_"
+                      + str(variant_id)
+                  )
+
+
+                  previous = state.get(
+                      key
+                  )
+
 
                   print(
                       f"{product_info['name']} | "
-                      f"{variant['title']} | "
-                      f"ID: {variant_id} | "
-                      f"available: {available}"
+                      f"{variant.get('title')} | "
+                      f"ID={variant_id} | "
+                      f"available={available} | "
+                      f"previous={previous}"
                   )
 
-                  if available and not previous:
-                      send_discord(
-                          "🚨 **STUSSY RESTOCK**\n"
-                          f"**{product_info['name']}**\n"
-                          f"**{variant['title']}**\n"
-                          "✅ **IN STOCK**\n"
-                          f"{product_url}?variant={variant_id}"
-                      )
+
+                  # First time seeing this variant:
+                  # save baseline only.
+                  #
+                  # This prevents a currently-in-stock item
+                  # from being falsely reported as a restock.
+                  if previous is None:
+
+                      state[key] = available
 
                       print(
-                          f"Discord notification sent: "
-                          f"{product_info['name']} {variant['title']}"
+                          "Baseline created: "
+                          f"{product_info['name']} | "
+                          f"{variant.get('title')}"
                       )
+
+                      continue
+
+
+                  # Only FALSE -> TRUE is a real restock
+                  if (
+                      available
+                      and previous is False
+                  ):
+
+
+                      image = (
+                          product.get(
+                              "featured_image"
+                          )
+                      )
+
+
+                      embed = {
+
+                          "title": (
+                              "🚨 STUSSY RESTOCK"
+                          ),
+
+                          "description": (
+                              f"**{product_info['name']}**\n"
+                              f"**{variant.get('title')}**\n\n"
+                              "✅ **IN STOCK**\n"
+                              "点击标题直接购买"
+                          ),
+
+                          "url": (
+                              f"{product_url}"
+                              f"?variant={variant_id}"
+                          ),
+
+                      }
+
+
+                      if image:
+
+                          if image.startswith(
+                              "//"
+                          ):
+                              image = (
+                                  "https:" + image
+                              )
+
+                          embed["image"] = {
+                              "url": image
+                          }
+
+
+                      success = (
+                          send_discord_payload(
+                              {
+                                  "content": (
+                                      "🚨 **STUSSY 补货了！**"
+                                  ),
+                                  "embeds": [
+                                      embed
+                                  ],
+                              }
+                          )
+                      )
+
+
+                      if success:
+
+                          print(
+                              "RESTOCK NOTIFICATION SENT: "
+                              f"{product_info['name']} | "
+                              f"{variant.get('title')}"
+                          )
+
+                      else:
+
+                          print(
+                              "WARNING: "
+                              "Restock Discord notification "
+                              "could not be sent."
+                          )
+
 
                   state[key] = available
 
-          # ------------------------
+
+          # ============================================================
           # NEW ARRIVALS MONITOR
-          # ------------------------
+          # ============================================================
+
+          print("")
+          print(
+              "=========================================="
+          )
+          print(
+              "NEW ARRIVALS MONITOR"
+          )
+          print(
+              "=========================================="
+          )
+
 
           try:
-              req = urllib.request.Request(
-                  NEW_ARRIVALS_JSON,
-                  headers={"User-Agent": "Mozilla/5.0"}
+
+              # Cache-busting timestamp
+              new_arrivals_json = (
+
+                  NEW_ARRIVALS_URL
+
+                  + "/products.json?limit=250&v="
+
+                  + str(int(time.time()))
+
               )
 
-              with urllib.request.urlopen(req, timeout=20) as r:
-                  arrivals_data = json.load(r)
 
-              current_ids = sorted(
-                  str(product["id"])
-                  for product in arrivals_data.get("products", [])
+              arrivals_data = fetch_json(
+                  new_arrivals_json
               )
 
-              previous_ids = state.get("new_arrivals_products")
 
-              if previous_ids is None:
-                  # First run: establish baseline only
-                  state["new_arrivals_products"] = current_ids
-                  print(
-                      f"New Arrivals baseline created: "
-                      f"{len(current_ids)} products"
+              products = arrivals_data.get(
+                  "products",
+                  []
+              )
+
+
+              print(
+                  "New Arrivals currently contains "
+                  f"{len(products)} products"
+              )
+
+
+              current_products = {}
+
+
+              # ========================================================
+              # BUILD CURRENT PRODUCT LIST
+              # ========================================================
+
+              for product in products:
+
+
+                  product_id = str(
+                      product.get("id")
                   )
 
-              else:
-                  previous_set = set(previous_ids)
-                  current_set = set(current_ids)
 
-                  added = current_set - previous_set
+                  handle = product.get(
+                      "handle",
+                      ""
+                  )
 
-                  if added:
-                      send_discord(
-                          "🚨 **STUSSY NEW ARRIVALS**\n"
-                          "官网有新品上新了！\n"
-                          f"{NEW_ARRIVALS_URL}"
+
+                  title = product.get(
+                      "title",
+                      "Unknown Product"
+                  )
+
+
+                  if handle:
+
+                      product_url = (
+                          STORE_URL
+                          + "/products/"
+                          + handle
                       )
+
+                  else:
+
+                      product_url = (
+                          NEW_ARRIVALS_URL
+                      )
+
+
+                  # ----------------------------------------------------
+                  # IMAGE
+                  # ----------------------------------------------------
+
+                  image_url = None
+
+
+                  images = (
+                      product.get("images")
+                      or []
+                  )
+
+
+                  if images:
+
+                      first_image = (
+                          images[0]
+                      )
+
+
+                      if isinstance(
+                          first_image,
+                          dict
+                      ):
+
+                          image_url = (
+                              first_image.get(
+                                  "src"
+                              )
+                          )
+
+
+                      elif isinstance(
+                          first_image,
+                          str
+                      ):
+
+                          image_url = (
+                              first_image
+                          )
+
+
+                  # Backup image field
+                  if not image_url:
+
+                      image = (
+                          product.get(
+                              "image"
+                          )
+                      )
+
+
+                      if isinstance(
+                          image,
+                          dict
+                      ):
+
+                          image_url = (
+                              image.get(
+                                  "src"
+                              )
+                          )
+
+
+                  if (
+                      image_url
+                      and image_url.startswith(
+                          "//"
+                      )
+                  ):
+
+                      image_url = (
+                          "https:"
+                          + image_url
+                      )
+
+
+                  # ----------------------------------------------------
+                  # VARIANT / STOCK INFORMATION
+                  # ----------------------------------------------------
+
+                  variants = (
+                      product.get(
+                          "variants"
+                      )
+                      or []
+                  )
+
+
+                  in_stock_variants = []
+
+
+                  for variant in variants:
+
+                      if variant.get(
+                          "available"
+                      ):
+
+                          in_stock_variants.append(
+                              variant.get(
+                                  "title",
+                                  "Available"
+                              )
+                          )
+
+
+                  current_products[
+                      product_id
+                  ] = {
+
+                      "id": product_id,
+
+                      "title": title,
+
+                      "handle": handle,
+
+                      "url": product_url,
+
+                      "image": image_url,
+
+                      "available_variants": (
+                          in_stock_variants
+                      ),
+
+                  }
+
+
+              # ========================================================
+              # LOAD PREVIOUS NEW ARRIVALS
+              # ========================================================
+
+              previous_products = (
+                  state.get(
+                      "new_arrivals_product_data"
+                  )
+              )
+
+
+              # ========================================================
+              # AUTOMATICLY UPGRADE YOUR OLD STATE FILE
+              # ========================================================
+
+              if previous_products is None:
+
+                  old_ids = (
+                      state.get(
+                          "new_arrivals_products"
+                      )
+                  )
+
+
+                  if old_ids is not None:
+
+                      previous_products = {
+
+                          str(pid): {
+                              "id": str(pid)
+                          }
+
+                          for pid in old_ids
+
+                      }
+
 
                       print(
-                          f"New Arrivals detected: "
-                          f"{len(added)} new product(s)"
+                          "Old New Arrivals state detected. "
+                          "Automatically upgrading."
                       )
-                  else:
-                      print("No new arrivals detected")
 
-                  state["new_arrivals_products"] = current_ids
+
+              # ========================================================
+              # FIRST RUN
+              # ========================================================
+
+              if previous_products is None:
+
+
+                  state[
+                      "new_arrivals_product_data"
+                  ] = current_products
+
+
+                  state[
+                      "new_arrivals_products"
+                  ] = sorted(
+                      current_products.keys()
+                  )
+
+
+                  print(
+                      "New Arrivals baseline created."
+                  )
+
+                  print(
+                      "No New Arrivals alert sent "
+                      "on the first run."
+                  )
+
+
+              else:
+
+
+                  previous_ids = set(
+                      previous_products.keys()
+                  )
+
+
+                  current_ids = set(
+                      current_products.keys()
+                  )
+
+
+                  added_ids = (
+                      current_ids
+                      - previous_ids
+                  )
+
+
+                  removed_ids = (
+                      previous_ids
+                      - current_ids
+                  )
+
+
+                  print(
+                      f"Previous count: "
+                      f"{len(previous_ids)}"
+                  )
+
+
+                  print(
+                      f"Current count: "
+                      f"{len(current_ids)}"
+                  )
+
+
+                  print(
+                      f"Added: "
+                      f"{len(added_ids)}"
+                  )
+
+
+                  print(
+                      f"Removed: "
+                      f"{len(removed_ids)}"
+                  )
+
+
+                  # ====================================================
+                  # NEW PRODUCTS
+                  # ====================================================
+
+                  new_products = []
+
+
+                  if added_ids:
+
+                      print("")
+                      print(
+                          "NEW PRODUCTS DETECTED:"
+                      )
+
+
+                      for product_id in (
+                          added_ids
+                      ):
+
+
+                          item = (
+                              current_products[
+                                  product_id
+                              ]
+                          )
+
+
+                          new_products.append(
+                              item
+                          )
+
+
+                          print(
+                              "+ "
+                              f"{item['title']} | "
+                              f"{item['url']} | "
+                              f"ID={item['id']}"
+                          )
+
+
+                  # Alphabetical order
+                  new_products.sort(
+                      key=lambda x: (
+                          x["title"].lower()
+                      )
+                  )
+
+
+                  # ====================================================
+                  # SEND NEW ARRIVALS TO DISCORD
+                  # ====================================================
+
+                  if new_products:
+
+
+                      total = len(
+                          new_products
+                      )
+
+
+                      send_text(
+
+                          "🚨 **STUSSY NEW ARRIVALS**\n"
+                          f"本次检测到 **{total} 件新品**\n"
+                          "下面会显示每件商品的"
+                          "图片和直达链接。\n\n"
+                          f"{NEW_ARRIVALS_URL}"
+
+                      )
+
+
+                      # Discord allows up to 10 embeds.
+                      # 5 is safer and easier to read.
+                      batch_size = 5
+
+
+                      for start in range(
+                          0,
+                          total,
+                          batch_size
+                      ):
+
+
+                          batch = (
+                              new_products[
+                                  start:
+                                  start + batch_size
+                              ]
+                          )
+
+
+                          embeds = []
+
+
+                          for (
+                              index,
+                              item
+                          ) in enumerate(
+                              batch,
+                              start=start + 1
+                          ):
+
+
+                              available_variants = (
+                                  item.get(
+                                      "available_variants",
+                                      []
+                                  )
+                              )
+
+
+                              if available_variants:
+
+
+                                  # Prevent ridiculously long
+                                  # Discord descriptions
+                                  sizes_text = ", ".join(
+                                      available_variants[
+                                          :15
+                                      ]
+                                  )
+
+
+                                  stock_text = (
+                                      "\n\n"
+                                      "✅ Available:\n"
+                                      f"{sizes_text}"
+                                  )
+
+
+                              else:
+
+                                  stock_text = (
+                                      "\n\n"
+                                      "⚠️ 当前接口显示无可购买尺码"
+                                  )
+
+
+                              embed = {
+
+                                  "title": (
+                                      f"{index}/{total} "
+                                      f"{item['title']}"
+                                  ),
+
+                                  "url": (
+                                      item["url"]
+                                  ),
+
+                                  "description": (
+                                      "🆕 **NEW ARRIVAL**"
+                                      f"{stock_text}\n\n"
+                                      "点击标题直接进入商品页"
+                                  ),
+
+                              }
+
+
+                              if item.get(
+                                  "image"
+                              ):
+
+                                  embed["image"] = {
+                                      "url": (
+                                          item["image"]
+                                      )
+                                  }
+
+
+                              embeds.append(
+                                  embed
+                              )
+
+
+                          success = (
+                              send_discord_payload(
+                                  {
+                                      "embeds": (
+                                          embeds
+                                      )
+                                  }
+                              )
+                          )
+
+
+                          if not success:
+
+                              print(
+                                  "WARNING: "
+                                  "A New Arrivals Discord "
+                                  "batch failed to send."
+                              )
+
+
+                          # Avoid hitting Discord rate limit
+                          time.sleep(1.2)
+
+
+                      print(
+                          "NEW ARRIVALS NOTIFICATION SENT: "
+                          f"{total} product(s)"
+                      )
+
+
+                  else:
+
+                      print(
+                          "No new arrivals detected."
+                      )
+
+
+                  # ====================================================
+                  # UPDATE STATE
+                  # ====================================================
+
+                  state[
+                      "new_arrivals_product_data"
+                  ] = current_products
+
+
+                  # Keep your old ID field too
+                  # for backward compatibility
+                  state[
+                      "new_arrivals_products"
+                  ] = sorted(
+                      current_products.keys()
+                  )
+
 
           except Exception as e:
-              print(f"ERROR checking New Arrivals: {e}")
 
-          with open(STATE_FILE, "w") as f:
-              json.dump(state, f, indent=2)
+              print(
+                  "ERROR checking New Arrivals: "
+                  f"{type(e).__name__}: {e}"
+              )
+
+
+          # ============================================================
+          # SAVE STATE LOCALLY
+          # ============================================================
+
+          with open(
+              STATE_FILE,
+              "w",
+              encoding="utf-8"
+          ) as f:
+
+              json.dump(
+                  state,
+                  f,
+                  indent=2,
+                  ensure_ascii=False
+              )
+
+
+          print("")
+          print(
+              "State saved successfully."
+          )
 
           PY
 
+
+      # ==============================================================
+      # SAVE STATE BACK TO GITHUB
+      # ==============================================================
+
       - name: Save stock state
         run: |
+
           git config user.name "Restock Monitor"
           git config user.email "actions@github.com"
+
           git add .restock_state.json
+
           if ! git diff --cached --quiet; then
-            git commit -m "Update restock state"
+
+            git commit -m "Update Stussy monitor state"
+
+            git pull --rebase origin "${GITHUB_REF_NAME}" || true
+
             git push
+
+          else
+
+            echo "No state changes to commit."
+
           fi
