@@ -107,5 +107,1266 @@
     "15184006283632",
     "15184006742384",
     "15184009593200"
-  ]
+  ],
+  "variant_52765121773936": false,
+  "variant_54012844278128": false,
+  "variant_54012844310896": false,
+  "variant_54012851552624": false,
+  "variant_54012851585392": false,
+  "variant_52349784162672": false,
+  "variant_52349784195440": false,
+  "variant_52349784228208": false,
+  "new_arrivals_product_data": {
+    "15173203394928": {
+      "id": "15173203394928",
+      "title": "JUNYA VENUS TEE",
+      "handle": "wrt903100-junya-venus-tee-black",
+      "url": "https://ca.stussy.com/products/wrt903100-junya-venus-tee-black",
+      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/WRT903100_BLAC_1.jpg?v=1787588371",
+      "available_variants": []
+    },
+    "15173202411888": {
+      "id": "15173202411888",
+      "title": "JUNYA SURFMAN TEE",
+      "handle": "wrt901100-junya-surfman-tee-black",
+      "url": "https://ca.stussy.com/products/wrt901100-junya-surfman-tee-black",
+      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/WRT901100_BLAC_1.jpg?v=1787588357",
+      "available_variants": []
+    },
+    "15010552152432": {
+      "id": "15010552152432",
+      "title": "LEATHER DUSTER",
+      "handle": "115970-leather-duster-sand",
+      "url": "https://ca.stussy.com/products/115970-leather-duster-sand",
+      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/115970_SAND_4.jpg?v=1787173608",
+      "available_variants": [
+        "Sand / S",
+        "Sand / M",
+        "Sand / L",
+        "Sand / XL"
+      ]
+    },
+    "15010603696496": {
+      "id": "15010603696496",
+      "title": "NEW CLASSIC JEAN DENIM",
+      "handle": "116787-new-classic-jean-denim-cheetah",
+      "url": "https://ca.stussy.com/products/116787-new-classic-jean-denim-cheetah",
+      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/116787_CHEE_3.jpg?v=1787173667",
+      "available_variants": [
+        "Cheetah / 28",
+        "Cheetah / 32",
+        "Cheetah / 36"
+      ]
+    },
+    "15010757804400": {
+      "id": "15010757804400",
+      "title": "MERINO ROLL NECK SWEATER",
+      "handle": "117314-merino-roll-neck-sweater-black",
+      "url": "https://ca.stussy.com/products/117314-merino-roll-neck-sweater-black",
+      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/117314_BLAC_3.jpg?v=1787077756",
+      "available_variants": [
+        "Black / XS",
+        "Black / S",
+        "Black / M",
+        "Black / L",
+        "Black / XL"
+      ]
+    },
+    "15010758328688": {
+      "id": "15010758328688",
+      "title": "MERINO ROLL NECK SWEATER",
+      "handle": "117314-merino-roll-neck-sweater-natural",
+      "url": "https://ca.stussy.com/products/117314-merino-roll-neck-sweater-natural",
+      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/117314_NATL_3.jpg?v=1787077818",
+      "available_variants": [
+        "Natural / S",
+        "Natural / M",
+        "Natural / L"
+      ]
+    },
+    "15010758197616": {
+      "id": "15010758197616",
+      "title": "MERINO ROLL NECK SWEATER",
+      "handle": "117314-merino-roll-neck-sweater-brown",
+      "url": "https://ca.stussy.com/products/117314-merino-roll-neck-sweater-brown",
+      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/117314_BROW_3.jpg?v=1787077784",
+      "available_variants": [
+        "Brown / S",
+        "Brown / M",
+        "Brown / L"
+      ]
+    },
+    "15010616574320": {
+      "id": "15010616574320",
+      "title": "LEATHER MOTO PANT",
+      "handle": "116789-leather-moto-pant-black",
+      "url": "https://ca.stussy.com/products/116789-leather-moto-pant-black",
+      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/116789_BLAC_3.jpg?v=1787173697",
+      "available_variants": [
+        "Black / 30",
+        "Black / 32",
+        "Black / 34"
+      ]
+    },
+    "15065328386416": {
+      "id": "15065328386416",
+      "title": "OXFORD SHIRT",
+      "handle": "1110364-oxford-shirt-brown-stripe",
+      "url": "https://ca.stussy.com/products/1110364-oxford-shirt-brown-stripe",
+      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/1110364_BRSP_3.jpg?v=1787173846",
+      "available_variants": [
+        "Brown Stripe / XS",
+        "Brown Stripe / S",
+        "Brown Stripe / M",
+        "Brown Stripe / L",
+        "Brown Stripe / XL"
+      ]
+    },
+    "15065328615792": {
+      "id": "15065328615792",
+      "title": "OXFORD SHIRT",
+      "handle": "1110364-oxford-shirt-grey-stripe",
+      "url": "https://ca.stussy.com/products/1110364-oxford-shirt-grey-stripe",
+      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/1110364_GRES_3.jpg?v=1787078897",
+      "available_variants": [
+        "Grey Stripe / XS",
+        "Grey Stripe / S",
+        "Grey Stripe / M",
+        "Grey Stripe / L",
+        "Grey Stripe / XL"
+      ]
+    },
+    "15010537636208": {
+      "id": "15010537636208",
+      "title": "WOOL VARSITY JACKET",
+      "handle": "115968-wool-varsity-jacket-navy",
+      "url": "https://ca.stussy.com/products/115968-wool-varsity-jacket-navy",
+      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/115968_NAVY_5.jpg?v=1787087373",
+      "available_variants": [
+        "Navy / XS",
+        "Navy / S",
+        "Navy / M",
+        "Navy / L",
+        "Navy / XL"
+      ]
+    },
+    "15010582135152": {
+      "id": "15010582135152",
+      "title": "NEW CLASSIC PANT SUEDE",
+      "handle": "116776-new-classic-pant-suede-tan",
+      "url": "https://ca.stussy.com/products/116776-new-classic-pant-suede-tan",
+      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/116776_LBRW_3.jpg?v=1787077365",
+      "available_variants": [
+        "Tan / 28",
+        "Tan / 30",
+        "Tan / 32",
+        "Tan / 36",
+        "Tan / 38"
+      ]
+    },
+    "15010797191536": {
+      "id": "15010797191536",
+      "title": "BRAIDED LEATHER BELT",
+      "handle": "135207-braided-leather-belt-brown",
+      "url": "https://ca.stussy.com/products/135207-braided-leather-belt-brown",
+      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/135207_BROW_1.jpg?v=1781818544",
+      "available_variants": [
+        "Brown / S/M",
+        "Brown / L/XL"
+      ]
+    },
+    "15010771140976": {
+      "id": "15010771140976",
+      "title": "CHENILLE S SNAPBACK CAP",
+      "handle": "1311061-chenille-s-snapback-cap-spruce",
+      "url": "https://ca.stussy.com/products/1311061-chenille-s-snapback-cap-spruce",
+      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/1311061_SPRU_1.jpg?v=1787078130",
+      "available_variants": [
+        "Spruce / ONE SIZE"
+      ]
+    },
+    "15010407088496": {
+      "id": "15010407088496",
+      "title": "CLASSIC PIQUE LS POLO",
+      "handle": "1140411-classic-pique-ls-polo-brown",
+      "url": "https://ca.stussy.com/products/1140411-classic-pique-ls-polo-brown",
+      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/1140411_BROW_3.jpg?v=1787076989",
+      "available_variants": [
+        "Brown / XS",
+        "Brown / S",
+        "Brown / M",
+        "Brown / L",
+        "Brown / XL"
+      ]
+    },
+    "15010407252336": {
+      "id": "15010407252336",
+      "title": "CLASSIC PIQUE LS POLO",
+      "handle": "1140411-classic-pique-ls-polo-navy",
+      "url": "https://ca.stussy.com/products/1140411-classic-pique-ls-polo-navy",
+      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/1140411_NAVY_3.jpg?v=1787077003",
+      "available_variants": [
+        "Navy / XS",
+        "Navy / S",
+        "Navy / M",
+        "Navy / L",
+        "Navy / XL"
+      ]
+    },
+    "15010486878576": {
+      "id": "15010486878576",
+      "title": "FIREMAN JACKET",
+      "handle": "115966-fireman-jacket-bone",
+      "url": "https://ca.stussy.com/products/115966-fireman-jacket-bone",
+      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/115966_BONE_3.jpg?v=1787077277",
+      "available_variants": [
+        "Bone / S",
+        "Bone / M",
+        "Bone / L",
+        "Bone / XL"
+      ]
+    },
+    "15010581938544": {
+      "id": "15010581938544",
+      "title": "BIG OL' JEAN DENIM",
+      "handle": "116768-big-ol-jean-denim-brown-chevron",
+      "url": "https://ca.stussy.com/products/116768-big-ol-jean-denim-brown-chevron",
+      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/116768_BROW_3.jpg?v=1787077351",
+      "available_variants": [
+        "Brown Chevron / 26",
+        "Brown Chevron / 28",
+        "Brown Chevron / 30",
+        "Brown Chevron / 32",
+        "Brown Chevron / 34",
+        "Brown Chevron / 36",
+        "Brown Chevron / 38"
+      ]
+    },
+    "15010448703856": {
+      "id": "15010448703856",
+      "title": "COASTLINE HOODED JACKET",
+      "handle": "115964-coastline-hooded-jacket-black",
+      "url": "https://ca.stussy.com/products/115964-coastline-hooded-jacket-black",
+      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/115964_BLAC_3.jpg?v=1787847979",
+      "available_variants": [
+        "Black / XS",
+        "Black / S",
+        "Black / M",
+        "Black / L",
+        "Black / XL",
+        "Black / XXL"
+      ]
+    },
+    "15010461811056": {
+      "id": "15010461811056",
+      "title": "COASTLINE HOODED JACKET",
+      "handle": "115964-coastline-hooded-jacket-iris",
+      "url": "https://ca.stussy.com/products/115964-coastline-hooded-jacket-iris",
+      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/115964_IRIS_3.jpg?v=1787847994",
+      "available_variants": [
+        "Iris / XS",
+        "Iris / S",
+        "Iris / M",
+        "Iris / L",
+        "Iris / XL"
+      ]
+    },
+    "15095407542640": {
+      "id": "15095407542640",
+      "title": "COASTLINE HOODED JACKET",
+      "handle": "115964-coastline-hooded-jacket-forest",
+      "url": "https://ca.stussy.com/products/115964-coastline-hooded-jacket-forest",
+      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/115964_FORE_3.jpg?v=1787848008",
+      "available_variants": [
+        "Forest / S",
+        "Forest / M",
+        "Forest / L",
+        "Forest / XL",
+        "Forest / XXL"
+      ]
+    },
+    "14834491687280": {
+      "id": "14834491687280",
+      "title": "MATTHEW PRINTED SHIRT",
+      "handle": "1110328-matthew-printed-shirt-navy",
+      "url": "https://ca.stussy.com/products/1110328-matthew-printed-shirt-navy",
+      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/1110328_NAVY_1_336e2b13-e90f-4eac-9411-880d358b6929.jpg?v=1787159418",
+      "available_variants": [
+        "NAVY / XS",
+        "NAVY / S",
+        "NAVY / M",
+        "NAVY / L",
+        "NAVY / XL",
+        "NAVY / XXL"
+      ]
+    },
+    "15142745112944": {
+      "id": "15142745112944",
+      "title": "BLOCK SPORT TEE",
+      "handle": "1905217-block-sport-tee-navy",
+      "url": "https://ca.stussy.com/products/1905217-block-sport-tee-navy",
+      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/1905217_NAVY_1.jpg?v=1787079689",
+      "available_variants": [
+        "Navy / S",
+        "Navy / M",
+        "Navy / L",
+        "Navy / XL"
+      ]
+    },
+    "15142744949104": {
+      "id": "15142744949104",
+      "title": "BLOCK SPORT TEE",
+      "handle": "1905217-block-sport-tee-ash-heather",
+      "url": "https://ca.stussy.com/products/1905217-block-sport-tee-ash-heather",
+      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/1905217_ASHH_1.jpg?v=1787079645",
+      "available_variants": [
+        "Ash Heather / S",
+        "Ash Heather / M"
+      ]
+    },
+    "14895395176816": {
+      "id": "14895395176816",
+      "title": "MEASURING TAPE KEYCHAIN",
+      "handle": "139000-measuring-tape-keychain-black",
+      "url": "https://ca.stussy.com/products/139000-measuring-tape-keychain-black",
+      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/139000_BLAC_1.jpg?v=1785176658",
+      "available_variants": [
+        "Black / ONE SIZE"
+      ]
+    },
+    "15010778186096": {
+      "id": "15010778186096",
+      "title": "QUILTED SURFWALK SNAPBACK CAP",
+      "handle": "1311239-quilted-surfwalk-snapback-cap-black",
+      "url": "https://ca.stussy.com/products/1311239-quilted-surfwalk-snapback-cap-black",
+      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/1311239_BLAC_1.jpg?v=1787078296",
+      "available_variants": [
+        "Black / ONE SIZE"
+      ]
+    },
+    "15010767012208": {
+      "id": "15010767012208",
+      "title": "PLAID LINED ZIP HOODIE",
+      "handle": "118619-plaid-lined-zip-hoodie-black",
+      "url": "https://ca.stussy.com/products/118619-plaid-lined-zip-hoodie-black",
+      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/118619_BLAC_3.jpg?v=1787077904",
+      "available_variants": [
+        "Black / S",
+        "Black / M",
+        "Black / L",
+        "Black / XL",
+        "Black / XXL"
+      ]
+    },
+    "15010767143280": {
+      "id": "15010767143280",
+      "title": "PLAID LINED ZIP HOODIE",
+      "handle": "118619-plaid-lined-zip-hoodie-grey-heather",
+      "url": "https://ca.stussy.com/products/118619-plaid-lined-zip-hoodie-grey-heather",
+      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/118619_GHEA_3.jpg?v=1787077936",
+      "available_variants": [
+        "Grey Heather / S",
+        "Grey Heather / M",
+        "Grey Heather / L",
+        "Grey Heather / XL",
+        "Grey Heather / XXL"
+      ]
+    },
+    "15142742196592": {
+      "id": "15142742196592",
+      "title": "HIGH ROLLERS TEE",
+      "handle": "1905200-high-rollers-tee-faded-black",
+      "url": "https://ca.stussy.com/products/1905200-high-rollers-tee-faded-black",
+      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/1905200_FBLA_1.jpg?v=1787082705",
+      "available_variants": [
+        "Faded Black / M",
+        "Faded Black / L",
+        "Faded Black / XL"
+      ]
+    },
+    "15142742425968": {
+      "id": "15142742425968",
+      "title": "HIGH ROLLERS TEE",
+      "handle": "1905200-high-rollers-tee-natural",
+      "url": "https://ca.stussy.com/products/1905200-high-rollers-tee-natural",
+      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/1905200_NATL_1.jpg?v=1787082751",
+      "available_variants": [
+        "Natural / M",
+        "Natural / L",
+        "Natural / XL"
+      ]
+    },
+    "15010759541104": {
+      "id": "15010759541104",
+      "title": "PIQUE KNIT STRIPE RUGBY",
+      "handle": "117317-pique-knit-stripe-rugby-black",
+      "url": "https://ca.stussy.com/products/117317-pique-knit-stripe-rugby-black",
+      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/117317_BLAC_3.jpg?v=1787077877",
+      "available_variants": [
+        "Black / XS",
+        "Black / S",
+        "Black / M",
+        "Black / L",
+        "Black / XL"
+      ]
+    },
+    "15010759672176": {
+      "id": "15010759672176",
+      "title": "PIQUE KNIT STRIPE RUGBY",
+      "handle": "117317-pique-knit-stripe-rugby-olive",
+      "url": "https://ca.stussy.com/products/117317-pique-knit-stripe-rugby-olive",
+      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/117317_OLIV_3.jpg?v=1787077891",
+      "available_variants": [
+        "Olive / XS",
+        "Olive / S",
+        "Olive / M",
+        "Olive / L",
+        "Olive / XL"
+      ]
+    },
+    "15010777039216": {
+      "id": "15010777039216",
+      "title": "LEATHER BASIC STÜSSY CAP",
+      "handle": "1311233-leather-basic-stussy-cap-black",
+      "url": "https://ca.stussy.com/products/1311233-leather-basic-stussy-cap-black",
+      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/1311233_BLAC_1.jpg?v=1787078263",
+      "available_variants": [
+        "Black / ONE SIZE"
+      ]
+    },
+    "15010768912752": {
+      "id": "15010768912752",
+      "title": "DOUBLE FACED ZIP HOODIE",
+      "handle": "118624-double-faced-zip-hoodie-ash-heather",
+      "url": "https://ca.stussy.com/products/118624-double-faced-zip-hoodie-ash-heather",
+      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/118624_ASHH_3.jpg?v=1787173818",
+      "available_variants": [
+        "Ash Heather / XS",
+        "Ash Heather / S",
+        "Ash Heather / M",
+        "Ash Heather / L",
+        "Ash Heather / XL"
+      ]
+    },
+    "15010769142128": {
+      "id": "15010769142128",
+      "title": "DOUBLE FACED ZIP HOODIE",
+      "handle": "118624-double-faced-zip-hoodie-black",
+      "url": "https://ca.stussy.com/products/118624-double-faced-zip-hoodie-black",
+      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/118624_BLAC_3.jpg?v=1787173832",
+      "available_variants": [
+        "Black / XS",
+        "Black / S",
+        "Black / M",
+        "Black / L",
+        "Black / XL",
+        "Black / XXL"
+      ]
+    },
+    "15010770387312": {
+      "id": "15010770387312",
+      "title": "DOUBLE FACED ZIP HOODIE",
+      "handle": "118624-double-faced-zip-hoodie-navy",
+      "url": "https://ca.stussy.com/products/118624-double-faced-zip-hoodie-navy",
+      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/118624_NAVY_3.jpg?v=1787078084",
+      "available_variants": [
+        "Navy / XS",
+        "Navy / S",
+        "Navy / M",
+        "Navy / L",
+        "Navy / XL"
+      ]
+    },
+    "15142742720880": {
+      "id": "15142742720880",
+      "title": "SMOOTH SK8 TEE",
+      "handle": "1905201-smooth-sk8-tee-black",
+      "url": "https://ca.stussy.com/products/1905201-smooth-sk8-tee-black",
+      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/1905201_BLAC_1.jpg?v=1787082810",
+      "available_variants": [
+        "Black / S",
+        "Black / M",
+        "Black / L",
+        "Black / XL"
+      ]
+    },
+    "15142742851952": {
+      "id": "15142742851952",
+      "title": "SMOOTH SK8 TEE",
+      "handle": "1905201-smooth-sk8-tee-navy",
+      "url": "https://ca.stussy.com/products/1905201-smooth-sk8-tee-navy",
+      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/1905201_NAVY_1.jpg?v=1787082824",
+      "available_variants": [
+        "Navy / S",
+        "Navy / M",
+        "Navy / L",
+        "Navy / XL",
+        "Navy / XXL"
+      ]
+    },
+    "15010584658288": {
+      "id": "15010584658288",
+      "title": "UNIFORM PANT",
+      "handle": "116783-uniform-pant-black",
+      "url": "https://ca.stussy.com/products/116783-uniform-pant-black",
+      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/116783_BLAC_3.jpg?v=1787077397",
+      "available_variants": [
+        "Black / 26",
+        "Black / 28",
+        "Black / 30",
+        "Black / 32",
+        "Black / 34"
+      ]
+    },
+    "15010585018736": {
+      "id": "15010585018736",
+      "title": "UNIFORM PANT",
+      "handle": "116783-uniform-pant-bone",
+      "url": "https://ca.stussy.com/products/116783-uniform-pant-bone",
+      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/116783_BONE_3.jpg?v=1787173652",
+      "available_variants": [
+        "Bone / 28",
+        "Bone / 30",
+        "Bone / 32",
+        "Bone / 34",
+        "Bone / 36",
+        "Bone / 38"
+      ]
+    },
+    "15065341264240": {
+      "id": "15065341264240",
+      "title": "SPADE EMBLEM BELT",
+      "handle": "135214-spade-emblem-belt-hairy-navy",
+      "url": "https://ca.stussy.com/products/135214-spade-emblem-belt-hairy-navy",
+      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/135214_HAIN_1.jpg?v=1787082678",
+      "available_variants": [
+        "Hairy Navy / S/M",
+        "Hairy Navy / L/XL"
+      ]
+    },
+    "15010772648304": {
+      "id": "15010772648304",
+      "title": "9TWENTY WASHED BASIC TRUCKER",
+      "handle": "1311164-9twenty-washed-basic-trucker-woodland-camo",
+      "url": "https://ca.stussy.com/products/1311164-9twenty-washed-basic-trucker-woodland-camo",
+      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/1311164_WOCA_1.jpg?v=1787078205",
+      "available_variants": [
+        "Woodland Camo / ONE SIZE"
+      ]
+    },
+    "15010361114992": {
+      "id": "15010361114992",
+      "title": "DENIM WESTERN SHIRT",
+      "handle": "1110394-denim-western-shirt-dark-denim",
+      "url": "https://ca.stussy.com/products/1110394-denim-western-shirt-dark-denim",
+      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/1110394_DADE_3.jpg?v=1787076646",
+      "available_variants": [
+        "Dark Denim / XS",
+        "Dark Denim / S",
+        "Dark Denim / M",
+        "Dark Denim / L",
+        "Dark Denim / XL",
+        "Dark Denim / XXL"
+      ]
+    },
+    "15010378776944": {
+      "id": "15010378776944",
+      "title": "DENIM WESTERN SHIRT",
+      "handle": "1110394-denim-western-shirt-light-denim",
+      "url": "https://ca.stussy.com/products/1110394-denim-western-shirt-light-denim",
+      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/1110394_LIDE_3.jpg?v=1787076676",
+      "available_variants": [
+        "Light Denim / XS",
+        "Light Denim / S",
+        "Light Denim / M",
+        "Light Denim / L",
+        "Light Denim / XL",
+        "Light Denim / XXL"
+      ]
+    },
+    "15010756952432": {
+      "id": "15010756952432",
+      "title": "STRIPED HIBISCUS SWEATER",
+      "handle": "117305-striped-hibiscus-sweater-black",
+      "url": "https://ca.stussy.com/products/117305-striped-hibiscus-sweater-black",
+      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/117305_BLAC_3.jpg?v=1787077696",
+      "available_variants": [
+        "Black / XS",
+        "Black / S",
+        "Black / M",
+        "Black / L",
+        "Black / XL"
+      ]
+    },
+    "15010757149040": {
+      "id": "15010757149040",
+      "title": "STRIPED HIBISCUS SWEATER",
+      "handle": "117305-striped-hibiscus-sweater-grey",
+      "url": "https://ca.stussy.com/products/117305-striped-hibiscus-sweater-grey",
+      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/117305_GREY_3.jpg?v=1787077710",
+      "available_variants": [
+        "Grey / XS",
+        "Grey / S",
+        "Grey / M",
+        "Grey / L",
+        "Grey / XL"
+      ]
+    },
+    "15010756329840": {
+      "id": "15010756329840",
+      "title": "BEACH HOODED SWEATER",
+      "handle": "117298-beach-hooded-sweater-green",
+      "url": "https://ca.stussy.com/products/117298-beach-hooded-sweater-green",
+      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/117298_GREN_3.jpg?v=1787173759",
+      "available_variants": [
+        "Green / XS",
+        "Green / S",
+        "Green / M",
+        "Green / L",
+        "Green / XL"
+      ]
+    },
+    "15010756231536": {
+      "id": "15010756231536",
+      "title": "BEACH HOODED SWEATER",
+      "handle": "117298-beach-hooded-sweater-black",
+      "url": "https://ca.stussy.com/products/117298-beach-hooded-sweater-black",
+      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/117298_BLAC_3.jpg?v=1787173726",
+      "available_variants": [
+        "Black / S",
+        "Black / M",
+        "Black / L",
+        "Black / XL"
+      ]
+    },
+    "15010756428144": {
+      "id": "15010756428144",
+      "title": "BEACH HOODED SWEATER",
+      "handle": "117298-beach-hooded-sweater-oatmeal",
+      "url": "https://ca.stussy.com/products/117298-beach-hooded-sweater-oatmeal",
+      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/117298_OATM_3.jpg?v=1787173773",
+      "available_variants": [
+        "Oatmeal / S",
+        "Oatmeal / M",
+        "Oatmeal / L",
+        "Oatmeal / XL"
+      ]
+    },
+    "15065342574960": {
+      "id": "15065342574960",
+      "title": "ARGYLE LEATHER BELT",
+      "handle": "135215-argyle-leather-belt-lime",
+      "url": "https://ca.stussy.com/products/135215-argyle-leather-belt-lime",
+      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/135215_LIME_1.jpg?v=1787079223",
+      "available_variants": [
+        "Lime / S/M",
+        "Lime / L/XL"
+      ]
+    },
+    "15010789196144": {
+      "id": "15010789196144",
+      "title": "CLASSIC SPORT SKULLCAP",
+      "handle": "1321271-classic-sport-skullcap-navy",
+      "url": "https://ca.stussy.com/products/1321271-classic-sport-skullcap-navy",
+      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/1321271_NAVY_1.jpg?v=1787078538",
+      "available_variants": [
+        "Navy / ONE SIZE"
+      ]
+    },
+    "14857316696432": {
+      "id": "14857316696432",
+      "title": "MATTHEW PRINTED SHIRT",
+      "handle": "1110368-matthew-printed-shirt-brown",
+      "url": "https://ca.stussy.com/products/1110368-matthew-printed-shirt-brown",
+      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/1110368_BROW_3.jpg?v=1787082644",
+      "available_variants": [
+        "Brown / XS",
+        "Brown / S",
+        "Brown / M",
+        "Brown / L",
+        "Brown / XL",
+        "Brown / XXL"
+      ]
+    },
+    "14857316630896": {
+      "id": "14857316630896",
+      "title": "MATTHEW PRINTED SHIRT",
+      "handle": "1110368-matthew-printed-shirt-lt-blue",
+      "url": "https://ca.stussy.com/products/1110368-matthew-printed-shirt-lt-blue",
+      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/1110368_LTBL_3.jpg?v=1787159433",
+      "available_variants": [
+        "Light Blue / XS",
+        "Light Blue / S",
+        "Light Blue / M",
+        "Light Blue / L",
+        "Light Blue / XL",
+        "Light Blue / XXL"
+      ]
+    },
+    "15142743277936": {
+      "id": "15142743277936",
+      "title": "DICE CLOCK TEE",
+      "handle": "1905202-dice-clock-tee-black",
+      "url": "https://ca.stussy.com/products/1905202-dice-clock-tee-black",
+      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/1905202_BLAC_1.jpg?v=1787079583",
+      "available_variants": [
+        "Black / S",
+        "Black / M",
+        "Black / L",
+        "Black / XL"
+      ]
+    },
+    "15142743409008": {
+      "id": "15142743409008",
+      "title": "DICE CLOCK TEE",
+      "handle": "1905202-dice-clock-tee-white",
+      "url": "https://ca.stussy.com/products/1905202-dice-clock-tee-white",
+      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/1905202_WHIT_1.jpg?v=1787079632",
+      "available_variants": [
+        "White / S",
+        "White / M",
+        "White / L",
+        "White / XL"
+      ]
+    },
+    "14855117570416": {
+      "id": "14855117570416",
+      "title": "SOFT SHELL JACKET",
+      "handle": "115908-soft-shell-jacket-black",
+      "url": "https://ca.stussy.com/products/115908-soft-shell-jacket-black",
+      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/115908_BLAC_5.jpg?v=1787076496",
+      "available_variants": [
+        "Black / S",
+        "Black / M",
+        "Black / L",
+        "Black / XL",
+        "Black / XXL"
+      ]
+    },
+    "14855117668720": {
+      "id": "14855117668720",
+      "title": "SOFT SHELL JACKET",
+      "handle": "115908-soft-shell-jacket-coyote",
+      "url": "https://ca.stussy.com/products/115908-soft-shell-jacket-coyote",
+      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/115908_COYO_3.jpg?v=1787076510",
+      "available_variants": [
+        "Coyote / S",
+        "Coyote / M",
+        "Coyote / L",
+        "Coyote / XL",
+        "Coyote / XXL"
+      ]
+    },
+    "15133169779056": {
+      "id": "15133169779056",
+      "title": "VOILE STRAP VARIETY PACK",
+      "handle": "338448-voile-strap-variety-pack-multi",
+      "url": "https://ca.stussy.com/products/338448-voile-strap-variety-pack-multi",
+      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/338448_MULT_1.jpg?v=1787272426",
+      "available_variants": [
+        "Multi / ONE SIZE"
+      ]
+    },
+    "15010412331376": {
+      "id": "15010412331376",
+      "title": "TOURING JACKET",
+      "handle": "115958-touring-jacket-snow-camo",
+      "url": "https://ca.stussy.com/products/115958-touring-jacket-snow-camo",
+      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/115958_SNOW_3.jpg?v=1787077187",
+      "available_variants": [
+        "Snow Camo / M",
+        "Snow Camo / L",
+        "Snow Camo / XL"
+      ]
+    },
+    "15010767438192": {
+      "id": "15010767438192",
+      "title": "PANELED STRIPE CREW",
+      "handle": "118621-paneled-stripe-crew-black",
+      "url": "https://ca.stussy.com/products/118621-paneled-stripe-crew-black",
+      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/118621_BLAC_3.jpg?v=1787077950",
+      "available_variants": [
+        "Black / M",
+        "Black / XL"
+      ]
+    },
+    "15010767634800": {
+      "id": "15010767634800",
+      "title": "PANELED STRIPE CREW",
+      "handle": "118621-paneled-stripe-crew-navy",
+      "url": "https://ca.stussy.com/products/118621-paneled-stripe-crew-navy",
+      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/118621_NAVY_3.jpg?v=1787077963",
+      "available_variants": [
+        "Navy / S"
+      ]
+    },
+    "15184006283632": {
+      "id": "15184006283632",
+      "title": "8 BALL TEE",
+      "handle": "1905022-8-ball-tee-midnight",
+      "url": "https://ca.stussy.com/products/1905022-8-ball-tee-midnight",
+      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/1905022_MIDN_1.jpg?v=1787079811",
+      "available_variants": [
+        "Midnight / S",
+        "Midnight / M",
+        "Midnight / L",
+        "Midnight / XL",
+        "Midnight / XXL"
+      ]
+    },
+    "15184006742384": {
+      "id": "15184006742384",
+      "title": "8 BALL TEE",
+      "handle": "1905022-8-ball-tee-red",
+      "url": "https://ca.stussy.com/products/1905022-8-ball-tee-red",
+      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/1905022_REDD_1.jpg?v=1787079824",
+      "available_variants": [
+        "Red / S",
+        "Red / M",
+        "Red / L",
+        "Red / XL",
+        "Red / XXL"
+      ]
+    },
+    "15010669625712": {
+      "id": "15010669625712",
+      "title": "SPORT FLEECE PANT",
+      "handle": "116791-sport-fleece-pant-navy",
+      "url": "https://ca.stussy.com/products/116791-sport-fleece-pant-navy",
+      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/116791_NAVY_3.jpg?v=1787077544",
+      "available_variants": [
+        "Navy / S",
+        "Navy / M",
+        "Navy / XL"
+      ]
+    },
+    "15010643181936": {
+      "id": "15010643181936",
+      "title": "SPORT FLEECE PANT",
+      "handle": "116791-sport-fleece-pant-ash-heather",
+      "url": "https://ca.stussy.com/products/116791-sport-fleece-pant-ash-heather",
+      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/116791_ASHH_3.jpg?v=1787077517",
+      "available_variants": [
+        "Ash Heather / M",
+        "Ash Heather / L",
+        "Ash Heather / XL"
+      ]
+    },
+    "15010657075568": {
+      "id": "15010657075568",
+      "title": "SPORT FLEECE PANT",
+      "handle": "116791-sport-fleece-pant-black",
+      "url": "https://ca.stussy.com/products/116791-sport-fleece-pant-black",
+      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/116791_BLAC_3.jpg?v=1787077530",
+      "available_variants": [
+        "Black / S",
+        "Black / M",
+        "Black / L",
+        "Black / XL",
+        "Black / XXL"
+      ]
+    },
+    "15010790834544": {
+      "id": "15010790834544",
+      "title": "BASIC CAMO KNIT SKULLCAP",
+      "handle": "1321278-basic-camo-knit-skullcap-yellow-camo",
+      "url": "https://ca.stussy.com/products/1321278-basic-camo-knit-skullcap-yellow-camo",
+      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/1321278_YECA_1.jpg?v=1787078718",
+      "available_variants": [
+        "Yellow Camo / ONE SIZE"
+      ]
+    },
+    "15010408235376": {
+      "id": "15010408235376",
+      "title": "LIGHTWEIGHT MOCK JACKET",
+      "handle": "115902-lightweight-mock-jacket-khaki",
+      "url": "https://ca.stussy.com/products/115902-lightweight-mock-jacket-khaki",
+      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/115902_KHAK_3.jpg?v=1787153477",
+      "available_variants": [
+        "Khaki / S",
+        "Khaki / M",
+        "Khaki / L",
+        "Khaki / XL"
+      ]
+    },
+    "15010408071536": {
+      "id": "15010408071536",
+      "title": "LIGHTWEIGHT MOCK JACKET",
+      "handle": "115902-lightweight-mock-jacket-bone",
+      "url": "https://ca.stussy.com/products/115902-lightweight-mock-jacket-bone",
+      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/115902_BONE_3.jpg?v=1787077037",
+      "available_variants": [
+        "Bone / S",
+        "Bone / M",
+        "Bone / L",
+        "Bone / XL",
+        "Bone / XXL"
+      ]
+    },
+    "15142741901680": {
+      "id": "15142741901680",
+      "title": "SNAKESKIN TEE",
+      "handle": "1905199-snakeskin-tee-black",
+      "url": "https://ca.stussy.com/products/1905199-snakeskin-tee-black",
+      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/1905199_BLAC_1.jpg?v=1787079523",
+      "available_variants": [
+        "Black / S",
+        "Black / M",
+        "Black / L",
+        "Black / XL"
+      ]
+    },
+    "15142742098288": {
+      "id": "15142742098288",
+      "title": "SNAKESKIN TEE",
+      "handle": "1905199-snakeskin-tee-white",
+      "url": "https://ca.stussy.com/products/1905199-snakeskin-tee-white",
+      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/1905199_WHIT_1.jpg?v=1787079556",
+      "available_variants": [
+        "White / S",
+        "White / M",
+        "White / L",
+        "White / XL"
+      ]
+    },
+    "15065334907248": {
+      "id": "15065334907248",
+      "title": "WAFFLE CASHMERE SWEATER",
+      "handle": "117257-waffle-cashmere-sweater-charcoal",
+      "url": "https://ca.stussy.com/products/117257-waffle-cashmere-sweater-charcoal",
+      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/117257_CHAR_3.jpg?v=1787079031",
+      "available_variants": [
+        "Charcoal / XS",
+        "Charcoal / M",
+        "Charcoal / L",
+        "Charcoal / XL"
+      ]
+    },
+    "15133161750896": {
+      "id": "15133161750896",
+      "title": "PAJAMA PANT",
+      "handle": "116802-pajama-pant-plaid",
+      "url": "https://ca.stussy.com/products/116802-pajama-pant-plaid",
+      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/116802_PLAD_3.jpg?v=1787079345",
+      "available_variants": [
+        "Plaid / XS",
+        "Plaid / S",
+        "Plaid / M",
+        "Plaid / L"
+      ]
+    },
+    "15010791293296": {
+      "id": "15010791293296",
+      "title": "BRUSHED OUT BASIC SKULLCAP",
+      "handle": "1321279-brushed-out-basic-skullcap-plum",
+      "url": "https://ca.stussy.com/products/1321279-brushed-out-basic-skullcap-plum",
+      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/1321279_PLUM_1.jpg?v=1787078790",
+      "available_variants": [
+        "Plum / ONE SIZE"
+      ]
+    },
+    "15065331073392": {
+      "id": "15065331073392",
+      "title": "LIGHTWEIGHT THERMAL HOODIE",
+      "handle": "1140410-lightweight-thermal-hoodie-lime",
+      "url": "https://ca.stussy.com/products/1140410-lightweight-thermal-hoodie-lime",
+      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/1140410_LIME_3.jpg?v=1787078925",
+      "available_variants": [
+        "Lime / XS",
+        "Lime / S",
+        "Lime / M",
+        "Lime / L",
+        "Lime / XL"
+      ]
+    },
+    "15184009593200": {
+      "id": "15184009593200",
+      "title": "8 BALL ZIP HOODIE",
+      "handle": "1975103-8-ball-zip-hoodie-navy",
+      "url": "https://ca.stussy.com/products/1975103-8-ball-zip-hoodie-navy",
+      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/1975103_NAVY_1.jpg?v=1787243324",
+      "available_variants": []
+    },
+    "15010408497520": {
+      "id": "15010408497520",
+      "title": "RIPSTOP WORK JACKET",
+      "handle": "115945-ripstop-work-jacket-black",
+      "url": "https://ca.stussy.com/products/115945-ripstop-work-jacket-black",
+      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/115945_BLAC_3.jpg?v=1787173547",
+      "available_variants": [
+        "Black / XS",
+        "Black / S",
+        "Black / M",
+        "Black / L",
+        "Black / XL",
+        "Black / XXL"
+      ]
+    },
+    "15010408792432": {
+      "id": "15010408792432",
+      "title": "RIPSTOP WORK JACKET",
+      "handle": "115945-ripstop-work-jacket-woodland-camo",
+      "url": "https://ca.stussy.com/products/115945-ripstop-work-jacket-woodland-camo",
+      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/115945_WOCA_3.jpg?v=1787077126",
+      "available_variants": [
+        "Woodland Camo / M",
+        "Woodland Camo / L"
+      ]
+    },
+    "15010408628592": {
+      "id": "15010408628592",
+      "title": "RIPSTOP WORK JACKET",
+      "handle": "115945-ripstop-work-jacket-burgundy",
+      "url": "https://ca.stussy.com/products/115945-ripstop-work-jacket-burgundy",
+      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/115945_BURG_3.jpg?v=1787077112",
+      "available_variants": [
+        "Burgundy / XS",
+        "Burgundy / S"
+      ]
+    },
+    "15010789523824": {
+      "id": "15010789523824",
+      "title": "DOUBLE STRIPE SKULLCAP",
+      "handle": "1321272-double-stripe-skullcap-black",
+      "url": "https://ca.stussy.com/products/1321272-double-stripe-skullcap-black",
+      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/1321272_BLAC_1.jpg?v=1787078552",
+      "available_variants": [
+        "Black / ONE SIZE"
+      ]
+    },
+    "15010396897648": {
+      "id": "15010396897648",
+      "title": "LS RINGER TEE",
+      "handle": "1140400-ls-ringer-tee-ink",
+      "url": "https://ca.stussy.com/products/1140400-ls-ringer-tee-ink",
+      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/1140400_INKK_3.jpg?v=1787076917",
+      "available_variants": [
+        "Ink / XS",
+        "Ink / S",
+        "Ink / M",
+        "Ink / L",
+        "Ink / XL",
+        "Ink / XXL"
+      ]
+    },
+    "15010397061488": {
+      "id": "15010397061488",
+      "title": "LS RINGER TEE",
+      "handle": "1140400-ls-ringer-tee-white",
+      "url": "https://ca.stussy.com/products/1140400-ls-ringer-tee-white",
+      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/1140400_WHIT_3.jpg?v=1787076935",
+      "available_variants": [
+        "White / S",
+        "White / M",
+        "White / L",
+        "White / XL",
+        "White / XXL"
+      ]
+    },
+    "15010395062640": {
+      "id": "15010395062640",
+      "title": "LS RINGER TEE",
+      "handle": "1140400-ls-ringer-tee-green",
+      "url": "https://ca.stussy.com/products/1140400-ls-ringer-tee-green",
+      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/1140400_GREN_3.jpg?v=1787076884",
+      "available_variants": [
+        "Green / XS",
+        "Green / S",
+        "Green / M",
+        "Green / L",
+        "Green / XL",
+        "Green / XXL"
+      ]
+    },
+    "15010780545392": {
+      "id": "15010780545392",
+      "title": "S CROWN TRUCKER",
+      "handle": "1311256-s-crown-trucker-navy",
+      "url": "https://ca.stussy.com/products/1311256-s-crown-trucker-navy",
+      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/1311256_NAVY_1.jpg?v=1787078385",
+      "available_variants": [
+        "Navy / ONE SIZE"
+      ]
+    },
+    "15010755936624": {
+      "id": "15010755936624",
+      "title": "WAFFLE CASHMERE ZIP HOOD SWEATER",
+      "handle": "117274-waffle-cashmere-zip-hood-sweater-deep-navy",
+      "url": "https://ca.stussy.com/products/117274-waffle-cashmere-zip-hood-sweater-deep-navy",
+      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/117274_DNAV_3.jpg?v=1787077590",
+      "available_variants": [
+        "Deep Navy / S",
+        "Deep Navy / M",
+        "Deep Navy / L",
+        "Deep Navy / XL",
+        "Deep Navy / XXL"
+      ]
+    },
+    "15142746489200": {
+      "id": "15142746489200",
+      "title": "SNAKESKIN ZIP HOODIE",
+      "handle": "1975199-snakeskin-zip-hoodie-black",
+      "url": "https://ca.stussy.com/products/1975199-snakeskin-zip-hoodie-black",
+      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/1975199_BLAC_1.jpg?v=1787082977",
+      "available_variants": [
+        "Black / S",
+        "Black / M",
+        "Black / L",
+        "Black / XL"
+      ]
+    },
+    "15142746390896": {
+      "id": "15142746390896",
+      "title": "SNAKESKIN ZIP HOODIE",
+      "handle": "1975199-snakeskin-zip-hoodie-ash-heather",
+      "url": "https://ca.stussy.com/products/1975199-snakeskin-zip-hoodie-ash-heather",
+      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/1975199_ASHH_1.jpg?v=1787082944",
+      "available_variants": [
+        "Ash Heather / S",
+        "Ash Heather / M",
+        "Ash Heather / L",
+        "Ash Heather / XL"
+      ]
+    },
+    "15010770616688": {
+      "id": "15010770616688",
+      "title": "59FIFTY SWIRLY S CAP",
+      "handle": "1311008-59fifty-swirly-s-cap-navy",
+      "url": "https://ca.stussy.com/products/1311008-59fifty-swirly-s-cap-navy",
+      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/1311008_NAVY_1.jpg?v=1787087432",
+      "available_variants": [
+        "Navy / 73/4"
+      ]
+    },
+    "15010756067696": {
+      "id": "15010756067696",
+      "title": "TEXTURED CARDIGAN",
+      "handle": "117291-textured-cardigan-navy-brown",
+      "url": "https://ca.stussy.com/products/117291-textured-cardigan-navy-brown",
+      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/117291_NABR_4.jpg?v=1787077604",
+      "available_variants": [
+        "Navy Brown / XS",
+        "Navy Brown / S",
+        "Navy Brown / M",
+        "Navy Brown / L",
+        "Navy Brown / XL",
+        "Navy Brown / XXL"
+      ]
+    },
+    "15010390442352": {
+      "id": "15010390442352",
+      "title": "BASIC STÜSSY THERMAL",
+      "handle": "1140356-basic-stussy-thermal-brown",
+      "url": "https://ca.stussy.com/products/1140356-basic-stussy-thermal-brown",
+      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/1140356_BROW_1.jpg?v=1787173532",
+      "available_variants": [
+        "Brown / XS",
+        "Brown / S",
+        "Brown / M",
+        "Brown / L",
+        "Brown / XL",
+        "Brown / XXL"
+      ]
+    },
+    "15010390802800": {
+      "id": "15010390802800",
+      "title": "BASIC STÜSSY THERMAL",
+      "handle": "1140356-basic-stussy-thermal-tree-bark-camo",
+      "url": "https://ca.stussy.com/products/1140356-basic-stussy-thermal-tree-bark-camo",
+      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/1140356_TBAC_1.jpg?v=1787076870",
+      "available_variants": [
+        "Tree Bark Camo / XS",
+        "Tree Bark Camo / S",
+        "Tree Bark Camo / M",
+        "Tree Bark Camo / L",
+        "Tree Bark Camo / XL",
+        "Tree Bark Camo / XXL"
+      ]
+    },
+    "15010406826352": {
+      "id": "15010406826352",
+      "title": "CLASSIC PIQUE LS POLO",
+      "handle": "1140411-classic-pique-ls-polo-black",
+      "url": "https://ca.stussy.com/products/1140411-classic-pique-ls-polo-black",
+      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/1140411_BLAC_3.jpg?v=1787076949",
+      "available_variants": [
+        "Black / XS",
+        "Black / S",
+        "Black / M",
+        "Black / L",
+        "Black / XL",
+        "Black / XXL"
+      ]
+    },
+    "15010406957424": {
+      "id": "15010406957424",
+      "title": "CLASSIC PIQUE LS POLO",
+      "handle": "1140411-classic-pique-ls-polo-bone",
+      "url": "https://ca.stussy.com/products/1140411-classic-pique-ls-polo-bone",
+      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/1140411_BONE_3.jpg?v=1787076976",
+      "available_variants": [
+        "Bone / XS",
+        "Bone / S",
+        "Bone / M",
+        "Bone / L",
+        "Bone / XL",
+        "Bone / XXL"
+      ]
+    },
+    "15010385887600": {
+      "id": "15010385887600",
+      "title": "JERSEY SHORT",
+      "handle": "112334u-jersey-short-stone",
+      "url": "https://ca.stussy.com/products/112334u-jersey-short-stone",
+      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/112334U_STON_3.jpg?v=1787076797",
+      "available_variants": [
+        "Stone / S",
+        "Stone / L"
+      ]
+    },
+    "15010385723760": {
+      "id": "15010385723760",
+      "title": "JERSEY SHORT",
+      "handle": "112334u-jersey-short-pink",
+      "url": "https://ca.stussy.com/products/112334u-jersey-short-pink",
+      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/112334U_PINK_3.jpg?v=1787076764",
+      "available_variants": [
+        "Pink / S"
+      ]
+    },
+    "15010757673328": {
+      "id": "15010757673328",
+      "title": "MESH PRINT SWEATER",
+      "handle": "117313-mesh-print-sweater-mesh-net",
+      "url": "https://ca.stussy.com/products/117313-mesh-print-sweater-mesh-net",
+      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/117313_MENE_3.jpg?v=1787077724",
+      "available_variants": [
+        "Mesh Net / S",
+        "Mesh Net / M",
+        "Mesh Net / L",
+        "Mesh Net / XL",
+        "Mesh Net / XXL"
+      ]
+    },
+    "15010792341872": {
+      "id": "15010792341872",
+      "title": "TEXTURED KNIT SKULLCAP",
+      "handle": "1321283-textured-knit-skullcap-black",
+      "url": "https://ca.stussy.com/products/1321283-textured-knit-skullcap-black",
+      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/1321283_BLAC_1.jpg?v=1787078803",
+      "available_variants": [
+        "Black / ONE SIZE"
+      ]
+    },
+    "15010790048112": {
+      "id": "15010790048112",
+      "title": "STRIPE SKI BEANIE",
+      "handle": "1321276-stripe-ski-beanie-blue",
+      "url": "https://ca.stussy.com/products/1321276-stripe-ski-beanie-blue",
+      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/1321276_BLUE_1.jpg?v=1787078623",
+      "available_variants": [
+        "Blue / ONE SIZE"
+      ]
+    }
+  }
 }
