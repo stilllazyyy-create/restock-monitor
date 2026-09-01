@@ -887,9 +887,7 @@
       "handle": "118621-paneled-stripe-crew-navy",
       "url": "https://ca.stussy.com/products/118621-paneled-stripe-crew-navy",
       "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/118621_NAVY_3.jpg?v=1787077963",
-      "available_variants": [
-        "Navy / S"
-      ]
+      "available_variants": []
     },
     "15184006283632": {
       "id": "15184006283632",
@@ -1197,8 +1195,7 @@
       "available_variants": [
         "Black / S",
         "Black / M",
-        "Black / L",
-        "Black / XL"
+        "Black / L"
       ]
     },
     "15142746390896": {
