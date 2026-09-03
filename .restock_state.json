@@ -17,7 +17,6 @@
     "14895395176816",
     "15010361114992",
     "15010378776944",
-    "15010385723760",
     "15010385887600",
     "15010390442352",
     "15010390802800",
@@ -31,7 +30,6 @@
     "15010408071536",
     "15010408235376",
     "15010408497520",
-    "15010408628592",
     "15010408792432",
     "15010412331376",
     "15010448703856",
@@ -63,12 +61,10 @@
     "15010759672176",
     "15010767012208",
     "15010767143280",
-    "15010767438192",
     "15010767634800",
     "15010768912752",
     "15010769142128",
     "15010770387312",
-    "15010770616688",
     "15010771140976",
     "15010772648304",
     "15010777039216",
@@ -101,9 +97,6 @@
     "15142744949104",
     "15142745112944",
     "15142746390896",
-    "15142746489200",
-    "15173202411888",
-    "15173203394928",
     "15184006283632",
     "15184006742384",
     "15184009593200"
@@ -117,22 +110,6 @@
   "variant_52349784195440": false,
   "variant_52349784228208": false,
   "new_arrivals_product_data": {
-    "15173203394928": {
-      "id": "15173203394928",
-      "title": "JUNYA VENUS TEE",
-      "handle": "wrt903100-junya-venus-tee-black",
-      "url": "https://ca.stussy.com/products/wrt903100-junya-venus-tee-black",
-      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/WRT903100_BLAC_1.jpg?v=1787588371",
-      "available_variants": []
-    },
-    "15173202411888": {
-      "id": "15173202411888",
-      "title": "JUNYA SURFMAN TEE",
-      "handle": "wrt901100-junya-surfman-tee-black",
-      "url": "https://ca.stussy.com/products/wrt901100-junya-surfman-tee-black",
-      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/WRT901100_BLAC_1.jpg?v=1787588357",
-      "available_variants": []
-    },
     "15010552152432": {
       "id": "15010552152432",
       "title": "LEATHER DUSTER",
@@ -863,16 +840,6 @@
         "Snow Camo / L"
       ]
     },
-    "15010767438192": {
-      "id": "15010767438192",
-      "title": "PANELED STRIPE CREW",
-      "handle": "118621-paneled-stripe-crew-black",
-      "url": "https://ca.stussy.com/products/118621-paneled-stripe-crew-black",
-      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/118621_BLAC_3.jpg?v=1787077950",
-      "available_variants": [
-        "Black / XL"
-      ]
-    },
     "15010767634800": {
       "id": "15010767634800",
       "title": "PANELED STRIPE CREW",
@@ -1083,17 +1050,6 @@
         "Woodland Camo / L"
       ]
     },
-    "15010408628592": {
-      "id": "15010408628592",
-      "title": "RIPSTOP WORK JACKET",
-      "handle": "115945-ripstop-work-jacket-burgundy",
-      "url": "https://ca.stussy.com/products/115945-ripstop-work-jacket-burgundy",
-      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/115945_BURG_3.jpg?v=1787077112",
-      "available_variants": [
-        "Burgundy / XS",
-        "Burgundy / S"
-      ]
-    },
     "15010789523824": {
       "id": "15010789523824",
       "title": "DOUBLE STRIPE SKULLCAP",
@@ -1170,16 +1126,6 @@
         "Deep Navy / XXL"
       ]
     },
-    "15142746489200": {
-      "id": "15142746489200",
-      "title": "SNAKESKIN ZIP HOODIE",
-      "handle": "1975199-snakeskin-zip-hoodie-black",
-      "url": "https://ca.stussy.com/products/1975199-snakeskin-zip-hoodie-black",
-      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/1975199_BLAC_1.jpg?v=1787082977",
-      "available_variants": [
-        "Black / S"
-      ]
-    },
     "15142746390896": {
       "id": "15142746390896",
       "title": "SNAKESKIN ZIP HOODIE",
@@ -1190,16 +1136,6 @@
         "Ash Heather / M",
         "Ash Heather / L",
         "Ash Heather / XL"
-      ]
-    },
-    "15010770616688": {
-      "id": "15010770616688",
-      "title": "59FIFTY SWIRLY S CAP",
-      "handle": "1311008-59fifty-swirly-s-cap-navy",
-      "url": "https://ca.stussy.com/products/1311008-59fifty-swirly-s-cap-navy",
-      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/1311008_NAVY_1.jpg?v=1787087432",
-      "available_variants": [
-        "Navy / 73/4"
       ]
     },
     "15010756067696": {
@@ -1282,16 +1218,6 @@
       "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/112334U_STON_3.jpg?v=1787076797",
       "available_variants": [
         "Stone / L"
-      ]
-    },
-    "15010385723760": {
-      "id": "15010385723760",
-      "title": "JERSEY SHORT",
-      "handle": "112334u-jersey-short-pink",
-      "url": "https://ca.stussy.com/products/112334u-jersey-short-pink",
-      "image": "https://cdn.shopify.com/s/files/1/0499/8427/4586/files/112334U_PINK_3.jpg?v=1787076764",
-      "available_variants": [
-        "Pink / S"
       ]
     },
     "15010757673328": {
