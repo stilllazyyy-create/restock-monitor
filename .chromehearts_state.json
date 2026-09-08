@@ -12,7 +12,6 @@
     "/baccarat",
     "/boxers-leggings",
     "/intimates",
-    "/scarf",
     "/scents",
     "/socks"
   ],
@@ -45,9 +44,6 @@
       "/intimates/lace-thong/201635AFWXXX033.html",
       "/intimates/lace-underwire-bra/202334AFWXXX030.html"
     ],
-    "/scarf": [
-      "/scarf/double-peony-scarf/218126MABXXX00D.html"
-    ],
     "/scents": [
       "/scents/22-eau-de-parfum/162006CRYXXX271.html",
       "/scents/22-incense-refill/151407XXXXXX00S.html",
@@ -78,7 +74,8 @@
       "/socks/sport/176354XXXXXXXXX.html",
       "/socks/stencil-socks/176354MB3XXX465.html",
       "/socks/womens-sport/191715D5DXXX408.html"
-    ]
+    ],
+    "/scarf": []
   },
   "ever_seen_products_by_category": {
     "/baccarat": [
