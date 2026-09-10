@@ -71,6 +71,8 @@
     "15010771140976",
     "15010771927408",
     "15010778186096",
+    "15010780643696",
+    "15010780807536",
     "15010789196144",
     "15010789523824",
     "15010790048112",
@@ -99,7 +101,11 @@
     "15142743277936",
     "15142743409008",
     "15142745112944",
-    "15142745244016"
+    "15142745244016",
+    "15142745538928",
+    "15142745604464",
+    "15142745670000",
+    "15142745735536"
   ],
   "variant_52765121773936": false,
   "variant_54012844278128": false,
@@ -1336,6 +1342,8 @@
     "15010771140976",
     "15010771927408",
     "15010778186096",
+    "15010780643696",
+    "15010780807536",
     "15010789196144",
     "15010789523824",
     "15010790048112",
@@ -1364,7 +1372,11 @@
     "15142743277936",
     "15142743409008",
     "15142745112944",
-    "15142745244016"
+    "15142745244016",
+    "15142745538928",
+    "15142745604464",
+    "15142745670000",
+    "15142745735536"
   ],
   "new_arrivals_ever_seen_handles": [
     "1110328-matthew-printed-shirt-navy",
@@ -1436,6 +1448,8 @@
     "1311061-chenille-s-snapback-cap-spruce",
     "1311164-9twenty-washed-basic-trucker-mocha",
     "1311239-quilted-surfwalk-snapback-cap-black",
+    "1311257-cursive-stitch-trucker-black",
+    "1311257-cursive-stitch-trucker-navy",
     "1321271-classic-sport-skullcap-navy",
     "1321272-double-stripe-skullcap-black",
     "1321276-stripe-ski-beanie-blue",
@@ -1457,6 +1471,10 @@
     "1905202-dice-clock-tee-white",
     "1905217-block-sport-tee-navy",
     "1905217-block-sport-tee-white",
+    "1925217-block-sport-hoodie-garment-dyed-arctic",
+    "1925217-block-sport-hoodie-garment-dyed-bone",
+    "1925217-block-sport-hoodie-garment-dyed-faded-black",
+    "1925217-block-sport-hoodie-garment-dyed-midnight",
     "338448-voile-strap-variety-pack-multi"
   ],
   "new_arrivals_handles": [
@@ -1529,6 +1547,8 @@
     "1311061-chenille-s-snapback-cap-spruce",
     "1311164-9twenty-washed-basic-trucker-mocha",
     "1311239-quilted-surfwalk-snapback-cap-black",
+    "1311257-cursive-stitch-trucker-black",
+    "1311257-cursive-stitch-trucker-navy",
     "1321271-classic-sport-skullcap-navy",
     "1321272-double-stripe-skullcap-black",
     "1321276-stripe-ski-beanie-blue",
@@ -1550,6 +1570,10 @@
     "1905202-dice-clock-tee-white",
     "1905217-block-sport-tee-navy",
     "1905217-block-sport-tee-white",
+    "1925217-block-sport-hoodie-garment-dyed-arctic",
+    "1925217-block-sport-hoodie-garment-dyed-bone",
+    "1925217-block-sport-hoodie-garment-dyed-faded-black",
+    "1925217-block-sport-hoodie-garment-dyed-midnight",
     "338448-voile-strap-variety-pack-multi"
   ]
 }
