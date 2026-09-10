@@ -3,6 +3,7 @@
   "known_categories": [
     "/baccarat",
     "/boxers-leggings",
+    "/hat",
     "/intimates",
     "/scarf",
     "/scents",
@@ -11,6 +12,7 @@
   "online_categories": [
     "/baccarat",
     "/boxers-leggings",
+    "/hat",
     "/intimates",
     "/scents",
     "/socks"
@@ -35,6 +37,9 @@
       "/boxers-leggings/foti-boxer-brief---long/208280XXXXXXXXX.html",
       "/boxers-leggings/leggings/165064XXXXXX140.html",
       "/boxers-leggings/long-johns/164943XXXXXX140.html"
+    ],
+    "/hat": [
+      "/hat/red-watch-cap/053702REDXXX316.html"
     ],
     "/intimates": [
       "/intimates/ch-plus-tights/092826AI6XXXXXX.html",
@@ -130,6 +135,9 @@
       "/socks/sport/176354XXXXXXXXX.html",
       "/socks/stencil-socks/176354MB3XXX465.html",
       "/socks/womens-sport/191715D5DXXX408.html"
+    ],
+    "/hat": [
+      "/hat/red-watch-cap/053702REDXXX316.html"
     ]
   }
 }
