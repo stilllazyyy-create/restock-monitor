@@ -1,135 +1,108 @@
 # Restock monitor
 
-## Chrome Hearts
+The active workflow is **Continuous Restock Monitor**:
+https://github.com/stilllazyyy-create/restock-monitor/actions/workflows/continuous-monitor.yml
 
-`.github/workflows/chromehearts-v2.yml` runs `scripts/chromehearts.py`.
-Set the repository Actions secret `CHROME_HEARTS_WEBHOOK_URL` to the existing
-Discord webhook. Never commit webhook URLs or tokens.
+## Check whether it is working
 
-The monitor detects new categories, new product links, and product links that
-return after disappearing. Existing products form a silent baseline on the first
-run. Baccarat, boxers/leggings, intimates, scents and socks remain tracked but do
-not generate listing alerts, matching the requested exclusions.
+Open `.monitor_health.json` on `main`. `checked_at` is the actual UTC check
+time, `interval_seconds` is the configured interval, and the two shop results
+show whether the checks succeeded. The store state files also record check
+times and the workflow run ID. State is committed after every check, including
+when a shop fails. A yellow Running job is expected: one worker checks both
+stores repeatedly instead of exiting after a single check.
 
-**Listing presence is not proof of purchasable stock.** The current scraper does
-not detect a size becoming available when the product URL remains on the page.
-Alerts identify listing changes and should not be described as verified stock.
+## How it runs
 
-### Reliability changes
+- Each bounded worker performs ten checks, 300 seconds apart, then requests
+  another run using `workflow_dispatch` and the repository `GITHUB_TOKEN`.
+- Cron at :17 and :47 provides a backup wake-up. The normal handoff does not
+  wait for another cron event. The initial deployment performs two checks
+  60 seconds apart to validate the loop and handoff promptly.
+- One concurrency group serializes all state writers. The old Chrome Hearts
+  and Stussy workflows remain available for manual checks, without schedules.
+- Every shop subprocess has a 180-second timeout. A failed shop does not block
+  the other shop. Any failed cycle makes the bounded worker report failure,
+  and the relay can still retry. Failed state pushes stop the worker.
+- No new external account, long-lived token, or hosting service is required.
+  Only standard GitHub-hosted Linux runners and the existing Discord secrets
+  are used. The workflow token has contents/write and actions/write for state
+  commits, dispatching the next run, and the narrowly scoped orphan recovery.
 
-- A failed category retains its last good product list. Other successful
-  categories can still notify and save their changes.
-- Failed new categories are not absorbed into history before a successful fetch.
-- Discord errors stop the state update so detected products can be retried.
-- Corrupt state fails visibly instead of silently resetting the notification baseline.
-- `last_check_at`, `last_complete_check_at`, and `failed_categories` record health
-  in `.chromehearts_state.json`; Actions also displays a check summary.
-- The state-save step runs after a partial check, while the job still reports the
-  failure. A failure before state is written leaves the previous file unchanged.
+This reduces dependence on the observed multi-hour schedule gaps. It remains
+dependent on GitHub's runners and API; it is not an independent hosting service
+or a guarantee against outages or delayed runner starts. A slow/failed check
+can exceed the five-minute interval. Actual timestamps, not cron syntax, are
+the evidence of execution.
 
-### Scheduling limitation found on 2026-10-23
+To stop monitoring, disable **Continuous Restock Monitor** in Actions, then
+cancel its active/pending runs. Disabling the workflow blocks continuation and
+the backup schedule. A directly cancelled worker skips the relay step.
 
-The configured cron is `2-59/5 * * * *`, but the public Actions run history showed
-Chrome Hearts scheduled runs at 04:10, 09:20 and 14:18 UTC on October 23 (roughly
-five-hour gaps). This is based on workflow run timestamps, not state commits.
-The cause of those scheduling gaps has not been established.
+## What is monitored
 
-Changing the cron alone does not establish that the monitor runs every five
-minutes. A fast drop can appear and sell out entirely between executions. For
-reliable frequent checks, use an always-running worker or an independent
-scheduler with measured execution intervals. This patch does not provision or
-deploy such infrastructure and does not claim to fix scheduling delays.
+`scripts/chromehearts.py` identifies new categories, new product links, and
+product links that return after disappearing. Baccarat, boxers/leggings,
+intimates, scents and socks remain tracked but do not generate listing alerts.
+Existing history is preserved; deployment does not replay old products.
 
-### Checks
+**A listing change is not verified purchasable stock.** Chrome Hearts does not
+yet detect a size restocking when its product URL remains unchanged. No
+unverified size parser has been added.
 
-Run `python3 -m unittest discover -s tests -v` without network access or Discord
-messages. The tests mock both the shop and webhook, including partial shop
-failures, notification failures, recovery, deduplication, and first-run baselines.
+`scripts/stussy.py` uses Shopify's variant IDs and boolean `available` values
+for the existing eight size targets and maintains permanent new-arrival history.
+Unknown availability or a missing variant preserves the old stock state.
+Corrupt state fails visibly instead of silently resetting the baseline.
+Notification failures retain retry state; fetch and delivery failures are
+recorded in `check_errors` and reported as unsuccessful checks.
 
-A real end-to-end Discord test and live workflow verification are still needed
-after deploying changes. Existing Stussy configuration is unchanged.
+Repository Actions secrets:
 
-### Scheduler investigation and recovery (2026-10-23)
+- `CHROME_HEARTS_WEBHOOK_URL`
+- `DISCORD_WEBHOOK_URL`
 
-Run #2099 (`34952449229`), created September 15, still showed `queued` with
-zero jobs on October 23. This is a confirmed orphaned-run anomaly, but it does
-not prove the cause of the later scheduling slowdown: successful runs continued
-after it, and Stussy's separate workflow also slowed down.
+Do not commit webhook URLs or other credentials. A successful check with no
+changes does not send a message and therefore does not verify live Discord
+delivery. Delivery success/failure and retry behavior are covered by mocked
+tests.
 
-Pagination of the history localizes the abrupt slowdown to September 22, after
-Chrome Hearts run #2841 at 08:57 UTC. Recent successful executions take about
-10–15 seconds; most adjacent run numbers are consecutive, so the hours-long
-gaps are largely missing triggers, not long-running script execution.
+## September 15 orphan
 
-Recovery changes shift cron to `3-58/5 * * * *` (still five minutes) to refresh
-registration and move the concurrency group to `chrome-hearts-monitor-v2` to
-isolate old queue state. The one-time recovery workflow attempts normal, then
-force cancellation of only the verified, over-one-day-old queued run. It also
-disables and re-enables workflow `340822524`, always attempting re-enable, and
-checks that it is active afterward. It does not cancel current monitor runs.
+Run `34952449229` (Chrome Hearts Monitor #2099, workflow `340822524`) was
+created September 15, 2026, at 09:25:06 UTC and still reports queued with zero
+jobs (check suite `94647428518`). It belongs to the old workflow and a different concurrency group.
 
-Actual check gaps are recorded as `previous_check_gap_seconds`. Gaps longer
-than 15 minutes produce an Actions warning. A successful push-triggered test
-does not validate cron timing; scheduled runs must be measured separately.
+The recovery step validates that exact run ID, workflow ID, age and zero-job
+condition before attempting normal and force cancellation. It never deletes
+history or cancels a current monitor. Live run `39986252829` retried both
+operations on October 23; both returned HTTP 409:
 
-The internal GitHub cause cannot be established from these API records alone.
-Do not describe this recovery as proven until scheduled intervals improve.
+> Cannot cancel a workflow run that has not been queued yet.
 
-### Recovery outcome and clean workflow registration
+The final API read still reported `queued`. This is **not cleared**. Previous
+disable/re-enable attempts also did not clear it. GitHub Support needs to
+inspect the internal run/check-suite state. The new worker has demonstrably
+started and continued despite this old record. Do not claim the orphan is
+the proven cause of every missed scheduled trigger.
 
-The live recovery run `39972226765` confirmed that both normal cancellation and
-force cancellation return HTTP 409 for orphaned run `34952449229`. It still has
-no jobs and remains queued. Disable/re-enable succeeded and the original workflow
-was confirmed active, but did not clear this orphan. GitHub's troubleshooting
-documentation identifies this pattern as potentially requiring GitHub Support.
+GitHub's troubleshooting guidance:
+https://docs.github.com/en/enterprise-cloud@latest/actions/how-tos/troubleshoot-workflows#canceling-workflows
 
-To avoid relying on the affected workflow registration, the active monitor is
-now `.github/workflows/chromehearts-v2.yml` named `Chrome Hearts Monitor v2`. The
-old workflow file and the temporary recovery workflow were removed. The new
-entry uses a separate concurrency group and keeps the existing product state and
-Discord secret. It does not replay existing products as a fresh baseline.
+## Validation
 
-The old anomalous record remains available for investigation. A new workflow is
-a recovery measure, not proof that the orphan alone caused every missing trigger.
-`workflow_run_id` and `workflow_event` in state identify whether each observed
-check actually came from the scheduler or a code push.
+Run `python3 -m unittest discover -s tests -v` offline. Eleven tests cover
+Chrome Hearts partial failures, notification retry, first-run baselines and
+deduplication; worker timeout/isolation/continuation; and Stussy delivery
+failure, successful delivery state, corrupt state and unknown availability.
 
-### Continuous worker deployed October 23
+The deployment run `39986252829` passed all eleven tests and completed two
+real checks at 16:22:47 and 16:23:47 UTC, then successfully dispatched run
+`39986429829`. That automatic successor completed its first real check at
+16:24:03 UTC with both shops successful and a 300-second polling interval.
 
-The active workflow is now `.github/workflows/continuous-monitor.yml`.
-It checks Chrome Hearts and Stussy in the same serialized worker every 300
-seconds, for ten checks, then requests the next worker with workflow_dispatch.
-Cron at :17 and :47 is a backup wake-up. This reduces dependence on the
-observed hours-long gaps between schedule events; it is not an independent
-hosting service or a guarantee against GitHub runner outages/delays.
-The deployment push performs two checks 60 seconds apart to validate the loop.
-
-Each cycle commits both store state files and `.monitor_health.json`, including
-the real check time, result per shop, event, and run ID. Checks have a 180-second
-per-shop timeout; a failed shop does not prevent checking the other. A failed
-cycle causes a failed job after the bounded worker finishes, and the handoff
-still runs. State-push failures abort the worker to avoid silently losing
-notification history. Stussy now preserves unknown availability and corrupt
-state, records fetch/delivery failures, and retains failed alerts for retry.
-
-The two original workflows remain available for manual checks and share the
-worker concurrency group. Their schedules have been removed to avoid competing
-state writers. The unused nested workflow and diagnostic probe were removed.
-
-To stop continuous monitoring, disable **Continuous Restock Monitor** in
-Actions and cancel its active/pending runs. Disabling it blocks both dispatch
-continuation and the backup schedule. A direct cancellation skips the relay step.
-The worker uses the existing repository Discord secrets; no new tokens or
-external services are required. Standard hosted Linux runners are used.
-
-The deployment also retries normal and force cancellation of only the verified
-September 15 zero-job orphan `34952449229` (workflow `340822524`). It does not
-delete logs/history or cancel current workers. Its live output reports whether
-GitHub accepted either cancellation. If both return 409 and the run remains
-queued, this is not locally resolved; GitHub Support must inspect the run's
-internal state. Do not claim removing unrelated workflow files clears that run.
-
-Chrome Hearts still identifies listing/category changes, not verified size
-availability on an unchanged product page. No unverified stock parser has been
-added. A successful empty-check run also does not verify Discord delivery;
-delivery-failure/retry logic is covered by mocked tests.
+The same automatic successor completed its second check at 16:29:03 UTC,
+exactly 300 seconds after its first check. Both shops succeeded and both
+state files plus the worker heartbeat were persisted. This validates one live
+five-minute interval in addition to the automatic handoff, not unlimited future
+uptime. These times are 12:24:03 and 12:29:03 in America/Toronto on October 23.
