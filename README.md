@@ -48,3 +48,29 @@ failures, notification failures, recovery, deduplication, and first-run baseline
 
 A real end-to-end Discord test and live workflow verification are still needed
 after deploying changes. Existing Stussy configuration is unchanged.
+
+### Scheduler investigation and recovery (2026-10-23)
+
+Run #2099 (`34952449229`), created September 15, still showed `queued` with
+zero jobs on October 23. This is a confirmed orphaned-run anomaly, but it does
+not prove the cause of the later scheduling slowdown: successful runs continued
+after it, and Stussy's separate workflow also slowed down.
+
+Pagination of the history localizes the abrupt slowdown to September 22, after
+Chrome Hearts run #2841 at 08:57 UTC. Recent successful executions take about
+10–15 seconds; most adjacent run numbers are consecutive, so the hours-long
+gaps are largely missing triggers, not long-running script execution.
+
+Recovery changes shift cron to `3-58/5 * * * *` (still five minutes) to refresh
+registration and move the concurrency group to `chrome-hearts-monitor-v2` to
+isolate old queue state. The one-time recovery workflow attempts normal, then
+force cancellation of only the verified, over-one-day-old queued run. It also
+disables and re-enables workflow `340822524`, always attempting re-enable, and
+checks that it is active afterward. It does not cancel current monitor runs.
+
+Actual check gaps are recorded as `previous_check_gap_seconds`. Gaps longer
+than 15 minutes produce an Actions warning. A successful push-triggered test
+does not validate cron timing; scheduled runs must be measured separately.
+
+The internal GitHub cause cannot be established from these API records alone.
+Do not describe this recovery as proven until scheduled intervals improve.

@@ -410,6 +410,16 @@ initialized = state.get(
 )
 
 
+# Measure the actual gap, rather than assuming cron ran on time.
+check_started_at = datetime.now(timezone.utc)
+previous_gap_seconds = None
+if state.get("last_check_at"):
+    previous_check = datetime.fromisoformat(state["last_check_at"])
+    previous_gap_seconds = round((check_started_at - previous_check).total_seconds())
+    print(f"Seconds since previous recorded check: {previous_gap_seconds}")
+    if previous_gap_seconds > 15 * 60:
+        print(f"::warning::Monitoring gap: {previous_gap_seconds // 60} minutes since the last recorded check.")
+
 # ============================================================
 # FETCH HOMEPAGE
 # ============================================================
@@ -996,7 +1006,8 @@ else:
 
 new_state = {
     "initialized": True,
-    "last_check_at": datetime.now(timezone.utc).isoformat(),
+    "last_check_at": check_started_at.isoformat(),
+    "previous_check_gap_seconds": previous_gap_seconds,
     "last_complete_check_at": (
         datetime.now(timezone.utc).isoformat() if not failed_categories
         else state.get("last_complete_check_at")
@@ -1057,6 +1068,7 @@ if summary_path:
         summary.write(
             "## Chrome Hearts check\n"
             f"- Checked at (UTC): {new_state['last_check_at']}\n"
+            f"- Seconds since previous recorded check: {previous_gap_seconds}\n"
             f"- Categories checked: {len(fetched_products)}\n"
             f"- Failed categories: {len(failed_categories)}\n"
             f"- Listing alerts delivered: {len(alerts)}\n"

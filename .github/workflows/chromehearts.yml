@@ -8,9 +8,9 @@ on:
       - 'scripts/chromehearts.py'
       - 'tests/test_chromehearts.py'
   schedule:
-    # Every 5 minutes, offset from the busiest exact-hour slots:
-    # :02, :07, :12, :17, :22, ...
-    - cron: "2-59/5 * * * *"
+    # Re-register the schedule at :03, :08, ... :58, away from :00.
+    # Actual trigger intervals are recorded in the monitor state and summary.
+    - cron: "3-58/5 * * * *"
 
   workflow_dispatch:
 
@@ -19,7 +19,7 @@ permissions:
 
 # Prevent two runs from changing the state file at the same time
 concurrency:
-  group: chrome-hearts-monitor
+  group: chrome-hearts-monitor-v2
   cancel-in-progress: false
 
 jobs:
@@ -41,7 +41,7 @@ jobs:
         run: python3 scripts/chromehearts.py
 
       - name: Save Chrome Hearts state
-        if: ${{ always() }}
+        if: ${{ !cancelled() }}
 
         run: |
           git config user.name "Chrome Hearts Monitor"
