@@ -1,0 +1,1070 @@
+import json
+from datetime import datetime, timezone
+import os
+import re
+import time
+import urllib.error
+import urllib.request
+
+from urllib.parse import urljoin, urlparse
+
+
+# ============================================================
+# SETTINGS
+# ============================================================
+
+BASE_URL = "https://www.chromehearts.com/"
+STATE_FILE = ".chromehearts_state.json"
+
+WEBHOOK_URL = os.environ["CHROME_HEARTS_WEBHOOK_URL"]
+if not WEBHOOK_URL.strip():
+    raise RuntimeError("CHROME_HEARTS_WEBHOOK_URL is missing")
+
+# These are the permanent ranges the user does not want alerts for.
+PERMANENT_CATEGORIES = {"/baccarat", "/boxers-leggings", "/intimates", "/scents", "/socks"}
+
+FETCH_TIMEOUT = 25
+DISCORD_TIMEOUT = 20
+
+# Initial attempt + these retries
+RETRY_DELAYS = [3, 7, 15]
+
+RETRY_HTTP_CODES = {
+    429,
+    500,
+    502,
+    503,
+    504,
+}
+
+
+# ============================================================
+# HTTP
+# ============================================================
+
+def fetch(url):
+    """
+    Download a Chrome Hearts page.
+
+    Temporary server errors are retried automatically.
+    If all attempts fail, an exception is raised so that
+    this entire monitor run stops WITHOUT overwriting state.
+    """
+
+    attempts = len(RETRY_DELAYS) + 1
+
+    for attempt in range(attempts):
+
+        try:
+            req = urllib.request.Request(
+                url,
+                headers={
+                    "User-Agent": (
+                        "Mozilla/5.0 "
+                        "(Macintosh; Intel Mac OS X 10_15_7) "
+                        "AppleWebKit/537.36 "
+                        "(KHTML, like Gecko) "
+                        "Chrome/140.0.0.0 Safari/537.36"
+                    ),
+                    "Accept": (
+                        "text/html,application/xhtml+xml,"
+                        "application/xml;q=0.9,"
+                        "image/avif,image/webp,*/*;q=0.8"
+                    ),
+                    "Accept-Language": "en-US,en;q=0.9",
+                    "Cache-Control": "no-cache",
+                    "Pragma": "no-cache",
+                }
+            )
+
+            with urllib.request.urlopen(
+                req,
+                timeout=FETCH_TIMEOUT
+            ) as response:
+
+                status = getattr(
+                    response,
+                    "status",
+                    200
+                )
+
+                if status != 200:
+                    raise RuntimeError(
+                        f"Unexpected HTTP status {status}"
+                    )
+
+                data = response.read()
+
+            html = data.decode(
+                "utf-8",
+                errors="ignore"
+            )
+
+            if not html.strip():
+                raise RuntimeError(
+                    "Received an empty page"
+                )
+
+            return html
+
+
+        except urllib.error.HTTPError as e:
+
+            retryable = (
+                e.code in RETRY_HTTP_CODES
+            )
+
+            if (
+                retryable
+                and attempt < len(RETRY_DELAYS)
+            ):
+                delay = RETRY_DELAYS[attempt]
+
+                print(
+                    f"HTTP {e.code} fetching {url}. "
+                    f"Retrying in {delay}s..."
+                )
+
+                time.sleep(delay)
+                continue
+
+            raise
+
+
+        except (
+            urllib.error.URLError,
+            TimeoutError,
+            ConnectionError,
+            RuntimeError,
+        ) as e:
+
+            if attempt < len(RETRY_DELAYS):
+                delay = RETRY_DELAYS[attempt]
+
+                print(
+                    f"Fetch error for {url}: {e}. "
+                    f"Retrying in {delay}s..."
+                )
+
+                time.sleep(delay)
+                continue
+
+            raise
+
+
+    raise RuntimeError(
+        f"Failed to fetch {url}"
+    )
+
+
+# ============================================================
+# DISCORD
+# ============================================================
+
+def send_discord(text):
+    """
+    Send Discord notification with retry.
+    State will only be saved after notifications succeed.
+    """
+
+    payload = json.dumps({
+        "content": text
+    }).encode("utf-8")
+
+    attempts = len(RETRY_DELAYS) + 1
+
+    for attempt in range(attempts):
+
+        try:
+            req = urllib.request.Request(
+                WEBHOOK_URL,
+                data=payload,
+                headers={
+                    "Content-Type": "application/json",
+                    "User-Agent": "Mozilla/5.0"
+                },
+                method="POST"
+            )
+
+            with urllib.request.urlopen(
+                req,
+                timeout=DISCORD_TIMEOUT
+            ) as response:
+
+                status = getattr(
+                    response,
+                    "status",
+                    204
+                )
+
+                if status not in {
+                    200,
+                    204
+                }:
+                    raise RuntimeError(
+                        f"Discord HTTP {status}"
+                    )
+
+            return
+
+
+        except urllib.error.HTTPError as e:
+
+            retryable = (
+                e.code == 429
+                or 500 <= e.code <= 599
+            )
+
+            if (
+                retryable
+                and attempt < len(RETRY_DELAYS)
+            ):
+                delay = RETRY_DELAYS[attempt]
+
+                print(
+                    f"Discord HTTP {e.code}. "
+                    f"Retrying in {delay}s..."
+                )
+
+                time.sleep(delay)
+                continue
+
+            raise
+
+
+        except (
+            urllib.error.URLError,
+            TimeoutError,
+            ConnectionError,
+            RuntimeError,
+        ) as e:
+
+            if attempt < len(RETRY_DELAYS):
+                delay = RETRY_DELAYS[attempt]
+
+                print(
+                    f"Discord error: {e}. "
+                    f"Retrying in {delay}s..."
+                )
+
+                time.sleep(delay)
+                continue
+
+            raise
+
+
+# ============================================================
+# HELPERS
+# ============================================================
+
+def normalize_path(url):
+    parsed = urlparse(url)
+
+    path = parsed.path.rstrip("/")
+
+    return path or "/"
+
+
+def is_chromehearts_url(url):
+    host = (
+        urlparse(url)
+        .netloc
+        .lower()
+        .split(":")[0]
+    )
+
+    return (
+        host == "chromehearts.com"
+        or host.endswith(".chromehearts.com")
+    )
+
+
+def product_name_from_path(path):
+    """
+    Convert:
+    /scarf/double-peony-scarf/123.html
+
+    into:
+    Double Peony Scarf
+    """
+
+    parts = [
+        part
+        for part in path.split("/")
+        if part
+    ]
+
+    if len(parts) < 2:
+        return path
+
+    slug = parts[-2]
+
+    name = slug.replace(
+        "---",
+        " "
+    ).replace(
+        "--",
+        " "
+    ).replace(
+        "-",
+        " "
+    )
+
+    return " ".join(
+        word.capitalize()
+        for word in name.split()
+    )
+
+
+def format_product_lines(
+    products,
+    max_items=8
+):
+    """
+    Add direct links without allowing the
+    Discord message to become enormous.
+    """
+
+    products = sorted(products)
+
+    lines = []
+
+    for path in products[:max_items]:
+
+        name = product_name_from_path(
+            path
+        )
+
+        url = urljoin(
+            BASE_URL,
+            path.lstrip("/")
+        )
+
+        lines.append(
+            f"• [{name}](<{url}>)"
+        )
+
+    remaining = (
+        len(products)
+        - max_items
+    )
+
+    if remaining > 0:
+        lines.append(
+            f"• 另外还有 {remaining} 个"
+        )
+
+    return "\n".join(lines)
+
+
+# ============================================================
+# LOAD STATE
+# ============================================================
+
+try:
+    with open(
+        STATE_FILE,
+        "r",
+        encoding="utf-8"
+    ) as f:
+
+        state = json.load(f)
+
+except FileNotFoundError:
+    state = {}
+
+
+known_categories = set(
+    state.get(
+        "known_categories",
+        []
+    )
+)
+
+previous_online = set(
+    state.get(
+        "online_categories",
+        []
+    )
+)
+
+previous_products = state.get(
+    "current_products_by_category",
+    state.get(
+        "products_by_category",
+        {}
+    )
+)
+
+ever_seen_products = state.get(
+    "ever_seen_products_by_category",
+    state.get(
+        "products_by_category",
+        {}
+    )
+)
+
+initialized = state.get(
+    "initialized",
+    bool(known_categories)
+)
+
+
+# ============================================================
+# FETCH HOMEPAGE
+# ============================================================
+
+print(
+    "Fetching Chrome Hearts homepage..."
+)
+
+homepage = fetch(
+    BASE_URL
+)
+
+
+# ============================================================
+# FIND CURRENT SHOP CATEGORIES
+# ============================================================
+
+links = re.findall(
+    r'href=["\']([^"\']+)["\']',
+    homepage,
+    flags=re.I
+)
+
+ignore_paths = {
+    "/",
+    "/cart",
+    "/bag",
+    "/login",
+    "/account",
+    "/search",
+    "/checkout",
+    "/contact",
+    "/locations.html",
+    "/privacy.html",
+    "/retailers.html",
+    "/terms.html",
+    "/magazine",
+}
+
+ignored_words = {
+    "wishlist",
+    "customer-service",
+    "checkout",
+    "search",
+    "account",
+    "cart",
+    "login",
+}
+
+current_categories = set()
+
+
+for href in links:
+
+    absolute = urljoin(
+        BASE_URL,
+        href
+    )
+
+    if not is_chromehearts_url(
+        absolute
+    ):
+        continue
+
+    path = normalize_path(
+        absolute
+    )
+
+    if path in ignore_paths:
+        continue
+
+    if path.endswith(".html"):
+        continue
+
+    lower_path = path.lower()
+
+    if any(
+        bad in lower_path
+        for bad in ignored_words
+    ):
+        continue
+
+    # Root-level paths only:
+    # /scarf
+    # /socks
+    # /t-shirts
+    # etc.
+    if (
+        path.count("/") == 1
+        and len(path) > 1
+    ):
+        current_categories.add(
+            path
+        )
+
+
+print(
+    "Current categories:",
+    sorted(current_categories)
+)
+
+
+# ============================================================
+# HOMEPAGE SAFETY CHECK
+# ============================================================
+
+if not current_categories:
+
+    raise RuntimeError(
+        "SAFETY STOP: homepage returned "
+        "zero shop categories. "
+        "State will NOT be changed."
+    )
+
+
+# If Chrome Hearts normally has several categories
+# but suddenly the scraper sees less than half,
+# treat it as a broken/partial webpage instead of
+# assuming nearly everything was removed.
+
+if initialized and previous_online:
+
+    minimum_reasonable = max(
+        1,
+        len(previous_online) // 2
+    )
+
+    if (
+        len(current_categories)
+        < minimum_reasonable
+    ):
+        raise RuntimeError(
+            "SAFETY STOP: suspicious category "
+            f"drop from {len(previous_online)} "
+            f"to {len(current_categories)}. "
+            "State will NOT be changed."
+        )
+
+
+# ============================================================
+# DETECT CATEGORY CHANGES
+# ============================================================
+
+brand_new_categories = (
+    current_categories
+    - known_categories
+)
+
+back_online_categories = (
+    (
+        current_categories
+        & known_categories
+    )
+    - previous_online
+)
+
+
+# ============================================================
+# FETCH EVERY CURRENT CATEGORY FIRST
+#
+# IMPORTANT:
+# We do NOT save a partial state.
+# If even one category fails after retries,
+# this run fails and the previous good state remains.
+# ============================================================
+
+fetched_products = {}
+failed_categories = {}
+
+
+for category in sorted(
+    current_categories
+):
+
+    category_name = (
+        category.lstrip("/")
+    )
+
+    category_url = urljoin(
+        BASE_URL,
+        category.lstrip("/")
+    )
+
+    print(
+        f"Fetching category: "
+        f"{category_name}"
+    )
+
+    try:
+        html = fetch(category_url)
+    except Exception as error:
+        failed_categories[category] = f"{type(error).__name__}: {error}"
+        print(f"::error::Failed category {category}: {error}")
+        continue
+
+    hrefs = re.findall(
+        r'href=["\']'
+        r'([^"\']+\.html'
+        r'(?:\?[^"\']*)?)'
+        r'["\']',
+        html,
+        flags=re.I
+    )
+
+    current_products = set()
+
+
+    for href in hrefs:
+
+        absolute = urljoin(
+            category_url,
+            href
+        )
+
+        if not is_chromehearts_url(
+            absolute
+        ):
+            continue
+
+        product_path = normalize_path(
+            absolute
+        )
+
+        if not product_path.startswith(
+            category + "/"
+        ):
+            continue
+
+        current_products.add(
+            product_path
+        )
+
+
+    fetched_products[
+        category
+    ] = current_products
+
+    print(
+        f"{category_name}: "
+        f"{len(current_products)} "
+        f"products"
+    )
+
+
+# ============================================================
+# PRODUCT PAGE SAFETY CHECK
+# ============================================================
+
+# If a category had products on the previous successful
+# run but now EVERY known category suddenly reports zero
+# products, it is probably a bad website response.
+
+previous_product_total = sum(
+    len(products)
+    for products
+    in previous_products.values()
+)
+
+current_product_total = sum(
+    len(products)
+    for products
+    in fetched_products.values()
+)
+
+
+if (
+    initialized
+    and previous_product_total > 0
+    and current_product_total == 0
+):
+    raise RuntimeError(
+        "SAFETY STOP: all categories suddenly "
+        "returned zero products. "
+        "State will NOT be changed."
+    )
+
+
+# ============================================================
+# BUILD NEW STATE + ALERTS
+# ============================================================
+
+current_products_state = {
+    key: list(value) for key, value in previous_products.items()
+}
+
+new_ever_seen_state = {
+    key: list(value)
+    for key, value
+    in ever_seen_products.items()
+}
+
+alerts = []
+
+
+if not initialized:
+
+    print(
+        "Creating initial Chrome Hearts baseline."
+    )
+
+
+else:
+
+    # --------------------------------------------------------
+    # NEW CATEGORIES
+    # --------------------------------------------------------
+
+    for category in sorted(
+        (brand_new_categories & fetched_products.keys()) - PERMANENT_CATEGORIES
+    ):
+
+        category_name = (
+            category.lstrip("/")
+        )
+
+        category_url = urljoin(
+            BASE_URL,
+            category.lstrip("/")
+        )
+
+        product_count = len(
+            fetched_products.get(
+                category,
+                set()
+            )
+        )
+
+        alerts.append(
+            "🔥 **CHROME HEARTS 新分类上线**\n"
+            f"分类：**{category_name}**\n"
+            f"当前商品：**{product_count} 个**\n"
+            f"{format_product_lines(fetched_products[category])}\n"
+            f"<{category_url}>"
+        )
+
+        print(
+            "NEW CATEGORY:",
+            category_name
+        )
+
+
+    # --------------------------------------------------------
+    # RETURNED CATEGORIES
+    # --------------------------------------------------------
+
+    for category in sorted(
+        (back_online_categories & fetched_products.keys()) - PERMANENT_CATEGORIES
+    ):
+
+        category_name = (
+            category.lstrip("/")
+        )
+
+        category_url = urljoin(
+            BASE_URL,
+            category.lstrip("/")
+        )
+
+        alerts.append(
+            "🔄 **CHROME HEARTS 分类重新上线**\n"
+            f"分类：**{category_name}**\n"
+            f"<{category_url}>"
+        )
+
+        print(
+            "CATEGORY BACK ONLINE:",
+            category_name
+        )
+
+
+# ============================================================
+# PRODUCT CHANGES
+# ============================================================
+
+for category in sorted(
+    fetched_products
+):
+
+    category_name = (
+        category.lstrip("/")
+    )
+
+    category_url = urljoin(
+        BASE_URL,
+        category.lstrip("/")
+    )
+
+    current_products = (
+        fetched_products[
+            category
+        ]
+    )
+
+    old_current = set(
+        previous_products.get(
+            category,
+            []
+        )
+    )
+
+    ever_seen = set(
+        ever_seen_products.get(
+            category,
+            []
+        )
+    )
+
+    brand_new_products = (
+        current_products
+        - ever_seen
+    )
+
+    returned_products = (
+        (
+            current_products
+            - old_current
+        )
+        & ever_seen
+    )
+
+
+    if not initialized:
+
+        print(
+            f"Baseline "
+            f"{category_name}: "
+            f"{len(current_products)} "
+            f"products"
+        )
+
+
+    elif (
+        category
+        in brand_new_categories
+    ):
+
+        # A completely new category already gets
+        # one category notification.
+        #
+        # Record its products as history so that
+        # the initial contents do not create
+        # dozens of duplicate alerts.
+
+        print(
+            f"New category "
+            f"{category_name}: "
+            f"{len(current_products)} "
+            f"products recorded"
+        )
+
+
+    elif category not in PERMANENT_CATEGORIES:
+
+        if brand_new_products:
+
+            product_lines = (
+                format_product_lines(
+                    brand_new_products
+                )
+            )
+
+            alerts.append(
+                "🆕 **CHROME HEARTS 上新了**\n"
+                f"分类：**{category_name}**\n"
+                f"新增商品："
+                f"**{len(brand_new_products)} 个**\n"
+                f"{product_lines}\n"
+                f"分类页：<{category_url}>"
+            )
+
+            print(
+                "NEW PRODUCTS:",
+                category_name,
+                len(
+                    brand_new_products
+                )
+            )
+
+
+        if returned_products:
+
+            product_lines = (
+                format_product_lines(
+                    returned_products
+                )
+            )
+
+            alerts.append(
+                "🔄 **CHROME HEARTS 商品重新上线**\n"
+                f"分类：**{category_name}**\n"
+                f"重新出现："
+                f"**{len(returned_products)} 个**\n"
+                f"{product_lines}\n"
+                f"分类页：<{category_url}>"
+            )
+
+            print(
+                "PRODUCTS RETURNED:",
+                category_name,
+                len(
+                    returned_products
+                )
+            )
+
+
+    current_products_state[
+        category
+    ] = sorted(
+        current_products
+    )
+
+    new_ever_seen_state[
+        category
+    ] = sorted(
+        ever_seen
+        | current_products
+    )
+
+
+# ============================================================
+# CATEGORIES CURRENTLY OFFLINE
+# ============================================================
+
+all_known_categories = (
+    known_categories
+    | fetched_products.keys()
+)
+
+all_known_categories.discard(
+    "/cart"
+)
+
+
+for category in (
+    all_known_categories
+    - current_categories
+):
+
+    current_products_state[
+        category
+    ] = []
+
+
+current_products_state.pop(
+    "/cart",
+    None
+)
+
+new_ever_seen_state.pop(
+    "/cart",
+    None
+)
+
+
+# ============================================================
+# SEND ALERTS
+#
+# Send notifications BEFORE writing state.
+# If Discord completely fails, the run fails and
+# the previous state remains, allowing another try.
+# ============================================================
+
+if alerts:
+
+    print(
+        f"Sending {len(alerts)} "
+        f"Discord alert(s)..."
+    )
+
+    for alert in alerts:
+        send_discord(
+            alert
+        )
+
+else:
+    print(
+        "No Chrome Hearts changes detected."
+    )
+
+
+# ============================================================
+# SAVE STATE ONLY AFTER A FULL SUCCESSFUL RUN
+# ============================================================
+
+new_state = {
+    "initialized": True,
+    "last_check_at": datetime.now(timezone.utc).isoformat(),
+    "last_complete_check_at": (
+        datetime.now(timezone.utc).isoformat() if not failed_categories
+        else state.get("last_complete_check_at")
+    ),
+    "failed_categories": failed_categories,
+
+    "known_categories": sorted(
+        all_known_categories
+    ),
+
+    "online_categories": sorted(
+        (current_categories - failed_categories.keys())
+        | (previous_online & failed_categories.keys())
+    ),
+
+    "current_products_by_category":
+        current_products_state,
+
+    "ever_seen_products_by_category":
+        new_ever_seen_state,
+}
+
+
+temp_file = (
+    STATE_FILE + ".tmp"
+)
+
+
+with open(
+    temp_file,
+    "w",
+    encoding="utf-8"
+) as f:
+
+    json.dump(
+        new_state,
+        f,
+        indent=2,
+        ensure_ascii=False
+    )
+
+    f.write("\n")
+
+
+os.replace(
+    temp_file,
+    STATE_FILE
+)
+
+
+print(
+    "Chrome Hearts state saved successfully."
+)
+
+summary_path = os.environ.get("GITHUB_STEP_SUMMARY")
+if summary_path:
+    with open(summary_path, "a", encoding="utf-8") as summary:
+        summary.write(
+            "## Chrome Hearts check\n"
+            f"- Checked at (UTC): {new_state['last_check_at']}\n"
+            f"- Categories checked: {len(fetched_products)}\n"
+            f"- Failed categories: {len(failed_categories)}\n"
+            f"- Listing alerts delivered: {len(alerts)}\n"
+            "- This checks listing changes, not size-level checkout availability.\n"
+        )
+
+if failed_categories:
+    raise RuntimeError(
+        "Partial check: successful categories saved, failed categories preserved: "
+        + ", ".join(sorted(failed_categories))
+    )
