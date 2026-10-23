@@ -1,9 +1,9 @@
 {
-  "checked_at": "2026-10-23T16:23:47.514685+00:00",
-  "workflow_run_id": "39986252829",
-  "workflow_event": "push",
-  "cycle": 2,
-  "interval_seconds": 60,
+  "checked_at": "2026-10-23T16:24:03.906502+00:00",
+  "workflow_run_id": "39986429829",
+  "workflow_event": "workflow_dispatch",
+  "cycle": 1,
+  "interval_seconds": 300,
   "chrome_hearts": {
     "ok": true,
     "exit_code": 0
