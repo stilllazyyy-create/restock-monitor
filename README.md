@@ -93,3 +93,43 @@ The old anomalous record remains available for investigation. A new workflow is
 a recovery measure, not proof that the orphan alone caused every missing trigger.
 `workflow_run_id` and `workflow_event` in state identify whether each observed
 check actually came from the scheduler or a code push.
+
+### Continuous worker deployed October 23
+
+The active workflow is now `.github/workflows/continuous-monitor.yml`.
+It checks Chrome Hearts and Stussy in the same serialized worker every 300
+seconds, for ten checks, then requests the next worker with workflow_dispatch.
+Cron at :17 and :47 is a backup wake-up. This reduces dependence on the
+observed hours-long gaps between schedule events; it is not an independent
+hosting service or a guarantee against GitHub runner outages/delays.
+The deployment push performs two checks 60 seconds apart to validate the loop.
+
+Each cycle commits both store state files and `.monitor_health.json`, including
+the real check time, result per shop, event, and run ID. Checks have a 180-second
+per-shop timeout; a failed shop does not prevent checking the other. A failed
+cycle causes a failed job after the bounded worker finishes, and the handoff
+still runs. State-push failures abort the worker to avoid silently losing
+notification history. Stussy now preserves unknown availability and corrupt
+state, records fetch/delivery failures, and retains failed alerts for retry.
+
+The two original workflows remain available for manual checks and share the
+worker concurrency group. Their schedules have been removed to avoid competing
+state writers. The unused nested workflow and diagnostic probe were removed.
+
+To stop continuous monitoring, disable **Continuous Restock Monitor** in
+Actions and cancel its active/pending runs. Disabling it blocks both dispatch
+continuation and the backup schedule. A direct cancellation skips the relay step.
+The worker uses the existing repository Discord secrets; no new tokens or
+external services are required. Standard hosted Linux runners are used.
+
+The deployment also retries normal and force cancellation of only the verified
+September 15 zero-job orphan `34952449229` (workflow `340822524`). It does not
+delete logs/history or cancel current workers. Its live output reports whether
+GitHub accepted either cancellation. If both return 409 and the run remains
+queued, this is not locally resolved; GitHub Support must inspect the run's
+internal state. Do not claim removing unrelated workflow files clears that run.
+
+Chrome Hearts still identifies listing/category changes, not verified size
+availability on an unchanged product page. No unverified stock parser has been
+added. A successful empty-check run also does not verify Discord delivery;
+delivery-failure/retry logic is covered by mocked tests.

@@ -1,0 +1,67 @@
+name: Continuous Restock Monitor
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/continuous-monitor.yml'
+      - 'scripts/**'
+      - 'tests/**'
+  workflow_dispatch:
+    inputs:
+      checks:
+        description: Checks before handing over to the next worker
+        default: '10'
+      interval:
+        description: Seconds between checks (60–300)
+        default: '300'
+  schedule:
+    # Backup only; normal continuation uses workflow_dispatch.
+    - cron: '17,47 * * * *'
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: restock-continuous-v1
+  cancel-in-progress: false
+
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+    timeout-minutes: 65
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - name: Test monitor logic
+        run: python3 -m unittest discover -s tests -v
+      - name: Retry cancellation of verified September orphan
+        if: github.event_name == 'push'
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 scripts/repair_orphan.py
+      - name: Configure state commits
+        run: |
+          git config user.name 'Restock Monitor'
+          git config user.email 'actions@github.com'
+      - name: Run repeated stock checks
+        id: worker
+        env:
+          CHROME_HEARTS_WEBHOOK_URL: ${{ secrets.CHROME_HEARTS_WEBHOOK_URL }}
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          # The initial deployment performs two checks one minute apart.
+          MONITOR_CHECKS: ${{ github.event_name == 'push' && '2' || inputs.checks || '10' }}
+          MONITOR_INTERVAL: ${{ github.event_name == 'push' && '60' || inputs.interval || '300' }}
+        run: python3 -u scripts/continuous.py
+      - name: Start next worker without waiting for cron
+        if: ${{ !cancelled() && steps.worker.outcome != 'skipped' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh api --method POST "repos/$GITHUB_REPOSITORY/actions/workflows/continuous-monitor.yml/dispatches" \
+            -f ref=main -f 'inputs[checks]=10' -f 'inputs[interval]=300'
+          echo 'Next worker requested. Verify its workflow_dispatch run in Actions.'

@@ -1,17 +1,6 @@
 name: Chrome Hearts Monitor v2
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/chromehearts-v2.yml'
-      - 'scripts/chromehearts.py'
-      - 'tests/test_chromehearts.py'
-  schedule:
-    # Re-register the schedule at :03, :08, ... :58, away from :00.
-    # Actual trigger intervals are recorded in the monitor state and summary.
-    - cron: "*/5 * * * *"
-
   workflow_dispatch:
 
 permissions:
@@ -19,7 +8,7 @@ permissions:
 
 # Prevent two runs from changing the state file at the same time
 concurrency:
-  group: chrome-hearts-monitor-v2
+  group: restock-continuous-v1
   cancel-in-progress: false
 
 jobs:
@@ -71,3 +60,4 @@ jobs:
 
           echo "ERROR: Could not push Chrome Hearts state."
           exit 1
+
