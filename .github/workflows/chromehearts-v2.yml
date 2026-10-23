@@ -1,10 +1,10 @@
-name: Chrome Hearts Monitor
+name: Chrome Hearts Monitor v2
 
 on:
   push:
     branches: [main]
     paths:
-      - '.github/workflows/chromehearts.yml'
+      - '.github/workflows/chromehearts-v2.yml'
       - 'scripts/chromehearts.py'
       - 'tests/test_chromehearts.py'
   schedule:

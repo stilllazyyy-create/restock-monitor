@@ -1008,6 +1008,8 @@ new_state = {
     "initialized": True,
     "last_check_at": check_started_at.isoformat(),
     "previous_check_gap_seconds": previous_gap_seconds,
+    "workflow_run_id": os.environ.get("GITHUB_RUN_ID"),
+    "workflow_event": os.environ.get("GITHUB_EVENT_NAME"),
     "last_complete_check_at": (
         datetime.now(timezone.utc).isoformat() if not failed_categories
         else state.get("last_complete_check_at")

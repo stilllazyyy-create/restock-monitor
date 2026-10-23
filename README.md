@@ -2,7 +2,7 @@
 
 ## Chrome Hearts
 
-`.github/workflows/chromehearts.yml` runs `scripts/chromehearts.py`.
+`.github/workflows/chromehearts-v2.yml` runs `scripts/chromehearts.py`.
 Set the repository Actions secret `CHROME_HEARTS_WEBHOOK_URL` to the existing
 Discord webhook. Never commit webhook URLs or tokens.
 
@@ -74,3 +74,22 @@ does not validate cron timing; scheduled runs must be measured separately.
 
 The internal GitHub cause cannot be established from these API records alone.
 Do not describe this recovery as proven until scheduled intervals improve.
+
+### Recovery outcome and clean workflow registration
+
+The live recovery run `39972226765` confirmed that both normal cancellation and
+force cancellation return HTTP 409 for orphaned run `34952449229`. It still has
+no jobs and remains queued. Disable/re-enable succeeded and the original workflow
+was confirmed active, but did not clear this orphan. GitHub's troubleshooting
+documentation identifies this pattern as potentially requiring GitHub Support.
+
+To avoid relying on the affected workflow registration, the active monitor is
+now `.github/workflows/chromehearts-v2.yml` named `Chrome Hearts Monitor v2`. The
+old workflow file and the temporary recovery workflow were removed. The new
+entry uses a separate concurrency group and keeps the existing product state and
+Discord secret. It does not replay existing products as a fresh baseline.
+
+The old anomalous record remains available for investigation. A new workflow is
+a recovery measure, not proof that the orphan alone caused every missing trigger.
+`workflow_run_id` and `workflow_event` in state identify whether each observed
+check actually came from the scheduler or a code push.
