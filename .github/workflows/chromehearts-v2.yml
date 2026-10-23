@@ -10,7 +10,7 @@ on:
   schedule:
     # Re-register the schedule at :03, :08, ... :58, away from :00.
     # Actual trigger intervals are recorded in the monitor state and summary.
-    - cron: "3-58/5 * * * *"
+    - cron: "*/5 * * * *"
 
   workflow_dispatch:
 
