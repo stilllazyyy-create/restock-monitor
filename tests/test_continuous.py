@@ -12,6 +12,12 @@ spec.loader.exec_module(worker)
 
 
 class WorkerTests(unittest.TestCase):
+    def setUp(self):
+        # Mocked failure scenarios must not create real Actions annotations.
+        printer = patch.object(worker, 'print', create=True)
+        printer.start()
+        self.addCleanup(printer.stop)
+
     def test_timeout_becomes_failure(self):
         with patch.object(worker.subprocess, 'run', side_effect=subprocess.TimeoutExpired('shop', 180)):
             self.assertFalse(worker.run_check('shop')['ok'])
