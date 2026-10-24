@@ -1,10 +1,10 @@
 {
   "initialized": true,
-  "last_check_at": "2026-10-24T10:30:29.810930+00:00",
-  "previous_check_gap_seconds": 12,
+  "last_check_at": "2026-10-24T10:35:29.810304+00:00",
+  "previous_check_gap_seconds": 300,
   "workflow_run_id": "40086176847",
   "workflow_event": "workflow_dispatch",
-  "last_complete_check_at": "2026-10-24T10:30:31.499095+00:00",
+  "last_complete_check_at": "2026-10-24T10:35:31.464541+00:00",
   "failed_categories": {},
   "known_categories": [
     "/baccarat",
