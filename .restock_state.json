@@ -28,7 +28,6 @@
     "15065330844016",
     "15065330909552",
     "15065330975088",
-    "15065331138928",
     "15065331270000",
     "15065331368304",
     "15065331958128",
@@ -107,11 +106,8 @@
     "15173171085680",
     "15173172068720",
     "15173173117296",
-    "15196523397488",
-    "15196527264112",
     "15196527985008",
-    "15196528116080",
-    "15437707116912"
+    "15196528116080"
   ],
   "variant_52765121773936": false,
   "variant_54012844278128": false,
@@ -1948,9 +1944,7 @@
     "1140406-hooded-utility-pullover-camo",
     "1140406-hooded-utility-pullover-khaki",
     "115685-down-parka-micro-ripstop-jet-black",
-    "115685-down-parka-micro-ripstop-kiwi",
     "115685-down-parka-micro-ripstop-red",
-    "115685-micro-ripstop-down-parka-bone",
     "115855-midweight-puffer-black",
     "115855-midweight-puffer-red",
     "115877-micro-ripstop-down-jacket-jet-black",
@@ -2030,8 +2024,6 @@
     "1905215-stand-firm-tee-marigold",
     "1905215-stand-firm-tee-midnight",
     "1905215-stand-firm-tee-natural",
-    "1905221-camo-block-sport-tee-brown-camo",
-    "1905221-camo-block-sport-tee-sage-camo",
     "1915214-stock-link-crew-ash-heather",
     "1975221-camo-block-sport-zip-hoodie-brown-camo",
     "1975221-camo-block-sport-zip-hoodie-sage-camo",
@@ -2040,9 +2032,9 @@
     "1995213-dragon-ls-tee-palm",
     "1995213-dragon-ls-tee-rock"
   ],
-  "last_check_at": "2026-10-27T17:56:32.692454+00:00",
+  "last_check_at": "2026-10-27T18:01:33.192979+00:00",
   "workflow_run_id": "40552760728",
   "workflow_event": "workflow_dispatch",
   "check_errors": [],
-  "last_complete_check_at": "2026-10-27T17:56:33.987543+00:00"
+  "last_complete_check_at": "2026-10-27T18:01:34.288006+00:00"
 }
