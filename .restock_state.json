@@ -64,8 +64,6 @@
     "15095597531504",
     "15095602217328",
     "15133162668400",
-    "15133162766704",
-    "15133162963312",
     "15133163192688",
     "15133163585904",
     "15133163946352",
@@ -1986,8 +1984,6 @@
     "118631-bonded-jersey-zip-hoodie-bone",
     "118631-bonded-jersey-zip-hoodie-navy",
     "1311246-9twenty-cursive-cap-black",
-    "1311246-9twenty-cursive-cap-brown",
-    "1311246-9twenty-cursive-cap-maroon",
     "1311246-9twenty-cursive-cap-navy",
     "1311249-waxed-ear-flap-cap-black",
     "1311249-waxed-ear-flap-cap-blue",
@@ -2044,9 +2040,9 @@
     "1995213-dragon-ls-tee-palm",
     "1995213-dragon-ls-tee-rock"
   ],
-  "last_check_at": "2026-10-27T17:46:32.488502+00:00",
+  "last_check_at": "2026-10-27T17:51:32.590663+00:00",
   "workflow_run_id": "40552760728",
   "workflow_event": "workflow_dispatch",
   "check_errors": [],
-  "last_complete_check_at": "2026-10-27T17:46:33.707792+00:00"
+  "last_complete_check_at": "2026-10-27T17:51:33.782785+00:00"
 }
