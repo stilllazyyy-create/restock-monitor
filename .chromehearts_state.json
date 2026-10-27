@@ -1,10 +1,10 @@
 {
   "initialized": true,
-  "last_check_at": "2026-10-27T19:57:25.046237+00:00",
-  "previous_check_gap_seconds": 16,
+  "last_check_at": "2026-10-27T20:02:25.045732+00:00",
+  "previous_check_gap_seconds": 300,
   "workflow_run_id": "40573696410",
   "workflow_event": "workflow_dispatch",
-  "last_complete_check_at": "2026-10-27T19:57:27.893248+00:00",
+  "last_complete_check_at": "2026-10-27T20:02:27.391590+00:00",
   "failed_categories": {},
   "known_categories": [
     "/baccarat",
@@ -21,8 +21,7 @@
     "/boxers-leggings",
     "/intimates",
     "/scents",
-    "/socks",
-    "/sports-mesh"
+    "/socks"
   ],
   "current_products_by_category": {
     "/baccarat": [
@@ -77,9 +76,7 @@
     ],
     "/scarf": [],
     "/hat": [],
-    "/sports-mesh": [
-      "/sports-mesh/green-mesh/196637_196639.html"
-    ]
+    "/sports-mesh": []
   },
   "ever_seen_products_by_category": {
     "/baccarat": [
