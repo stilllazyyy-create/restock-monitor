@@ -94,8 +94,7 @@
     "15173151883632",
     "15173153096048",
     "15173171085680",
-    "15173173117296",
-    "15196527985008"
+    "15173173117296"
   ],
   "variant_52765121773936": false,
   "variant_54012844278128": false,
@@ -2008,13 +2007,12 @@
     "1905215-stand-firm-tee-faded-black",
     "1905215-stand-firm-tee-natural",
     "1915214-stock-link-crew-ash-heather",
-    "1975221-camo-block-sport-zip-hoodie-brown-camo",
     "1995213-dragon-ls-tee-natural",
     "1995213-dragon-ls-tee-rock"
   ],
-  "last_check_at": "2026-10-28T21:36:17.050862+00:00",
+  "last_check_at": "2026-10-28T21:41:17.505865+00:00",
   "workflow_run_id": "40773296466",
   "workflow_event": "workflow_dispatch",
   "check_errors": [],
-  "last_complete_check_at": "2026-10-28T21:36:18.230335+00:00"
+  "last_complete_check_at": "2026-10-28T21:41:18.681133+00:00"
 }
