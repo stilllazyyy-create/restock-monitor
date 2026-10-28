@@ -37,7 +37,6 @@
     "15065332908400",
     "15065333006704",
     "15065333105008",
-    "15065333334384",
     "15065334153584",
     "15065335103856",
     "15065335660912",
@@ -1950,7 +1949,6 @@
     "115965-pile-lined-leather-vest-bone",
     "115975-fur-lined-flight-jacket-black",
     "115975-fur-lined-flight-jacket-brown",
-    "115986-leather-m-65-jacket-black",
     "116752-slim-jean-denim-rinsed-indigo",
     "116752-slim-jean-denim-white",
     "116760-gore-tex-bib-black",
@@ -2010,9 +2008,9 @@
     "1995213-dragon-ls-tee-natural",
     "1995213-dragon-ls-tee-rock"
   ],
-  "last_check_at": "2026-10-28T23:01:29.477815+00:00",
+  "last_check_at": "2026-10-28T23:06:29.278703+00:00",
   "workflow_run_id": "40779321552",
   "workflow_event": "workflow_dispatch",
   "check_errors": [],
-  "last_complete_check_at": "2026-10-28T23:01:32.673677+00:00"
+  "last_complete_check_at": "2026-10-28T23:06:30.298216+00:00"
 }
