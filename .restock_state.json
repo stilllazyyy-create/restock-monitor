@@ -51,7 +51,6 @@
     "15065337463152",
     "15065337561456",
     "15065339036016",
-    "15065339101552",
     "15095384768880",
     "15095390470512",
     "15095395549552",
@@ -1973,7 +1972,6 @@
     "118631-bonded-jersey-zip-hoodie-bone",
     "118631-bonded-jersey-zip-hoodie-navy",
     "1311249-waxed-ear-flap-cap-black",
-    "1311249-waxed-ear-flap-cap-blue",
     "1311252-ripstop-s-star-trucker-black",
     "1311252-ripstop-s-star-trucker-grape",
     "1311252-ripstop-s-star-trucker-red",
@@ -2020,9 +2018,9 @@
     "1995213-dragon-ls-tee-palm",
     "1995213-dragon-ls-tee-rock"
   ],
-  "last_check_at": "2026-10-28T20:51:02.351083+00:00",
+  "last_check_at": "2026-10-28T20:56:02.352535+00:00",
   "workflow_run_id": "40766864011",
   "workflow_event": "workflow_dispatch",
   "check_errors": [],
-  "last_complete_check_at": "2026-10-28T20:51:03.789433+00:00"
+  "last_complete_check_at": "2026-10-28T20:56:03.873336+00:00"
 }
