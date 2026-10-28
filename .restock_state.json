@@ -78,8 +78,6 @@
     "15133165551984",
     "15133166240112",
     "15133166305648",
-    "15133166371184",
-    "15133166469488",
     "15133168337264",
     "15133168533872",
     "15133169058160",
@@ -1991,8 +1989,6 @@
     "1321274-oval-ski-beanie-navy",
     "1321280-cashmere-moto-skullcap-black",
     "1321280-cashmere-moto-skullcap-navy",
-    "1321281-hawaiian-earflap-beanie-brown",
-    "1321281-hawaiian-earflap-beanie-charcoal",
     "135213-leather-hawaiian-belt-black",
     "135213-leather-hawaiian-belt-brown",
     "139005-surf-diamond-ashtray-amber",
@@ -2018,9 +2014,9 @@
     "1995213-dragon-ls-tee-palm",
     "1995213-dragon-ls-tee-rock"
   ],
-  "last_check_at": "2026-10-28T20:56:02.352535+00:00",
+  "last_check_at": "2026-10-28T21:01:02.903067+00:00",
   "workflow_run_id": "40766864011",
   "workflow_event": "workflow_dispatch",
   "check_errors": [],
-  "last_complete_check_at": "2026-10-28T20:56:03.873336+00:00"
+  "last_complete_check_at": "2026-10-28T21:01:04.267240+00:00"
 }
