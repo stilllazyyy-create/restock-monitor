@@ -94,7 +94,6 @@
     "15173151883632",
     "15173153096048",
     "15173171085680",
-    "15173172068720",
     "15173173117296",
     "15196527985008"
   ],
@@ -2011,12 +2010,11 @@
     "1915214-stock-link-crew-ash-heather",
     "1975221-camo-block-sport-zip-hoodie-brown-camo",
     "1995213-dragon-ls-tee-natural",
-    "1995213-dragon-ls-tee-palm",
     "1995213-dragon-ls-tee-rock"
   ],
-  "last_check_at": "2026-10-28T21:31:02.503209+00:00",
+  "last_check_at": "2026-10-28T21:36:02.200501+00:00",
   "workflow_run_id": "40766864011",
   "workflow_event": "workflow_dispatch",
   "check_errors": [],
-  "last_complete_check_at": "2026-10-28T21:31:03.693481+00:00"
+  "last_complete_check_at": "2026-10-28T21:36:04.099131+00:00"
 }
