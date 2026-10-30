@@ -10,6 +10,7 @@
   "52349784228208": false,
   "new_arrivals_products": [
     "14834525503856",
+    "14852186046832",
     "14852235985264",
     "14852258005360",
     "14855127204208",
@@ -1273,6 +1274,7 @@
     "14834570690928",
     "14834571051376",
     "14852186014064",
+    "14852186046832",
     "14852216062320",
     "14852218257776",
     "14852222124400",
@@ -1643,6 +1645,7 @@
     "115685-down-parka-micro-ripstop-jet-black",
     "115685-down-parka-micro-ripstop-kiwi",
     "115685-down-parka-micro-ripstop-red",
+    "115685-down-parka-micro-ripstop-sky-blue",
     "115685-micro-ripstop-down-parka-bone",
     "115855-midweight-puffer-black",
     "115855-midweight-puffer-blue",
@@ -1935,6 +1938,7 @@
     "1140406-hooded-utility-pullover-khaki",
     "115685-down-parka-micro-ripstop-blue",
     "115685-down-parka-micro-ripstop-red",
+    "115685-down-parka-micro-ripstop-sky-blue",
     "115877-micro-ripstop-down-jacket-jet-black",
     "115880-gore-tex-guide-shell-berry",
     "115880-gore-tex-guide-shell-snow-camo",
@@ -2008,9 +2012,9 @@
     "1995213-dragon-ls-tee-natural",
     "1995213-dragon-ls-tee-rock"
   ],
-  "last_check_at": "2026-10-30T17:11:03.892157+00:00",
+  "last_check_at": "2026-10-30T17:16:04.746058+00:00",
   "workflow_run_id": "41091339609",
   "workflow_event": "workflow_dispatch",
   "check_errors": [],
-  "last_complete_check_at": "2026-10-30T17:11:05.133897+00:00"
+  "last_complete_check_at": "2026-10-30T17:16:06.677326+00:00"
 }
