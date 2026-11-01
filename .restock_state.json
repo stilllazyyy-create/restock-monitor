@@ -2008,9 +2008,9 @@
     "1915214-stock-link-crew-black",
     "1915214-stock-link-crew-navy"
   ],
-  "last_check_at": "2026-11-01T17:11:17.600351+00:00",
+  "last_check_at": "2026-11-01T17:16:17.150897+00:00",
   "workflow_run_id": "41328428389",
   "workflow_event": "workflow_dispatch",
   "check_errors": [],
-  "last_complete_check_at": "2026-11-01T17:11:18.529028+00:00"
+  "last_complete_check_at": "2026-11-01T17:16:18.113160+00:00"
 }
