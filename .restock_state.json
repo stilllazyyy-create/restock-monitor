@@ -11,9 +11,7 @@
   "new_arrivals_products": [
     "14834525503856",
     "14852186046832",
-    "14852235854192",
     "14852235985264",
-    "14852236345712",
     "14852258005360",
     "14855127204208",
     "15010797748592",
@@ -87,8 +85,7 @@
     "15173148967280",
     "15173151883632",
     "15173153096048",
-    "15173153980784",
-    "15173154898288"
+    "15173153980784"
   ],
   "variant_52765121773936": false,
   "variant_54012844278128": false,
@@ -1941,9 +1938,7 @@
     "115685-down-parka-micro-ripstop-blue",
     "115685-down-parka-micro-ripstop-red",
     "115685-down-parka-micro-ripstop-sky-blue",
-    "115877-micro-ripstop-down-jacket-digi-camo",
     "115877-micro-ripstop-down-jacket-jet-black",
-    "115877-micro-ripstop-down-jacket-red",
     "115880-gore-tex-guide-shell-berry",
     "115880-gore-tex-guide-shell-snow-camo",
     "115953-swing-jacket-black",
@@ -2005,12 +2000,11 @@
     "1905215-stand-firm-tee-faded-black",
     "1905215-stand-firm-tee-natural",
     "1915214-stock-link-crew-ash-heather",
-    "1915214-stock-link-crew-black",
-    "1915214-stock-link-crew-navy"
+    "1915214-stock-link-crew-black"
   ],
-  "last_check_at": "2026-11-02T19:05:46.307236+00:00",
+  "last_check_at": "2026-11-02T19:10:47.306114+00:00",
   "workflow_run_id": "41501212008",
   "workflow_event": "workflow_dispatch",
   "check_errors": [],
-  "last_complete_check_at": "2026-11-02T19:05:47.564439+00:00"
+  "last_complete_check_at": "2026-11-02T19:10:48.307719+00:00"
 }
