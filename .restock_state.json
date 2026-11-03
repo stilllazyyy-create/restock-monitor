@@ -2002,9 +2002,9 @@
     "1915214-stock-link-crew-ash-heather",
     "1915214-stock-link-crew-black"
   ],
-  "last_check_at": "2026-11-03T13:06:58.962799+00:00",
+  "last_check_at": "2026-11-03T13:11:58.812365+00:00",
   "workflow_run_id": "41637191170",
   "workflow_event": "workflow_dispatch",
   "check_errors": [],
-  "last_complete_check_at": "2026-11-03T13:06:59.779986+00:00"
+  "last_complete_check_at": "2026-11-03T13:11:59.514391+00:00"
 }
