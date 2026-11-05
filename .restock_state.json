@@ -91,7 +91,10 @@
     "15173153096048",
     "15173153980784",
     "15173156831600",
-    "15173157716336"
+    "15173157716336",
+    "15291402092912",
+    "15291402748272",
+    "15291403501936"
   ],
   "variant_52765121773936": false,
   "variant_54012844278128": false,
@@ -1604,6 +1607,9 @@
     "15196527264112",
     "15196527985008",
     "15196528116080",
+    "15291402092912",
+    "15291402748272",
+    "15291403501936",
     "15437707116912"
   ],
   "new_arrivals_ever_seen_handles": [
@@ -1900,6 +1906,9 @@
     "1915214-stock-link-crew-ash-heather",
     "1915214-stock-link-crew-black",
     "1915214-stock-link-crew-navy",
+    "1925214-stock-link-hoodie-ash-heather",
+    "1925214-stock-link-hoodie-black",
+    "1925214-stock-link-hoodie-navy",
     "1925216-fresh-foils-hoodie-garment-dyed-bone",
     "1925216-fresh-foils-hoodie-garment-dyed-faded-black",
     "1925216-fresh-foils-hoodie-garment-dyed-red",
@@ -2029,12 +2038,15 @@
     "1905215-stand-firm-tee-natural",
     "1915214-stock-link-crew-ash-heather",
     "1915214-stock-link-crew-black",
+    "1925214-stock-link-hoodie-ash-heather",
+    "1925214-stock-link-hoodie-black",
+    "1925214-stock-link-hoodie-navy",
     "1975206-derby-zip-hoodie-black",
     "1975206-derby-zip-hoodie-navy"
   ],
-  "last_check_at": "2026-11-05T21:51:23.562459+00:00",
+  "last_check_at": "2026-11-05T21:56:23.458761+00:00",
   "workflow_run_id": "42115619852",
   "workflow_event": "workflow_dispatch",
   "check_errors": [],
-  "last_complete_check_at": "2026-11-05T21:51:24.456158+00:00"
+  "last_complete_check_at": "2026-11-05T21:56:24.718619+00:00"
 }
