@@ -2032,9 +2032,9 @@
     "1975206-derby-zip-hoodie-black",
     "1975206-derby-zip-hoodie-navy"
   ],
-  "last_check_at": "2026-11-05T08:11:31.954799+00:00",
-  "workflow_run_id": "41987237455",
-  "workflow_event": "schedule",
+  "last_check_at": "2026-11-05T08:11:47.396588+00:00",
+  "workflow_run_id": "41992581618",
+  "workflow_event": "workflow_dispatch",
   "check_errors": [],
-  "last_complete_check_at": "2026-11-05T08:11:32.943462+00:00"
+  "last_complete_check_at": "2026-11-05T08:11:48.164088+00:00"
 }
