@@ -11,6 +11,8 @@
   "new_arrivals_products": [
     "14834516525424",
     "14834516820336",
+    "14834674860400",
+    "14834674893168",
     "14852258005360",
     "14855127204208",
     "14945836892528",
@@ -1269,6 +1271,8 @@
     "14834525503856",
     "14834570690928",
     "14834571051376",
+    "14834674860400",
+    "14834674893168",
     "14852186014064",
     "14852186046832",
     "14852216062320",
@@ -1900,6 +1904,8 @@
     "139069-silk-python-tie-green",
     "139073-denim-tears-keychain-multi",
     "139108-double-sided-cashmere-scarf-black",
+    "1905000-basic-stussy-tee-black",
+    "1905000-basic-stussy-tee-white",
     "1905199-snakeskin-tee-black",
     "1905199-snakeskin-tee-white",
     "1905200-high-rollers-tee-faded-black",
@@ -2069,6 +2075,8 @@
     "139069-silk-python-tie-black",
     "139069-silk-python-tie-green",
     "139108-double-sided-cashmere-scarf-black",
+    "1905000-basic-stussy-tee-black",
+    "1905000-basic-stussy-tee-white",
     "1905206-derby-tee-black",
     "1905206-derby-tee-chocolate",
     "1905206-derby-tee-clay",
@@ -2088,9 +2096,9 @@
     "1975208-bulldog-zip-hoodie-black",
     "1975208-bulldog-zip-hoodie-navy"
   ],
-  "last_check_at": "2026-11-06T22:31:36.156844+00:00",
+  "last_check_at": "2026-11-06T22:36:36.158094+00:00",
   "workflow_run_id": "42302096348",
   "workflow_event": "workflow_dispatch",
   "check_errors": [],
-  "last_complete_check_at": "2026-11-06T22:31:37.081316+00:00"
+  "last_complete_check_at": "2026-11-06T22:36:37.713929+00:00"
 }
