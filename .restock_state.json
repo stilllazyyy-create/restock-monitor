@@ -9,8 +9,11 @@
   "52349784195440": false,
   "52349784228208": false,
   "new_arrivals_products": [
+    "14834516525424",
+    "14834516820336",
     "14852258005360",
     "14855127204208",
+    "14945836892528",
     "15065328746864",
     "15065328877936",
     "15065328943472",
@@ -1261,6 +1264,8 @@
   },
   "new_arrivals_ever_seen": [
     "14834491687280",
+    "14834516525424",
+    "14834516820336",
     "14834525503856",
     "14834570690928",
     "14834571051376",
@@ -1290,6 +1295,7 @@
     "14945826963824",
     "14945832501616",
     "14945833058672",
+    "14945836892528",
     "14945843020144",
     "14945868153200",
     "15010361114992",
@@ -1655,9 +1661,12 @@
     "112360-transit-short-black",
     "112360-transit-short-sand",
     "112370-boxer-shorts-3-pack-multi",
+    "1140356-basic-stussy-thermal-bone",
     "1140356-basic-stussy-thermal-brown",
     "1140356-basic-stussy-thermal-ink",
+    "1140356-basic-stussy-thermal-navy",
     "1140356-basic-stussy-thermal-tree-bark-camo",
+    "1140356-basic-stussy-thermal-washed-black",
     "1140400-ls-ringer-tee-green",
     "1140400-ls-ringer-tee-ink",
     "1140400-ls-ringer-tee-white",
@@ -2006,6 +2015,9 @@
     "1110403-quilted-plaid-shirt-jacket-olive",
     "1110405-brushed-wool-western-shirt-black",
     "1110405-brushed-wool-western-shirt-natural",
+    "1140356-basic-stussy-thermal-bone",
+    "1140356-basic-stussy-thermal-navy",
+    "1140356-basic-stussy-thermal-washed-black",
     "1140401-s-mesh-jersey-black",
     "1140401-s-mesh-jersey-blue",
     "1140401-s-mesh-jersey-grey",
@@ -2076,9 +2088,9 @@
     "1975208-bulldog-zip-hoodie-black",
     "1975208-bulldog-zip-hoodie-navy"
   ],
-  "last_check_at": "2026-11-06T18:10:07.295935+00:00",
+  "last_check_at": "2026-11-06T18:15:07.746541+00:00",
   "workflow_run_id": "42262946661",
   "workflow_event": "workflow_dispatch",
   "check_errors": [],
-  "last_complete_check_at": "2026-11-06T18:10:08.358908+00:00"
+  "last_complete_check_at": "2026-11-06T18:15:09.163126+00:00"
 }
