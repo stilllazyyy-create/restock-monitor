@@ -107,9 +107,9 @@
   "variant_54012844310896": false,
   "variant_54012851552624": false,
   "variant_54012851585392": false,
-  "variant_52349784162672": false,
-  "variant_52349784195440": false,
-  "variant_52349784228208": false,
+  "variant_52349784162672": true,
+  "variant_52349784195440": true,
+  "variant_52349784228208": true,
   "new_arrivals_product_data": {
     "15010552152432": {
       "id": "15010552152432",
@@ -2068,9 +2068,9 @@
     "1975208-bulldog-zip-hoodie-black",
     "1975208-bulldog-zip-hoodie-navy"
   ],
-  "last_check_at": "2026-11-05T23:16:52.249929+00:00",
-  "workflow_run_id": "42128378407",
-  "workflow_event": "workflow_dispatch",
+  "last_check_at": "2026-11-06T02:30:21.001539+00:00",
+  "workflow_run_id": "42150720461",
+  "workflow_event": "schedule",
   "check_errors": [],
-  "last_complete_check_at": "2026-11-05T23:16:53.062771+00:00"
+  "last_complete_check_at": "2026-11-06T02:30:23.198639+00:00"
 }
