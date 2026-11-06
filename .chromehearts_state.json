@@ -1,10 +1,10 @@
 {
   "initialized": true,
-  "last_check_at": "2026-11-06T17:55:04.176226+00:00",
+  "last_check_at": "2026-11-06T18:00:04.176278+00:00",
   "previous_check_gap_seconds": 300,
   "workflow_run_id": "42262946661",
   "workflow_event": "workflow_dispatch",
-  "last_complete_check_at": "2026-11-06T17:55:06.331668+00:00",
+  "last_complete_check_at": "2026-11-06T18:00:08.950522+00:00",
   "failed_categories": {},
   "known_categories": [
     "/baccarat",
@@ -13,6 +13,7 @@
     "/intimates",
     "/scarf",
     "/scents",
+    "/slippers",
     "/socks",
     "/sports-mesh"
   ],
@@ -20,7 +21,9 @@
     "/baccarat",
     "/boxers-leggings",
     "/intimates",
+    "/scarf",
     "/scents",
+    "/slippers",
     "/socks"
   ],
   "current_products_by_category": {
@@ -74,9 +77,15 @@
       "/socks/stencil-socks/176354MB3XXX465.html",
       "/socks/womens-sport/191715D5DXXX408.html"
     ],
-    "/scarf": [],
+    "/scarf": [
+      "/scarf/math-plus-scarf/222575AEGXXX059.html"
+    ],
     "/hat": [],
-    "/sports-mesh": []
+    "/sports-mesh": [],
+    "/slippers": [
+      "/slippers/hotel-slippers/204651B2UXSM07M.html",
+      "/slippers/hotel-slippers/204651B2UXXX07M.html"
+    ]
   },
   "ever_seen_products_by_category": {
     "/baccarat": [
@@ -108,7 +117,8 @@
       "/intimates/lace-underwire-bra/202334AFWXXX030.html"
     ],
     "/scarf": [
-      "/scarf/double-peony-scarf/218126MABXXX00D.html"
+      "/scarf/double-peony-scarf/218126MABXXX00D.html",
+      "/scarf/math-plus-scarf/222575AEGXXX059.html"
     ],
     "/scents": [
       "/scents/22-eau-de-parfum/162006CRYXXX271.html",
@@ -146,6 +156,10 @@
     ],
     "/sports-mesh": [
       "/sports-mesh/green-mesh/196637_196639.html"
+    ],
+    "/slippers": [
+      "/slippers/hotel-slippers/204651B2UXSM07M.html",
+      "/slippers/hotel-slippers/204651B2UXXX07M.html"
     ]
   }
 }
