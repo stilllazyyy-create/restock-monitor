@@ -1,10 +1,10 @@
 {
   "initialized": true,
-  "last_check_at": "2026-11-08T17:55:38.479549+00:00",
+  "last_check_at": "2026-11-08T18:00:38.480210+00:00",
   "previous_check_gap_seconds": 300,
   "workflow_run_id": "42506957343",
   "workflow_event": "workflow_dispatch",
-  "last_complete_check_at": "2026-11-08T17:55:41.206553+00:00",
+  "last_complete_check_at": "2026-11-08T18:00:40.561841+00:00",
   "failed_categories": {},
   "known_categories": [
     "/baccarat",
@@ -21,9 +21,7 @@
     "/baccarat",
     "/boxers-leggings",
     "/intimates",
-    "/scarf",
     "/scents",
-    "/slippers",
     "/socks"
   ],
   "current_products_by_category": {
@@ -77,15 +75,10 @@
       "/socks/stencil-socks/176354MB3XXX465.html",
       "/socks/womens-sport/191715D5DXXX408.html"
     ],
-    "/scarf": [
-      "/scarf/math-plus-scarf/222575AEGXXX059.html"
-    ],
+    "/scarf": [],
     "/hat": [],
     "/sports-mesh": [],
-    "/slippers": [
-      "/slippers/hotel-slippers/204651B2UMED07M.html",
-      "/slippers/hotel-slippers/204651B2UXXX07M.html"
-    ]
+    "/slippers": []
   },
   "ever_seen_products_by_category": {
     "/baccarat": [
