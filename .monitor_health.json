@@ -1,8 +1,8 @@
 {
-  "checked_at": "2026-11-11T20:29:44.602408+00:00",
-  "workflow_run_id": "43090025905",
-  "workflow_event": "workflow_dispatch",
-  "cycle": 10,
+  "checked_at": "2026-11-11T23:43:13.860278+00:00",
+  "workflow_run_id": "43121948202",
+  "workflow_event": "schedule",
+  "cycle": 1,
   "interval_seconds": 300,
   "chrome_hearts": {
     "ok": true,
