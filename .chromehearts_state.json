@@ -1,14 +1,15 @@
 {
   "initialized": true,
-  "last_check_at": "2026-11-12T19:54:53.918967+00:00",
+  "last_check_at": "2026-11-12T19:59:53.918460+00:00",
   "previous_check_gap_seconds": 300,
   "workflow_run_id": "43289014688",
   "workflow_event": "workflow_dispatch",
-  "last_complete_check_at": "2026-11-12T19:54:56.112035+00:00",
+  "last_complete_check_at": "2026-11-12T19:59:57.153932+00:00",
   "failed_categories": {},
   "known_categories": [
     "/baccarat",
     "/boxers-leggings",
+    "/eyewear",
     "/hat",
     "/intimates",
     "/scarf",
@@ -20,6 +21,7 @@
   "online_categories": [
     "/baccarat",
     "/boxers-leggings",
+    "/eyewear",
     "/intimates",
     "/scents",
     "/socks"
@@ -78,7 +80,10 @@
     "/scarf": [],
     "/hat": [],
     "/sports-mesh": [],
-    "/slippers": []
+    "/slippers": [],
+    "/eyewear": [
+      "/eyewear/mio-lord/21978827FE50010.html"
+    ]
   },
   "ever_seen_products_by_category": {
     "/baccarat": [
@@ -154,6 +159,9 @@
       "/slippers/hotel-slippers/204651B2UMED07M.html",
       "/slippers/hotel-slippers/204651B2UXSM07M.html",
       "/slippers/hotel-slippers/204651B2UXXX07M.html"
+    ],
+    "/eyewear": [
+      "/eyewear/mio-lord/21978827FE50010.html"
     ]
   }
 }
