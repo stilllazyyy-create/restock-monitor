@@ -2098,9 +2098,9 @@
     "1975208-bulldog-zip-hoodie-black",
     "1975208-bulldog-zip-hoodie-navy"
   ],
-  "last_check_at": "2026-11-12T16:18:32.532706+00:00",
-  "workflow_run_id": "43249054205",
+  "last_check_at": "2026-11-12T16:18:48.863567+00:00",
+  "workflow_run_id": "43257239541",
   "workflow_event": "workflow_dispatch",
   "check_errors": [],
-  "last_complete_check_at": "2026-11-12T16:18:33.670330+00:00"
+  "last_complete_check_at": "2026-11-12T16:18:49.912252+00:00"
 }
