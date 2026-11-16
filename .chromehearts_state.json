@@ -1,10 +1,10 @@
 {
   "initialized": true,
-  "last_check_at": "2026-11-16T18:42:21.184293+00:00",
+  "last_check_at": "2026-11-16T18:47:21.184846+00:00",
   "previous_check_gap_seconds": 300,
   "workflow_run_id": "43928959497",
   "workflow_event": "workflow_dispatch",
-  "last_complete_check_at": "2026-11-16T18:42:24.387965+00:00",
+  "last_complete_check_at": "2026-11-16T18:47:23.650829+00:00",
   "failed_categories": {},
   "known_categories": [
     "/baccarat",
@@ -48,7 +48,6 @@
     ],
     "/intimates": [
       "/intimates/ch-plus-tights/092826AI6XXXXXX.html",
-      "/intimates/lace-g-string/201584AFWXXX030.html",
       "/intimates/lace-high-waisted-brief/201583AFWXXX033.html",
       "/intimates/lace-teddy/201585AFWXXX030.html",
       "/intimates/lace-thong/201635AFWXXX033.html",
