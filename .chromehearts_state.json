@@ -1,16 +1,17 @@
 {
   "initialized": true,
-  "last_check_at": "2026-11-17T19:57:46.758165+00:00",
+  "last_check_at": "2026-11-17T20:02:46.759001+00:00",
   "previous_check_gap_seconds": 300,
   "workflow_run_id": "44157912040",
   "workflow_event": "workflow_dispatch",
-  "last_complete_check_at": "2026-11-17T19:57:49.457743+00:00",
+  "last_complete_check_at": "2026-11-17T20:02:49.883779+00:00",
   "failed_categories": {},
   "known_categories": [
     "/baccarat",
     "/boxers-leggings",
     "/eyewear",
     "/hat",
+    "/hoodie",
     "/intimates",
     "/scarf",
     "/scents",
@@ -21,6 +22,7 @@
   "online_categories": [
     "/baccarat",
     "/boxers-leggings",
+    "/hoodie",
     "/intimates",
     "/scents",
     "/socks"
@@ -79,7 +81,11 @@
     "/hat": [],
     "/sports-mesh": [],
     "/slippers": [],
-    "/eyewear": []
+    "/eyewear": [],
+    "/hoodie": [
+      "/hoodie/blue-glitter-hoodie/152701BLKXSM754.html",
+      "/hoodie/blue-glitter-hoodie/152701BLKXXX754.html"
+    ]
   },
   "ever_seen_products_by_category": {
     "/baccarat": [
@@ -158,6 +164,10 @@
     ],
     "/eyewear": [
       "/eyewear/mio-lord/21978827FE50010.html"
+    ],
+    "/hoodie": [
+      "/hoodie/blue-glitter-hoodie/152701BLKXSM754.html",
+      "/hoodie/blue-glitter-hoodie/152701BLKXXX754.html"
     ]
   }
 }
