@@ -49,7 +49,6 @@
     "15065337069936",
     "15095401841008",
     "15095592911216",
-    "15133164208496",
     "15133165257072",
     "15133165322608",
     "15133165355376",
@@ -69,7 +68,6 @@
     "15173136974192",
     "15173138022768",
     "15173139366256",
-    "15173140316528",
     "15173140840816",
     "15173142643056",
     "15173156831600",
@@ -2042,7 +2040,6 @@
     "117315-shadow-stripe-raglan-sweater-lemon",
     "117319-brushed-cashmere-quarter-zip-black",
     "117319-brushed-cashmere-quarter-zip-burgundy",
-    "1311253-athletic-leather-cap-brown",
     "1321274-oval-ski-beanie-black",
     "1321274-oval-ski-beanie-brown",
     "1321274-oval-ski-beanie-moss-green",
@@ -2065,7 +2062,6 @@
     "1905208-bulldog-tee-camo",
     "1905208-bulldog-tee-clay",
     "1905208-bulldog-tee-white",
-    "1905210-triple-crown-tee-faded-black",
     "1905210-triple-crown-tee-midnight",
     "1905210-triple-crown-tee-palm",
     "1925214-stock-link-hoodie-ash-heather",
@@ -2075,9 +2071,9 @@
     "1975208-bulldog-zip-hoodie-black",
     "1975208-bulldog-zip-hoodie-navy"
   ],
-  "last_check_at": "2026-11-18T23:18:56.898408+00:00",
+  "last_check_at": "2026-11-18T23:23:56.849098+00:00",
   "workflow_run_id": "44419631917",
   "workflow_event": "workflow_dispatch",
   "check_errors": [],
-  "last_complete_check_at": "2026-11-18T23:18:57.573803+00:00"
+  "last_complete_check_at": "2026-11-18T23:23:57.506956+00:00"
 }
