@@ -1,10 +1,10 @@
 {
   "initialized": true,
-  "last_check_at": "2026-11-18T12:54:45.916148+00:00",
+  "last_check_at": "2026-11-18T12:59:45.915944+00:00",
   "previous_check_gap_seconds": 300,
   "workflow_run_id": "44306826435",
   "workflow_event": "workflow_dispatch",
-  "last_complete_check_at": "2026-11-18T12:54:49.060419+00:00",
+  "last_complete_check_at": "2026-11-18T12:59:49.534960+00:00",
   "failed_categories": {},
   "known_categories": [
     "/baccarat",
@@ -83,7 +83,7 @@
     "/slippers": [],
     "/eyewear": [],
     "/hoodie": [
-      "/hoodie/blue-glitter-hoodie/152701BLK2XL754.html",
+      "/hoodie/blue-glitter-hoodie/152701BLK1XL754.html",
       "/hoodie/blue-glitter-hoodie/152701BLKXXX754.html"
     ]
   },
