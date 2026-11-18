@@ -1,10 +1,10 @@
 {
   "initialized": true,
-  "last_check_at": "2026-11-18T16:56:38.234873+00:00",
+  "last_check_at": "2026-11-18T17:01:38.234775+00:00",
   "previous_check_gap_seconds": 300,
   "workflow_run_id": "44348214237",
   "workflow_event": "workflow_dispatch",
-  "last_complete_check_at": "2026-11-18T16:56:40.831789+00:00",
+  "last_complete_check_at": "2026-11-18T17:01:40.120045+00:00",
   "failed_categories": {},
   "known_categories": [
     "/baccarat",
@@ -22,7 +22,6 @@
   "online_categories": [
     "/baccarat",
     "/boxers-leggings",
-    "/hoodie",
     "/intimates",
     "/scents",
     "/socks"
@@ -82,9 +81,7 @@
     "/sports-mesh": [],
     "/slippers": [],
     "/eyewear": [],
-    "/hoodie": [
-      "/hoodie/blue-glitter-hoodie/152701BLKXXX754.html"
-    ]
+    "/hoodie": []
   },
   "ever_seen_products_by_category": {
     "/baccarat": [
