@@ -76,7 +76,11 @@
     "15229769286000",
     "15291402092912",
     "15291402748272",
-    "15291403501936"
+    "15291403501936",
+    "15495023591792",
+    "15495023821168",
+    "15495023985008",
+    "15495024083312"
   ],
   "variant_52765121773936": false,
   "variant_54012844278128": false,
@@ -1623,7 +1627,11 @@
     "15291402092912",
     "15291402748272",
     "15291403501936",
-    "15437707116912"
+    "15437707116912",
+    "15495023591792",
+    "15495023821168",
+    "15495023985008",
+    "15495024083312"
   ],
   "new_arrivals_ever_seen_handles": [
     "1110328-matthew-printed-shirt-navy",
@@ -1949,6 +1957,10 @@
     "1915214-stock-link-crew-ash-heather",
     "1915214-stock-link-crew-black",
     "1915214-stock-link-crew-navy",
+    "1925103-8-ball-hoodie-ash-heather",
+    "1925103-8-ball-hoodie-black",
+    "1925103-8-ball-hoodie-navy",
+    "1925103-8-ball-hoodie-off-white",
     "1925214-stock-link-hoodie-ash-heather",
     "1925214-stock-link-hoodie-black",
     "1925214-stock-link-hoodie-navy",
@@ -2064,6 +2076,10 @@
     "1905208-bulldog-tee-white",
     "1905210-triple-crown-tee-midnight",
     "1905210-triple-crown-tee-palm",
+    "1925103-8-ball-hoodie-ash-heather",
+    "1925103-8-ball-hoodie-black",
+    "1925103-8-ball-hoodie-navy",
+    "1925103-8-ball-hoodie-off-white",
     "1925214-stock-link-hoodie-ash-heather",
     "1925214-stock-link-hoodie-black",
     "1925214-stock-link-hoodie-navy",
@@ -2071,9 +2087,9 @@
     "1975208-bulldog-zip-hoodie-black",
     "1975208-bulldog-zip-hoodie-navy"
   ],
-  "last_check_at": "2026-11-20T17:37:37.809542+00:00",
+  "last_check_at": "2026-11-20T17:42:37.056699+00:00",
   "workflow_run_id": "44785063727",
   "workflow_event": "workflow_dispatch",
   "check_errors": [],
-  "last_complete_check_at": "2026-11-20T17:37:38.384662+00:00"
+  "last_complete_check_at": "2026-11-20T17:42:38.443243+00:00"
 }
