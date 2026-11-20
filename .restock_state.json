@@ -49,9 +49,6 @@
     "15065337069936",
     "15095401841008",
     "15095592911216",
-    "15133165257072",
-    "15133165322608",
-    "15133165355376",
     "15133166240112",
     "15133166305648",
     "15133166764400",
@@ -2052,9 +2049,6 @@
     "117315-shadow-stripe-raglan-sweater-lemon",
     "117319-brushed-cashmere-quarter-zip-black",
     "117319-brushed-cashmere-quarter-zip-burgundy",
-    "1321274-oval-ski-beanie-black",
-    "1321274-oval-ski-beanie-brown",
-    "1321274-oval-ski-beanie-moss-green",
     "1321280-cashmere-moto-skullcap-black",
     "1321280-cashmere-moto-skullcap-navy",
     "1321285-knitted-s-skullcap-black",
@@ -2087,9 +2081,9 @@
     "1975208-bulldog-zip-hoodie-black",
     "1975208-bulldog-zip-hoodie-navy"
   ],
-  "last_check_at": "2026-11-20T17:52:37.360964+00:00",
+  "last_check_at": "2026-11-20T17:57:37.158309+00:00",
   "workflow_run_id": "44785063727",
   "workflow_event": "workflow_dispatch",
   "check_errors": [],
-  "last_complete_check_at": "2026-11-20T17:52:37.960089+00:00"
+  "last_complete_check_at": "2026-11-20T17:57:37.684930+00:00"
 }
