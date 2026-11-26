@@ -1,15 +1,15 @@
 {
-  "checked_at": "2026-11-26T18:53:50.987590+00:00",
-  "workflow_run_id": "45873544372",
+  "checked_at": "2026-11-26T18:54:08.330962+00:00",
+  "workflow_run_id": "45879520010",
   "workflow_event": "workflow_dispatch",
-  "cycle": 10,
+  "cycle": 1,
   "interval_seconds": 300,
   "chrome_hearts": {
     "ok": true,
     "exit_code": 0
   },
   "stussy": {
-    "ok": true,
-    "exit_code": 0
+    "ok": false,
+    "exit_code": 1
   }
 }
